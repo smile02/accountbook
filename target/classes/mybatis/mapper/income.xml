@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="income">
+	<select id="incomeList" resultType="income">
+		select * from income order by regdate desc,idx desc
+	</select>	
+	<insert id="incomeAdd" parameterType="income">
+		insert into income values
+			(seq_income_idx.nextval,'관리자',#{regdate},
+			#{comments},#{ways},
+			#{memo},#{price})
+	</insert>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<typeAliases>
+	<package name="khj.home.vo"/>
+</typeAliases> <!-- mapper에 vo패키지에 별칭을 주는 태그 -->
+  <mappers>
+  	<mapper resource="mybatis/mapper/expand.xml"/>
+  	<mapper resource="mybatis/mapper/income.xml"/>
+  	<mapper resource="mybatis/mapper/bigWays.xml"/>
+  	<mapper resource="mybatis/mapper/smallWays.xml"/>
+  	<mapper resource="mybatis/mapper/bigPurpose.xml"/>
+  	<mapper resource="mybatis/mapper/smallPurpose.xml"/>
+  	<mapper resource="mybatis/mapper/member.xml"/>
+  </mappers>
+</configuration>

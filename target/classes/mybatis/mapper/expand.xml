@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="expand">
+	<select id="expandList" resultType="expand">
+		select * from expand order by regdate desc,idx desc
+	</select>	
+	<insert id="expandAdd" parameterType="expand">
+		insert into expand values
+			(seq_expand_idx.nextval,'관리자',#{regdate},
+			#{comments},#{big_ways},#{small_ways},
+			#{big_purpose},#{small_purpose},
+			#{memo},#{price})
+	</insert>
+</mapper>
