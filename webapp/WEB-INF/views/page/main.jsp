@@ -27,7 +27,7 @@
 				<button type="button" class="btn btn-success" onclick="income_reg();">수입등록</button><br /><br />
 			</div>	
 				<div id="expandReg" class="row" style="display:none;">
-					<form:form id="form" class="form-horizontal"
+					<form:form id="form" class="form-horizontal" method="post"
 						action="/expand/add" modelAttribute="expand">
 						<div class="form-group">
 							<form:label path="regdate" class="control-label col-xs-3">날짜 :</form:label>
@@ -35,12 +35,14 @@
 								<form:input type="date" path="regdate" class="form-control"/>
 							</div>
 						</div>
+						<form:errors path="regdate" class="error" />
 						<div class="form-group">
 							<form:label path="comments" class="control-label col-xs-3">지출내역 :</form:label>
 							<div class="col-xs-8">
 								<form:input path="comments" class="form-control" placeholder="예)OOO마트에서 XXX를 샀다!"/>
 							</div>
 						</div>
+						<form:errors path="comments" class="error" />
 						<div class="form-group">
 							<form:label path="big_ways" class="control-label col-xs-3">지출방법 :</form:label>
 							<div class="col-xs-4">
@@ -49,10 +51,12 @@
 									<c:forEach var="way" items="${big_waysList }">
 										<option value="${way.big_name}">${way.big_name}</option>
 									</c:forEach>
-								</form:select>								
+								</form:select>
+								<form:errors path="big_ways" class="error" />						
 							</div>
 							<div class="col-xs-4">
 								<form:select path="small_ways" class="form-control"></form:select>
+								<form:errors path="small_ways" class="error" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -63,10 +67,12 @@
 									<c:forEach var="purpose" items="${big_purposeList }">
 										<option value="${purpose.big_name}">${purpose.big_name}</option>
 									</c:forEach>
-								</form:select>								
+								</form:select>
+								<form:errors path="big_purpose" class="error" />							
 							</div>
 							<div class="col-xs-4">
 								<form:select path="small_purpose" class="form-control"></form:select>
+								<form:errors path="small_purpose" class="error" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -74,6 +80,7 @@
 							<div class="col-xs-8">
 								<form:input path="price" class="form-control" value="0"/>
 							</div>
+							<form:errors path="price" class="error" />
 						</div>
 						<div class="form-group">
 							<form:label path="memo" class="control-label col-xs-3">메모 :</form:label>
@@ -82,6 +89,7 @@
 								placeholder="예)1.오늘은 과소비했네... 2.저렴하게 샀다!! 다행ㅎㅎ"/>
 							</div>
 						</div>
+						<form:errors path="memo" class="error" />
 						<button class="btn btn-success text-right" style="display:block;">등록</button>
 					</form:form>
 					<br />

@@ -1,16 +1,29 @@
 package khj.home.vo;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
+
 public class Expand {
 
 	private int idx;
 	private String nickname;
+	@Size(min=1,message="날짜를 선택해주세요.")
 	private String regdate;
+	@Size(min=1, max=20, message="지출내역을 확인해주세요.")
 	private String comments;
+	@Size(min=1,message="방법-대분류를 선택해주세요.")
 	private String big_ways;
+	@NotNull(message="방법-소분류를 선택해주세요.")
 	private String small_ways;
+	@Size(min=1,message="목적-추대분류를 선택해주세요.")
 	private String big_purpose;
+	@NotNull(message="목적-소분류를 선택해주세요.")
 	private String small_purpose;
+	@Size(min=1, max=300, message="메모는 1 ~ 300글자 가능합니다.")
 	private String memo;
+	@Range(min=1, max=999999999, message="가격을 확인해주세요.")
 	private int price;
 	
 	

@@ -17,8 +17,8 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/expand/**"/>
-			<mvc:mapping path="/income/**"/>
+			<mvc:mapping path="/expand/add/"/>
+			<mvc:mapping path="/income/add/"/>
 			<mvc:mapping path="/member/logout/**"/>
 			<mvc:mapping path="/member/mypage/**"/>
 			<ref bean="loginInterceptor"/>

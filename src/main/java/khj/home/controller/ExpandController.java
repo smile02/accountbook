@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import khj.home.service.ExpandService;
 import khj.home.vo.Expand;
+import khj.home.vo.Income;
 
 @Controller
 public class ExpandController {
@@ -28,7 +29,16 @@ public class ExpandController {
 	}
 	
 	@RequestMapping(value = "/expand/add", method=RequestMethod.POST)
-	public String expandAdd(@ModelAttribute @Valid Expand expand,BindingResult result) {
+	public String expandAdd(@ModelAttribute @Valid Expand expand,BindingResult result
+				,Model model) {
+		System.out.println(" 1: "+expand.getRegdate());
+		System.out.println(" 2: "+expand.getBig_purpose());
+		System.out.println(" 3: "+expand.getBig_ways());
+		if(result.hasErrors()) {
+			model.addAttribute("expand",expand);
+			model.addAttribute("income",new Income());
+			return "/page/main.jsp";
+		}
 		expandService.expandAdd(expand);
 		return "redirect:/expand";
 	}

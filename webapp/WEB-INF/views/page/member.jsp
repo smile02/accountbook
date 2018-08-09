@@ -10,9 +10,12 @@
 </head>
 <body>
    	<div class="button-group">    	
-   		<a class="btn" href="/member/login">로그인</a>
-   		<a class="btn" href="/member/signup">회원가입</a>   	
+   		<a href="/member/login"><span class="glyphicon glyphicon-log-in"></span>로그인</a>
+   		<a href="/member/signup"><span class="glyphicon glyphicon-user"></span>회원가입</a>   	
    	</div>
+   	<!-- 
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
