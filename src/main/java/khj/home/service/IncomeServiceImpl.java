@@ -24,4 +24,14 @@ public class IncomeServiceImpl implements IncomeService {
 		incomeDao.incomeAdd(income);		
 	}
 
+	@Override
+	public Income incomeView(int idx) {
+		return incomeDao.incomeView(idx);
+	}
+
+	@Override
+	public void incomeDel(int idx) {
+		incomeDao.incomeDel(idx);
+	}
+
 }

@@ -8,9 +8,21 @@
 	</select>	
 	<insert id="expandAdd" parameterType="expand">
 		insert into expand values
-			(seq_expand_idx.nextval,'관리자',#{regdate},
+			(seq_expand_idx.nextval,#{nickname},#{regdate},
 			#{comments},#{big_ways},#{small_ways},
 			#{big_purpose},#{small_purpose},
 			#{memo},#{price})
 	</insert>
+	<select id="expandView" parameterType="int" resultType="expand">
+		select * from expand where idx = #{value}
+	</select>
+	<update id="expandMod" parameterType="expand">
+		update expand set comments = #{comments}, regdate = #{regdate}, big_ways = #{big_ways},
+						  small_ways = #{small_ways}, big_purpose = #{big_purpose}, 
+						  small_purpose = #{small_purpose}, price = #{price}, memo = #{memo}
+			where idx = #{idx}
+	</update>
+	<delete id="expandDel" parameterType="int">
+		delete from expand where idx = #{value}
+	</delete>
 </mapper>

@@ -10,4 +10,8 @@ public interface IncomeService {
 
 	void incomeAdd(Income income);
 
+	Income incomeView(int idx);
+
+	void incomeDel(int idx);
+
 }

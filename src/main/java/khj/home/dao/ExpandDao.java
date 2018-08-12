@@ -22,4 +22,16 @@ public class ExpandDao {
 		session.insert("expand.expandAdd",expand);
 	}
 
+	public Expand expandView(int idx) {
+		return session.selectOne("expand.expandView",idx);
+	}
+
+	public void expandMod(Expand expand) {
+		session.update("expand.expandMod",expand);
+	}
+
+	public void expandDel(int idx) {
+		session.delete("expand.expandDel",idx);
+	}
+
 }

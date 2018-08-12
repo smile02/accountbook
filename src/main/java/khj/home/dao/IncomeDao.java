@@ -22,4 +22,12 @@ public class IncomeDao {
 		session.insert("income.incomeAdd",income);
 	}
 
+	public Income incomeView(int idx) {
+		return session.selectOne("income.incomeView",idx);
+	}
+
+	public void incomeDel(int idx) {
+		session.delete("income.incomeDel",idx);
+	}
+
 }

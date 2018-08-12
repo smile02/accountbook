@@ -8,8 +8,14 @@
 	</select>	
 	<insert id="incomeAdd" parameterType="income">
 		insert into income values
-			(seq_income_idx.nextval,'관리자',#{regdate},
+			(seq_income_idx.nextval,#{nickname},#{regdate},
 			#{comments},#{ways},
 			#{memo},#{price})
 	</insert>
+	<select id="incomeView" parameterType="int" resultType="income">
+		select * from income where idx = #{value}
+	</select>
+	<delete id="incomeDel" parameterType="int">
+		delete from income where idx = #{value}
+	</delete>
 </mapper>

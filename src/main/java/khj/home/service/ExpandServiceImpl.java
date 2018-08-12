@@ -24,4 +24,19 @@ public class ExpandServiceImpl implements ExpandService {
 		expandDao.expandAdd(expand);
 	}
 
+	@Override
+	public Expand expandView(int idx) {
+		return expandDao.expandView(idx);
+	}
+
+	@Override
+	public void expandMod(Expand expand) {
+		expandDao.expandMod(expand);
+	}
+
+	@Override
+	public void expandDel(int idx) {
+		expandDao.expandDel(idx);
+	}
+
 }

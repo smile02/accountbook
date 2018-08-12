@@ -10,4 +10,10 @@ public interface ExpandService {
 
 	void expandAdd(Expand expand);
 
+	Expand expandView(int idx);
+
+	void expandMod(Expand expand);
+
+	void expandDel(int idx);
+
 }
