@@ -56,17 +56,21 @@ public class ExpandController {
 							@RequestParam(defaultValue="1") int page,
 							@RequestParam(required=false) String year,
 							@RequestParam(required=false) String month) {
-		System.out.println("year : "+(year+1));
-		System.out.println("month : "+month);
 		
+		System.out.println(year);
+		System.out.println(month);
 		if(month != null && month.length()<2 && Integer.parseInt(month) >0 && Integer.parseInt(month) < 10 ) {
 			month = "0"+month;
 		}
 		
-		String searchParam = "";
-		if(year != null && !year.equals("") ||
-				month != null && !month.equals("")) { //전체검색 외에 다른 옵션을 선택 했다는 뜻
-			searchParam = "&year="+year+"&month="+month;
+		String searchParam = "";		
+		//전체검색이 아닌 다른 옵션
+		if(year != null && !year.equals("")) {
+			searchParam = "&year="+year;
+		}
+		
+		if(month != null && !month.equals("")) {
+			searchParam = "&month="+month;
 		}
 		
 		model.addAttribute("expandList",expandService.expandList(year,month,page));

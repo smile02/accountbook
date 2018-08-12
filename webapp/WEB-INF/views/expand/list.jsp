@@ -172,7 +172,6 @@
 		console.log("year : "+year+", month : "+month);
 		console.log(typeof year);
 		console.log(typeof month);
-		return;
 		location.href="/expand?year="+year+"&month="+month;
 		
 	}
