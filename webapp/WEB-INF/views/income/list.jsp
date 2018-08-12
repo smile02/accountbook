@@ -14,7 +14,9 @@
 <body>
 	<jsp:include page="../page/menu.jsp"/>
 	<div class="container">
-		<h2 class="text-center text-muted">수입 목록</h2>
+		<div class="row">
+			<h2 class="text-center text-muted">수입 목록</h2>
+		</div>
 		<br/>
 		<c:forEach var="income" items="${incomeList }">
 			<div class="col-sm-3">
@@ -93,7 +95,7 @@
         </div>
         
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" onclick="incomeModBtn(this.form);">수정 완료</button>
+          <button type="button" class="btn btn-info" onclick="incomeModBtn();">수정 완료</button>
           <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">수정 취소</button>          
         </div>
       </div>      
@@ -135,6 +137,7 @@
 				type:"get",
 				data:{idx:idx},
 				success:function(data){
+					$("#idx").val(data.idx);
 					$("#comments").val(data.comments);
 					$("#nickname").text(data.nickname);
 					$("#regdate").val(data.regdate);
@@ -146,7 +149,30 @@
 					}else{
 						$("#ways").append("<option val='카드'>카드</option>");
 					}
-					//$("#ways").val(data.ways);
+				}
+			});
+		}
+		
+		function incomeModBtn(){
+			$.ajax({
+				url:"/income/mod",
+				type:"post",
+				data:{idx:$("#idx").val(),
+					  comments:$("#comments").val(),
+					  regdate:$("#regdate").val(),
+					  price:$("#price").val(),
+					  memo:$("#memo").val(),
+					  ways:$("#ways").val()
+				},
+				success:function(data){
+					if(data.success != 'success'){
+						$("#comments-error").text(data.수입내역);
+						$("#regdate-error").text(data.날짜);
+						$("#price-error").text(data.금액);
+						$("#memo-error").text(data.메모);
+					}else{
+						location.reload();
+					}
 				}
 			});
 		}

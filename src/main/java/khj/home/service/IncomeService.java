@@ -2,6 +2,8 @@ package khj.home.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import khj.home.vo.Income;
 
 public interface IncomeService {
@@ -13,5 +15,7 @@ public interface IncomeService {
 	Income incomeView(int idx);
 
 	void incomeDel(int idx);
+
+	void incomeMod(Income income);
 
 }

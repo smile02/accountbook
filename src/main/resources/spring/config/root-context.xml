@@ -13,7 +13,7 @@
 	<bean id="session" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"/>	
 	</bean>
-	
+	<bean id="paging" class="khj.home.util.Paging"/>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:configLocation="classpath:mybatis/config/mybatis-context.xml"
 		p:dataSource-ref="dataSource-pool"/>

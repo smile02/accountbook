@@ -30,4 +30,8 @@ public class IncomeDao {
 		session.delete("income.incomeDel",idx);
 	}
 
+	public void incomeMod(Income income) {
+		session.update("income.incomeMod",income);
+	}
+
 }

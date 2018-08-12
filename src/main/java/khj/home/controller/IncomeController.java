@@ -1,5 +1,8 @@
 package khj.home.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -7,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,6 +61,24 @@ public class IncomeController {
 		Income incomeView = incomeService.incomeView(idx);
 		
 		return incomeView;		
+	}
+	
+	@RequestMapping(value="/income/mod", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> incomeMod(@ModelAttribute @Valid Income income, BindingResult result){
+		Map<String, Object> incomeMap = new HashMap<>();
+		if(result.hasErrors()) {
+			for(ObjectError error : result.getAllErrors()) {
+				int index = error.getDefaultMessage().indexOf("->");
+				String key = error.getDefaultMessage().substring(0, index);
+				incomeMap.put(key, error.getDefaultMessage());
+			}
+			return incomeMap;
+		}
+		
+		incomeMap.put("success","success");
+		incomeService.incomeMod(income);
+		return incomeMap;
 	}
 	
 	@RequestMapping(value="/income/del", method=RequestMethod.POST)

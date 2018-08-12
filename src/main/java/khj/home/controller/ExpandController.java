@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import khj.home.service.BigPurposeService;
 import khj.home.service.BigWaysService;
 import khj.home.service.ExpandService;
+import khj.home.service.ExpandServiceImpl;
 import khj.home.service.SmallPurposeService;
 import khj.home.service.SmallWaysService;
+import khj.home.util.Paging;
 import khj.home.vo.BigPurpose;
 import khj.home.vo.BigWays;
 import khj.home.vo.Expand;
@@ -46,10 +48,34 @@ public class ExpandController {
 	@Autowired
 	private SmallPurposeService smallPurposeService;
 
+	@Autowired
+	private Paging paging;
+	
 	@RequestMapping(value="/expand", method=RequestMethod.GET)
-	public String expandList(Model model) {
+	public String expandList(Model model,
+							@RequestParam(defaultValue="1") int page,
+							@RequestParam(required=false) String year,
+							@RequestParam(required=false) String month) {
+		System.out.println("year : "+(year+1));
+		System.out.println("month : "+month);
 		
-		model.addAttribute("expandList",expandService.expandList());
+		if(month != null && month.length()<2 && Integer.parseInt(month) >0 && Integer.parseInt(month) < 10 ) {
+			month = "0"+month;
+		}
+		
+		String searchParam = "";
+		if(year != null && !year.equals("") ||
+				month != null && !month.equals("")) { //전체검색 외에 다른 옵션을 선택 했다는 뜻
+			searchParam = "&year="+year+"&month="+month;
+		}
+		
+		model.addAttribute("expandList",expandService.expandList(year,month,page));
+		model.addAttribute("paging", paging.getPaging("/expand",
+				page,
+				expandService.getTotalCount(year, month, page),
+				ExpandServiceImpl.numberOfList,
+				ExpandServiceImpl.numberOfPage,
+				searchParam));
 		
 		return "/expand/list.jsp";
 	}

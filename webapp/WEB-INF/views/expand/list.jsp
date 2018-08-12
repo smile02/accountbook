@@ -11,10 +11,42 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
+<style>
+.paging{
+	display:inline-block;
+}
+.pagination{
+	margin-top:15px;
+}
+</style>
 <body>
 	<jsp:include page="../page/menu.jsp"/>
 	<div class="container">
-		<h2 class="text-center text-muted">지출 목록</h2>
+		<div class="row">
+			<h2 class="text-center text-muted">지출 목록</h2>
+		</div>
+		<div class="row">
+			<label class="control-label col-xs-1">일자검색</label>
+			
+			<div class="col-xs-1">
+				<input type="text" class="form-control" id="year" placeholder="년"
+				onkeypress="return onlyMyNumber(event);" />
+			</div>
+			<div class="col-xs-1">
+				<input type="text" class="form-control" id="month" placeholder="월"
+				onkeypress="return onlyMyNumber(event);" />
+			</div>
+			<div class="button-group">
+				<div class="col-xs-1">
+					<button type="button" class="form-control btn btn-info"
+					onclick="selectSearch();">검색</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<span class="small text-muted">년,월로 검색이 가능하고, 둘 중 하나만 입력해도 됩니다.
+			아무것도 입력하지 않고 검색할 시 전체검색이 됩니다. </span>
+		</div>
 		<br/>
 		<c:forEach var="expand" items="${expandList }">
 			<div class="col-sm-3">
@@ -36,6 +68,15 @@
 				</div>
 			</div>
 		</c:forEach>
+		<div class="row">
+			<div class="col-sm-12 text-center">
+				<div class="paging">
+					<ul class="pagination pagination-sm" id="commentsPaging">
+					
+					</ul>
+				</div>
+			</div>
+		</div>	
 	</div>
 	<!-- Modal -->
   <div class="modal fade" id="myModal2" role="dialog">
@@ -119,11 +160,22 @@
       </div>      
     </div>
   </div>
+  
 	<!--스크립트 라이브러리 -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
+	function selectSearch(){
+		var year = $("#year").val();
+		var month = $("#month").val();
+		console.log("year : "+year+", month : "+month);
+		console.log(typeof year);
+		console.log(typeof month);
+		return;
+		location.href="/expand?year="+year+"&month="+month;
+		
+	}
 		function closeBtn(){
 			$("#closeBtn").attr("data-dismiss","modal");
 			location.reload();
@@ -284,6 +336,14 @@
 				}			
 			});
 		}
+		
+		function onlyMyNumber(event) {			
+			var keyValue = event.keyCode; 
+			if( ((keyValue >= 48) && (keyValue <= 57)) ) 
+				return true; 
+			else 
+				return false; 
+			}
 	</script>
 </body>
 </html>

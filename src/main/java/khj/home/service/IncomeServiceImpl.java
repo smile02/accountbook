@@ -34,4 +34,9 @@ public class IncomeServiceImpl implements IncomeService {
 		incomeDao.incomeDel(idx);
 	}
 
+	@Override
+	public void incomeMod(Income income) {
+		incomeDao.incomeMod(income);
+	}
+
 }

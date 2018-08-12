@@ -15,6 +15,13 @@
 	<select id="incomeView" parameterType="int" resultType="income">
 		select * from income where idx = #{value}
 	</select>
+
+	<update id="incomeMod" parameterType="income">
+		update income set comments = #{comments}, ways=#{ways},
+						  regdate=#{regdate}, memo=#{memo}, price=#{price}
+						  where idx = #{idx}
+	</update>
+	
 	<delete id="incomeDel" parameterType="int">
 		delete from income where idx = #{value}
 	</delete>

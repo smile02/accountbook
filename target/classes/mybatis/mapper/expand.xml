@@ -3,8 +3,32 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="expand">
-	<select id="expandList" resultType="expand">
-		select * from expand order by regdate desc,idx desc
+	<select id="expandList" resultType="expand" parameterType="map">
+		select * from
+		(select rownum as rnum, a.* from 
+			(select * from expand
+				<if test="year != null and month != null">
+					<choose>
+						<when test="year != '' and month != ''">
+						where
+							regdate like #{year}||'-'||#{month}||'-%'
+						</when>
+						<when test="year != ''">
+						where
+							regdate like #{year}||'%'
+						</when>
+						<when test="month != ''">
+						where
+							regdate like '%-'||#{month}||'-%'
+						</when>
+					</choose>
+				</if>
+				
+			order by regdate desc) 
+				a
+			)
+		where rnum between #{start} and #{end}
+			
 	</select>	
 	<insert id="expandAdd" parameterType="expand">
 		insert into expand values
@@ -25,4 +49,23 @@
 	<delete id="expandDel" parameterType="int">
 		delete from expand where idx = #{value}
 	</delete>
+	<select id="expandCount" parameterType="map" resultType="int">
+		select count(*) from expand
+			<if test="year != null and month != null">
+					<choose>
+						<when test="year != '' and month != ''">
+						where
+							regdate like #{year}||'-'||#{month}||'-%'
+						</when>
+						<when test="year != ''">
+						where
+							regdate like #{year}||'%'
+						</when>
+						<when test="month != ''">
+						where
+							regdate like '%-'||#{month}||'-%'
+						</when>
+					</choose>
+				</if>
+	</select>
 </mapper>

@@ -1,6 +1,7 @@
 package khj.home.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class ExpandDao {
 	@Autowired
 	private SqlSession session;
 
-	public List<Expand> expandList() {
-		return session.selectList("expand.expandList");
+	public List<Expand> expandList(Map<String, Object> map) {
+		return session.selectList("expand.expandList",map);
 	}
 
 	public void expandAdd(Expand expand) {
@@ -32,6 +33,10 @@ public class ExpandDao {
 
 	public void expandDel(int idx) {
 		session.delete("expand.expandDel",idx);
+	}
+
+	public int getTotalCount(Map<String, Object> searchMap) {
+		return session.selectOne("expand.expandCount",searchMap);
 	}
 
 }
