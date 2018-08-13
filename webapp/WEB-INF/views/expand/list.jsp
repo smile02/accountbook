@@ -43,10 +43,21 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="row">
 			<span class="small text-muted">년,월로 검색이 가능하고, 둘 중 하나만 입력해도 됩니다.
 			아무것도 입력하지 않고 검색할 시 전체검색이 됩니다. </span>
 		</div>
+			<div class="row col-xs-12 col-xs-offset-6">
+				<span class="text-muted col-xs-1">전체합계</span>
+				<label class="col-xs-1 control-label">${priceAllSum} 원</label>
+				
+				<span class="text-muted col-xs-1">년별합계</span>
+				<label class="col-xs-1 control-label">${priceYearSum} 원</label>
+				
+				<span class="text-muted col-xs-1">월별합계</span>
+				<label class="col-xs-1 control-label">${priceMonthSum} 원</label>
+			</div>
 		<br/>
 		<c:forEach var="expand" items="${expandList }">
 			<div class="col-sm-3">
@@ -71,8 +82,8 @@
 		<div class="row">
 			<div class="col-sm-12 text-center">
 				<div class="paging">
-					<ul class="pagination pagination-sm" id="commentsPaging">
-					
+					<ul class="pagination pagination-sm">
+						${paging }
 					</ul>
 				</div>
 			</div>
@@ -169,11 +180,15 @@
 	function selectSearch(){
 		var year = $("#year").val();
 		var month = $("#month").val();
-		console.log("year : "+year+", month : "+month);
-		console.log(typeof year);
-		console.log(typeof month);
-		location.href="/expand?year="+year+"&month="+month;
-		
+		if(year == '' && month == ''){
+			location.href="/expand";
+		}else if(year == ''){
+			location.href="/expand?month="+month;
+		}else if(month == ''){
+			location.href="/expand?year="+year;
+		}else{
+			location.href="/expand?year="+year+"&month="+month;	
+		}
 	}
 		function closeBtn(){
 			$("#closeBtn").attr("data-dismiss","modal");

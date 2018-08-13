@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import khj.home.service.IncomeService;
+import khj.home.service.IncomeServiceImpl;
+import khj.home.util.Paging;
 import khj.home.vo.Income;
 import khj.home.vo.Member;
 
@@ -27,10 +29,41 @@ public class IncomeController {
 	@Autowired
 	private IncomeService incomeService;
 	
+	@Autowired
+	private Paging paging;
+	
 	@RequestMapping(value = "/income", method=RequestMethod.GET)
-	public String incomeList(Model model) {
+	public String incomeList(Model model,
+							@RequestParam(required=false) String year,
+							@RequestParam(required=false) String month,
+							@RequestParam(defaultValue="1") int page) {
 		
-		model.addAttribute("incomeList",incomeService.incomeList());
+		if(month != null && month.length()<2 && Integer.parseInt(month) >0 && Integer.parseInt(month) < 10 ) {
+			month = "0"+month;
+		}
+		String searchParam = "";
+		if(year != null && !year.equals("")) {
+			searchParam = "&year="+year;
+		}
+		if(month != null && !month.equals("")) {
+			searchParam = "&month="+month;
+		}
+		
+		model.addAttribute("incomeList",incomeService.incomeList(year, month, page));
+		model.addAttribute("paging",paging.getPaging("/income",
+					page, incomeService.getIncomeCount(year, month, page),
+					IncomeServiceImpl.numberOfList,
+					IncomeServiceImpl.numberOfPage, 
+					searchParam));
+		
+		if(year == null && month == null) {
+			model.addAttribute("priceAllSum",incomeService.incomePriceSum(year,month,page));
+		}else if(month == null) {
+			model.addAttribute("priceYearSum",incomeService.incomePriceSum(year,month,page));
+		}else {
+			model.addAttribute("priceMonthSum",incomeService.incomePriceSum(year,month,page));
+		}
+		
 		return "/income/list.jsp";
 	}
 	

@@ -20,7 +20,7 @@
 <body>
 	<jsp:include page="menu.jsp" />
 	<div class="container">	
-		
+		${calendar }
 			
 	</div>
 

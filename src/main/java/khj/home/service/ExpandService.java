@@ -18,4 +18,6 @@ public interface ExpandService {
 
 	int getTotalCount(String year, String month, int page);
 
+	int expandPriceSum(String year, String month, int page);
+
 }

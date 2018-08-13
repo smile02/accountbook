@@ -3,8 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="income">
-	<select id="incomeList" resultType="income">
-		select * from income order by regdate desc,idx desc
+	<select id="incomeList" resultType="income" parameterType="map">
+		select * from
+			(select rownum as rnum, a.* from
+				(select * from income
+					<if test="year != null or month != null">
+					<choose>
+						<when test="year != null and month != null">
+						where
+							regdate like #{year}||'-'||#{month}||'%'
+						</when>
+						<when test="year != null">
+						where
+							regdate like #{year}||'%'
+						</when>
+						<when test="month != null">
+						where
+							regdate like '%-'||#{month}||'-%'
+						</when>
+					</choose>
+				</if> 
+				order by regdate desc)
+			a)
+			where rnum between #{start} and #{end}
 	</select>	
 	<insert id="incomeAdd" parameterType="income">
 		insert into income values
@@ -25,4 +46,44 @@
 	<delete id="incomeDel" parameterType="int">
 		delete from income where idx = #{value}
 	</delete>
+	
+	<select id="getIncomeCount" resultType="int" parameterType="map">
+		select count(*) from income
+			<if test="year != null or month != null">
+					<choose>
+						<when test="year != null and month != null">
+						where
+							regdate like #{year}||'-'||#{month}||'%'
+						</when>
+						<when test="year != null">
+						where
+							regdate like #{year}||'%'
+						</when>
+						<when test="month != null">
+						where
+							regdate like '%-'||#{month}||'-%'
+						</when>
+					</choose>
+				</if>
+	</select>
+	
+	<select id="incomePriceSum" resultType="int" parameterType="map">
+		select nvl(sum(price),0) from income
+			<if test="year != null or month != null">
+					<choose>
+						<when test="year != null and month != null">
+						where
+							regdate like #{year}||'-'||#{month}||'%'
+						</when>
+						<when test="year != null">
+						where
+							regdate like #{year}||'%'
+						</when>
+						<when test="month != null">
+						where
+							regdate like '%-'||#{month}||'-%'
+						</when>
+					</choose>
+				</if>
+	</select>
 </mapper>

@@ -39,4 +39,8 @@ public class ExpandDao {
 		return session.selectOne("expand.expandCount",searchMap);
 	}
 
+	public int expandPriceSum(Map<String, Object> searchMap) {
+		return session.selectOne("expand.expandPriceSum",searchMap);
+	}
+
 }

@@ -61,18 +61,18 @@ public class Paging {
 		}
 		// 이전페이지 작성
 		if (isPrevPage) {
-			sb.append("<li class='page-item'><a class='page-link' href='" + url + "?page=");
+			sb.append("<li><a href='" + url + "?page=");
 			sb.append(nowPage - numberOfPage+searchParam);
 			sb.append("'><span>&laquo;</span></a></li>");			
 		} else {
-			sb.append("<li class='disabled page-item'><a class='page-link'><span>&laquo;</span></a></li>");
+			sb.append("<li class='disabled'><a><span>&laquo;</span></a></li>");
 		}
 		// 페이지 목록
 		for (int i = startPage; i <= endPage; i++) {
 			if(i == nowPage) { //선택한 페이지와 i의 값이 일치할 때에는 a태그 적용 x
-				sb.append("<li class='active page-item'><a class='page-link'>"+i+"</a></li>");
+				sb.append("<li class='active'><a>"+i+"</a></li>");
 			}else {
-				sb.append("<li class='page-item'><a class='page-link' href='" + url + "?page=");
+				sb.append("<li><a href='" + url + "?page=");
 				sb.append(i +searchParam+ "'>");
 				sb.append(i + "</a></li>");				
 			}
@@ -80,7 +80,7 @@ public class Paging {
 
 		// 다음페이지 작성
 		if (isNextPage) {
-			sb.append("<li class='page-item'><a class='page-link' href='" + url + "?page=");
+			sb.append("<li><a href='" + url + "?page=");
 			if(nowPage + numberOfPage > totalPage) {
 				//현재페이지 + 한 화면에서의 페이지 수가 전체 페이지의 수 보다 클 때
 				sb.append(totalPage);
@@ -90,7 +90,7 @@ public class Paging {
 			sb.append(searchParam);
 			sb.append("'><span>&raquo;</span></a></li>");
 		} else {
-			sb.append("<li class='disabled page-item'><a class='page-link'><span>&raquo;</span></a></li>");
+			sb.append("<li class='disabled'><a><span>&raquo;</span></a></li>");
 		}
 
 		return sb.toString();

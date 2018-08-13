@@ -14,6 +14,8 @@
 		<constructor-arg ref="sqlSessionFactory"/>	
 	</bean>
 	<bean id="paging" class="khj.home.util.Paging"/>
+	<bean id="accountCalender" class="khj.home.util.AccountCalender"/>
+	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:configLocation="classpath:mybatis/config/mybatis-context.xml"
 		p:dataSource-ref="dataSource-pool"/>

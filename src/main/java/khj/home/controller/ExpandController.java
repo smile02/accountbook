@@ -57,8 +57,6 @@ public class ExpandController {
 							@RequestParam(required=false) String year,
 							@RequestParam(required=false) String month) {
 		
-		System.out.println(year);
-		System.out.println(month);
 		if(month != null && month.length()<2 && Integer.parseInt(month) >0 && Integer.parseInt(month) < 10 ) {
 			month = "0"+month;
 		}
@@ -80,6 +78,13 @@ public class ExpandController {
 				ExpandServiceImpl.numberOfList,
 				ExpandServiceImpl.numberOfPage,
 				searchParam));
+		if(year == null && month == null) {
+			model.addAttribute("priceAllSum",expandService.expandPriceSum(year,month,page));
+		}else if(month == null) {
+			model.addAttribute("priceYearSum",expandService.expandPriceSum(year,month,page));
+		}else {
+			model.addAttribute("priceMonthSum",expandService.expandPriceSum(year,month,page));
+		}
 		
 		return "/expand/list.jsp";
 	}

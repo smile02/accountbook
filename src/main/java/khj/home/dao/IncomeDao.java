@@ -1,6 +1,7 @@
 package khj.home.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class IncomeDao {
 	@Autowired
 	private SqlSession session;
 	
-	public List<Income> incomeList() {
-		return session.selectList("income.incomeList");
+	public List<Income> incomeList(Map<String, Object> map) {
+		return session.selectList("income.incomeList",map);
 	}
 
 	public void incomeAdd(Income income) {
@@ -32,6 +33,14 @@ public class IncomeDao {
 
 	public void incomeMod(Income income) {
 		session.update("income.incomeMod",income);
+	}
+
+	public int getIncomeCount(Map<String, Object> map) {
+		return session.selectOne("income.getIncomeCount",map);
+	}
+
+	public int incomePriceSum(Map<String, Object> map) {
+		return session.selectOne("income.incomePriceSum",map);
 	}
 
 }

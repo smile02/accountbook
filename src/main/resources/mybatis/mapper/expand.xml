@@ -7,23 +7,22 @@
 		select * from
 		(select rownum as rnum, a.* from 
 			(select * from expand
-				<if test="year != null and month != null">
+				<if test="year != null or month != null">
 					<choose>
-						<when test="year != '' and month != ''">
+						<when test="year != null and month != null">
 						where
-							regdate like #{year}||'-'||#{month}||'-%'
+							regdate like #{year}||'-'||#{month}||'%'
 						</when>
-						<when test="year != ''">
+						<when test="year != null">
 						where
 							regdate like #{year}||'%'
 						</when>
-						<when test="month != ''">
+						<when test="month != null">
 						where
 							regdate like '%-'||#{month}||'-%'
 						</when>
 					</choose>
 				</if>
-				
 			order by regdate desc) 
 				a
 			)
@@ -51,17 +50,36 @@
 	</delete>
 	<select id="expandCount" parameterType="map" resultType="int">
 		select count(*) from expand
-			<if test="year != null and month != null">
+			<if test="year != null or month != null">
 					<choose>
-						<when test="year != '' and month != ''">
+						<when test="year != null and month != null">
 						where
-							regdate like #{year}||'-'||#{month}||'-%'
+							regdate like #{year}||'-'||#{month}||'%'
 						</when>
-						<when test="year != ''">
+						<when test="year != null">
 						where
 							regdate like #{year}||'%'
 						</when>
-						<when test="month != ''">
+						<when test="month != null">
+						where
+							regdate like '%-'||#{month}||'-%'
+						</when>
+					</choose>
+				</if>
+	</select>
+	<select id="expandPriceSum" parameterType="map" resultType="int">
+		select nvl(sum(price),0) from expand
+			<if test="year != null or month != null">
+					<choose>
+						<when test="year != null and month != null">
+						where
+							regdate like #{year}||'-'||#{month}||'%'
+						</when>
+						<when test="year != null">
+						where
+							regdate like #{year}||'%'
+						</when>
+						<when test="month != null">
 						where
 							regdate like '%-'||#{month}||'-%'
 						</when>

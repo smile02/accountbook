@@ -10,6 +10,14 @@
 <title>환영 환영~</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<style>
+.paging{
+	display:inline-block;
+}
+.pagination{
+	margin-top:15px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../page/menu.jsp"/>
@@ -17,6 +25,38 @@
 		<div class="row">
 			<h2 class="text-center text-muted">수입 목록</h2>
 		</div>
+		<div class="row">
+			<label class="control-label col-xs-1">일자검색</label>
+			
+			<div class="col-xs-1">
+				<input type="text" class="form-control" id="year" placeholder="년"
+				onkeypress="return onlyMyNumber(event);" />
+			</div>
+			<div class="col-xs-1">
+				<input type="text" class="form-control" id="month" placeholder="월"
+				onkeypress="return onlyMyNumber(event);" />
+			</div>
+			<div class="button-group">
+				<div class="col-xs-1">
+					<button type="button" class="form-control btn btn-info"
+					onclick="selectSearch();">검색</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<span class="small text-muted">년,월로 검색이 가능하고, 둘 중 하나만 입력해도 됩니다.
+			아무것도 입력하지 않고 검색할 시 전체검색이 됩니다. </span>
+		</div>
+		<div class="row col-xs-12 col-xs-offset-6">
+				<span class="text-muted col-xs-1">전체합계</span>
+				<label class="col-xs-1 control-label">${priceAllSum}원</label>
+				
+				<span class="text-muted col-xs-1">년별합계</span>
+				<label class="col-xs-1 control-label">${priceYearSum}원</label>
+				
+				<span class="text-muted col-xs-1">월별합계</span>
+				<label class="col-xs-1 control-label">${priceMonthSum}원</label>
+			</div>
 		<br/>
 		<c:forEach var="income" items="${incomeList }">
 			<div class="col-sm-3">
@@ -36,6 +76,15 @@
 				</div>
 			</div>
 		</c:forEach>
+		<div class="row">
+			<div class="col-sm-12 text-center">
+				<div class="paging">
+					<ul class="pagination pagination-sm">
+						${paging }
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -106,7 +155,19 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
-	
+	function selectSearch(){
+		var year = $("#year").val();
+		var month = $("#month").val();
+			if(year == '' && month == ''){
+				location.href="/income";
+			}else if(year == ''){
+				location.href="/income?month="+month;
+			}else if(month == ''){
+				location.href="/income?year="+year;
+			}else{
+				location.href="/income?year="+year+"&month="+month;	
+			}
+		}
 		function closeBtn(){
 			$("#closeBtn").attr("data-dismiss","modal");
 			location.reload();
@@ -175,6 +236,13 @@
 					}
 				}
 			});
+		}
+		function onlyMyNumber(event) {			
+			var keyValue = event.keyCode; 
+			if( ((keyValue >= 48) && (keyValue <= 57)) ) 
+				return true; 
+			else 
+				return false; 
 		}
 	</script>
 </body>
