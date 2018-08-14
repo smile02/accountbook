@@ -25,6 +25,7 @@ public class Expand {
 	private String memo;
 	@Range(min=1, max=999999999, message="가격-> 확인해주세요.")
 	private int price;
+	private int count;
 	
 	
 	public int getIdx() {
@@ -86,6 +87,12 @@ public class Expand {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 	

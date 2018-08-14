@@ -1,7 +1,15 @@
 package khj.home.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import khj.home.vo.Expand;
+
 public class AccountCalender {
 	
+	Map<Map<String,Object>, Object> regMap = new HashMap<>();
 	StringBuffer sb = new StringBuffer();
 	// 미리 기준 연도와 , 기준월을 정해서 출력하는 방법을 선택함.
 	
@@ -95,12 +103,12 @@ public class AccountCalender {
 		total_sum = ((nYear - base_year) * 365) + count_leap((base_year - nYear));
 	}
 
-	public String result(int nYear, int mth) {
+	public String result(int nYear, int mth, List<Expand> expand) {
 		sb.setLength(0);
 		int i, j; // 카운트를 위한 변수입니다.
 		int month;
 
-		int dy = count_leap(base_year - nYear); // dy는 기준연도부터 현재연도까지 낀 윤년의 갯수입니다.
+//		int dy = count_leap(base_year - nYear); // dy는 기준연도부터 현재연도까지 낀 윤년의 갯수입니다.
 		convert_to_day(nYear); // ★ 우선 기준연도부터 현재 연도까지 년 단위로 총일수를 구합니다. ★
 
 		int day; // 이변수는 요일을 결정하기위해 존재합니다.예를들어 기준일부터 현재일까지 차이가 7이고
@@ -128,21 +136,39 @@ public class AccountCalender {
 			sb.append("<tr> <th class='text-center'>일</th> <th class='text-center'>월</th> <th class='text-center'>화</th> <th class='text-center'>수</th> <th class='text-center'>목</th> <th class='text-center'>금</th> <th class='text-center'>토</th> </tr>");
 			//System.out.println("일 월     화     수     목     금     토");
 			sb.append("</thead>");
-			sb.append("<tbody><tr>");
+			sb.append("<tbody><tr style='height:70px;'>");
 			for (i = 0; i < day; i++) // day 변수는 요일 입니다. 갯수만큼 \t로 공백을 만들어줍니다.
 				//System.out.print("\t");
 			{	
 				sb.append("<td>\t</td>");
 			}
-			
+			Map<String, Object> tempMap = new HashMap<>();
 			for (j = 1; j <= month_table[month - 1]; j++)
 			// month변수에서 1을 빼준이유는 배열은 0부터 시작하기때문입니다.
 			{
 				//System.out.print(j + "\t");// j를 증가시켜가며 차례데로 날짜를 출력합니다.
-				sb.append("<td class='text-center'>"+j+"</td>");
+				for(Expand e : expand) {
+					String reg = e.getRegdate();
+					reg = reg.replace("-0", "-");
+					e.setRegdate(reg);
+					
+					if(e.getRegdate().equals(nYear+"-"+month+"-"+j)) {
+						tempMap.put("regdate", e.getRegdate());
+						regMap.put(tempMap, e.getCount());
+					}
+				}
+				
+				if(tempMap.get("regdate").equals(nYear+"-"+month+"-"+j)) {
+					sb.append("<td id='date_"+j+"' class='text-center'>"+j+"<br/><button id='"+tempMap.get("regdate")+"' type='button' class='btn btn-danger btn-xs'>지출 : "+regMap.get(tempMap)+"개 </button></td>");
+				}else {
+					sb.append("<td id='date_"+j+"' class='text-center'>"+j+"</td>");
+				}
 				if (((j + day) % 7) == 0)
 					//System.out.println();
-				sb.append("<tr/>");
+				{
+					sb.append("<tr/>");
+					sb.append("<tr style='height:70px;'>");
+				}
 				// 그리고 처음 요일을 출력하기위한 공백만큼 계산해서 출력
 			}
 			sb.append("</tbody></table>");
@@ -153,6 +179,58 @@ public class AccountCalender {
 
 		}
 		return sb.toString();
+	}
+	
+	public List<Integer> resultDate(int nYear, int mth) {
+	 
+		int i, j; // 카운트를 위한 변수입니다.
+		int month;
+		List<Integer> dateList = new ArrayList<>();
+//		int dy = count_leap(base_year - nYear); // dy는 기준연도부터 현재연도까지 낀 윤년의 갯수입니다.
+		convert_to_day(nYear); // ★ 우선 기준연도부터 현재 연도까지 년 단위로 총일수를 구합니다. ★
+
+		int day; // 이변수는 요일을 결정하기위해 존재합니다.예를들어 기준일부터 현재일까지 차이가 7이고
+		// 기준일이 월요일이면 7로 나눠서 나머지가 0이되니까 월요일임을 알수 있듯이
+		// day는 숫자로서 요일을 결정할수있습니다.
+		if (nYear >= base_year) {
+
+			if (is_leap_year(nYear) == 1) // 윤달이 낀날의 2월은 하루 증가
+				month_table[1] = 29;
+
+			for (i = 0; i < (mth - base_month); i++)
+				total_sum += month_table[i];
+			// 위에 ★ 에서 기준연도부터 현재연도까지의 일수를 구했습니다.
+			// 이 for루프를 통해 나머지 기준월부터 현재월까지의 총일수를 구합니다.
+			// 즉 이루프를 통해 기준 연도와 월부터 현재 연도와 월까지의 총일수를 구함.
+
+			day = (total_sum + 2) % 7;
+			// 현재까지의 총일수를 7의 나머지로 연산해줍니다. 2를 더해준 이유는 1980년도 1월 1일 = 화요일
+
+			month = total_to_month(total_sum); // 입력받은 해당 날짜의 정확한 달을 구해서 저장합니다.
+			
+			System.out.println(+month + " 월의 달력");
+			
+			System.out.println("일 월     화     수     목     금     토");
+			
+			for (i = 0; i < day; i++) // day 변수는 요일 입니다. 갯수만큼 \t로 공백을 만들어줍니다.
+				System.out.print("\t");
+			
+			
+			for (j = 1; j <= month_table[month - 1]; j++)
+			// month변수에서 1을 빼준이유는 배열은 0부터 시작하기때문입니다.
+			{
+				System.out.print(j + "\t");// j를 증가시켜가며 차례데로 날짜를 출력합니다.
+				dateList.add(j);
+				if (((j + day) % 7) == 0)
+					System.out.println();
+				// 그리고 처음 요일을 출력하기위한 공백만큼 계산해서 출력
+			}
+			System.out.println();
+
+			month_table[1] = 28; // 윤년이었다면 다시 평년으로 바꾸어줍니다.
+
+		}
+		return dateList;
 	}
 
 }

@@ -26,37 +26,43 @@
 			<h2 class="text-center text-muted">지출 목록</h2>
 		</div>
 		<div class="row">
-			<label class="control-label col-xs-1">일자검색</label>
-			
-			<div class="col-xs-1">
-				<input type="text" class="form-control" id="year" placeholder="년"
-				onkeypress="return onlyMyNumber(event);" />
-			</div>
-			<div class="col-xs-1">
-				<input type="text" class="form-control" id="month" placeholder="월"
-				onkeypress="return onlyMyNumber(event);" />
-			</div>
-			<div class="button-group">
-				<div class="col-xs-1">
-					<button type="button" class="form-control btn btn-info"
-					onclick="selectSearch();">검색</button>
+			<form method="get" class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-xs-2">일자검색</label>
+					<div class="col-xs-3">
+						<input type="text" class="form-control" id="year" placeholder="년"
+						onkeypress="return onlyMyNumber(event);" />
+					</div>
+					<div class="col-xs-3">
+						<input type="text" class="form-control" id="month" placeholder="월"
+						onkeypress="return onlyMyNumber(event);" />
+					</div>
+					<div class="col-xs-3">
+						<button type="button" class="form-control btn btn-info"
+						onclick="selectSearch();">검색</button>
+					</div>
 				</div>
-			</div>
-		</div>
+			</form>
+		</div> 
 		
-		<div class="row">
+		<div class="row text-center">
 			<span class="small text-muted">년,월로 검색이 가능하고, 둘 중 하나만 입력해도 됩니다.
 			아무것도 입력하지 않고 검색할 시 전체검색이 됩니다. </span>
-		</div>
-			<div class="row col-xs-12 col-xs-offset-6">
-				<span class="text-muted col-xs-1">전체합계</span>
-				<label class="col-xs-1 control-label">${priceAllSum} 원</label>
-				
-				<span class="text-muted col-xs-1">년별합계</span>
-				<label class="col-xs-1 control-label">${priceYearSum} 원</label>
-				
-				<span class="text-muted col-xs-1">월별합계</span>
-				<label class="col-xs-1 control-label">${priceMonthSum} 원</label>
+		</div>		
+		<br />
+			<div class="row" style="margin:0; padding:0;">
+				<div class="col-xs-4">
+					<span class="text-muted col-xs-3">전체</span>
+					<label class="col-xs-6 control-label">${priceAllSum} 원</label>
+				</div>
+				<div class="col-xs-4">
+					<span class="text-muted col-xs-3">년별</span>
+						<label class="col-xs-6 control-label">${priceYearSum} 원</label>
+				</div>
+				<div class="col-xs-4">
+					<span class="text-muted col-xs-3">월별</span>
+					<label class="col-xs-6 control-label">${priceMonthSum} 원</label>
+				</div>
 			</div>
 		<br/>
 		<c:forEach var="expand" items="${expandList }">

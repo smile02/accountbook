@@ -43,4 +43,8 @@ public class ExpandDao {
 		return session.selectOne("expand.expandPriceSum",searchMap);
 	}
 
+	public List<Expand> expandList() {
+		return session.selectList("expand.list");
+	}
+
 }

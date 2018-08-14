@@ -8,6 +8,8 @@ public interface ExpandService {
 
 	List<Expand> expandList(String year, String month, int page);
 
+	List<Expand> expandList();
+	
 	void expandAdd(Expand expand);
 
 	Expand expandView(int idx);
