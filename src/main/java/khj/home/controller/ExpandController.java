@@ -55,8 +55,11 @@ public class ExpandController {
 	public String expandList(Model model,
 							@RequestParam(defaultValue="1") int page,
 							@RequestParam(required=false) String year,
-							@RequestParam(required=false) String month) {
+							@RequestParam(required=false) String month,
+							@RequestParam(required=false) String day,
+							HttpSession session) {
 		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		if(month != null && month.length()<2 && Integer.parseInt(month) >0 && Integer.parseInt(month) < 10 ) {
 			month = "0"+month;
 		}
@@ -71,7 +74,7 @@ public class ExpandController {
 			searchParam = "&month="+month;
 		}
 		
-		model.addAttribute("expandList",expandService.expandList(year,month,page));
+		model.addAttribute("expandList",expandService.expandList(year,month,day,page,loginMember.getNickname()));
 		model.addAttribute("paging", paging.getPaging("/expand",
 				page,
 				expandService.getTotalCount(year, month, page),
@@ -87,6 +90,14 @@ public class ExpandController {
 		}
 		
 		return "/expand/list.jsp";
+	}
+	
+	@RequestMapping(value = "/expand/selectExpand", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Expand> selectExpand(@RequestParam String nickname,@RequestParam String regdate) {
+		List<Expand> expand = expandService.expandList(nickname, regdate);
+		
+		return expand;		
 	}
 	
 	@RequestMapping(value="/expand/add", method=RequestMethod.GET)

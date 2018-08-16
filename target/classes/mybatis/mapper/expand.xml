@@ -9,6 +9,10 @@
 			(select * from expand
 				<if test="year != null or month != null">
 					<choose>
+						<when test="year != null and month != null and day != null">
+						where
+							regdate like #{year}||'-'||#{month}||'-'||#{day}
+						</when>
 						<when test="year != null and month != null">
 						where
 							regdate like #{year}||'-'||#{month}||'%'
@@ -26,10 +30,11 @@
 			order by regdate desc) 
 				a
 			)
-		where rnum between #{start} and #{end}			
+		where rnum between #{start} and #{end} and nickname = #{nickname}
 	</select>	
-	<select id="list" resultType="expand">
-		select regdate, count(regdate) as count from expand 
+	<select id="list" resultType="expand" parameterType="String">
+		select regdate, count(regdate) as count from expand
+			where nickname = #{value}
 			group by regdate
 			order by regdate desc
 	</select>
@@ -43,6 +48,11 @@
 	<select id="expandView" parameterType="int" resultType="expand">
 		select * from expand where idx = #{value}
 	</select>
+	
+	<select id="expandMainList" parameterType="map" resultType="expand">
+		select * from expand where nickname = #{nickname} and regdate = #{regdate}
+	</select>
+	
 	<update id="expandMod" parameterType="expand">
 		update expand set comments = #{comments}, regdate = #{regdate}, big_ways = #{big_ways},
 						  small_ways = #{small_ways}, big_purpose = #{big_purpose}, 

@@ -1,6 +1,7 @@
 package khj.home.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -36,8 +37,10 @@ public class IncomeController {
 	public String incomeList(Model model,
 							@RequestParam(required=false) String year,
 							@RequestParam(required=false) String month,
-							@RequestParam(defaultValue="1") int page) {
-		
+							@RequestParam(required=false) String day,
+							@RequestParam(defaultValue="1") int page,
+							HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		if(month != null && month.length()<2 && Integer.parseInt(month) >0 && Integer.parseInt(month) < 10 ) {
 			month = "0"+month;
 		}
@@ -49,7 +52,7 @@ public class IncomeController {
 			searchParam = "&month="+month;
 		}
 		
-		model.addAttribute("incomeList",incomeService.incomeList(year, month, page));
+		model.addAttribute("incomeList",incomeService.incomeList(year, month, day, page,loginMember.getNickname()));
 		model.addAttribute("paging",paging.getPaging("/income",
 					page, incomeService.getIncomeCount(year, month, page),
 					IncomeServiceImpl.numberOfList,
@@ -65,6 +68,14 @@ public class IncomeController {
 		}
 		
 		return "/income/list.jsp";
+	}
+	
+	@RequestMapping(value="/income/selectIncome", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Income> selectIncome(@RequestParam String regdate, @RequestParam String nickname){
+		List<Income> selectIncome = incomeService.selectIncome(regdate, nickname);
+		
+		return selectIncome;
 	}
 	
 	@RequestMapping(value = "/income/add", method=RequestMethod.GET)

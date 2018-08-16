@@ -43,4 +43,12 @@ public class IncomeDao {
 		return session.selectOne("income.incomePriceSum",map);
 	}
 
+	public List<Income> incomeList(String nickname) {
+		return session.selectList("income.income",nickname);
+	}
+
+	public List<Income> selectIncome(Map<String, String> selectMap) {
+		return session.selectList("income.selectIncome",selectMap);
+	}
+
 }

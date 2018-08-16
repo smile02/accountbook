@@ -41,15 +41,15 @@ public class IncomeServiceImpl implements IncomeService {
 
 	@Override
 	public int getIncomeCount(String year, String month, int page) {
-		return incomeDao.getIncomeCount(getMap(year,month,page));
+		return incomeDao.getIncomeCount(getMap(year,month,"",page,""));
 	}
 
 	@Override
-	public List<Income> incomeList(String year, String month, int page) {
-		return incomeDao.incomeList(getMap(year,month,page));
+	public List<Income> incomeList(String year, String month,String day, int page,String nickname) {
+		return incomeDao.incomeList(getMap(year,month,day,page,nickname));
 	}
 	
-	private Map<String, Object> getMap(String year, String month, int page){
+	private Map<String, Object> getMap(String year, String month,String day, int page,String nickname){
 		Map<String, Object> returnMap = new HashMap<>();
 		
 		int start = (page -1)*numberOfList+1;
@@ -57,6 +57,8 @@ public class IncomeServiceImpl implements IncomeService {
 		
 		returnMap.put("year", year);
 		returnMap.put("month", month);
+		returnMap.put("day", day);
+		returnMap.put("nickname", nickname);
 		returnMap.put("start", start);
 		returnMap.put("end", end);
 		
@@ -65,7 +67,20 @@ public class IncomeServiceImpl implements IncomeService {
 
 	@Override
 	public int incomePriceSum(String year, String month, int page) {
-		return incomeDao.incomePriceSum(getMap(year,month,page));
+		return incomeDao.incomePriceSum(getMap(year,month,"",page,""));
+	}
+
+	@Override
+	public List<Income> incomeList(String nickname) {
+		return incomeDao.incomeList(nickname);
+	}
+
+	@Override
+	public List<Income> selectIncome(String regdate, String nickname) {
+		Map<String, String> selectMap = new HashMap<>();
+		selectMap.put("regdate", regdate);
+		selectMap.put("nickname", nickname);
+		return incomeDao.selectIncome(selectMap);
 	}
 
 }

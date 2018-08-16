@@ -6,7 +6,7 @@ import khj.home.vo.Income;
 
 public interface IncomeService {
 
-	List<Income> incomeList(String year, String month, int page);
+	List<Income> incomeList(String year, String month,String day, int page, String nickname);
 
 	void incomeAdd(Income income);
 
@@ -19,5 +19,9 @@ public interface IncomeService {
 	int getIncomeCount(String year, String month, int page);
 
 	int incomePriceSum(String year, String month, int page);
+
+	List<Income> incomeList(String nickname);
+
+	List<Income> selectIncome(String regdate, String nickname);
 
 }

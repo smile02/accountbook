@@ -40,11 +40,11 @@ public class ExpandServiceImpl implements ExpandService {
 	}
 
 	@Override
-	public List<Expand> expandList(String year, String month, int page) {
-		return expandDao.expandList(getSearchMap(year,month,page));
+	public List<Expand> expandList(String year, String month,String day, int page,String nickname) {
+		return expandDao.expandList(getSearchMap(year,month,day,page,nickname));
 	}
 	
-	private Map<String, Object> getSearchMap(String year,String month ,int page){
+	private Map<String, Object> getSearchMap(String year,String month,String day ,int page,String nickname){
 		
 		int start = (page -1)*numberOfList+1;
 		int end = start + numberOfList -1;
@@ -54,23 +54,33 @@ public class ExpandServiceImpl implements ExpandService {
 		searchMap.put("end", end);
 		searchMap.put("year", year);
 		searchMap.put("month", month);
+		searchMap.put("day", day);
+		searchMap.put("nickname", nickname);
 		
 		return searchMap;
 	}
 
 	@Override
 	public int getTotalCount(String year, String month, int page) {
-		return expandDao.getTotalCount(getSearchMap(year, month, page));
+		return expandDao.getTotalCount(getSearchMap(year, month,"", page,""));
 	}
 
 	@Override
 	public int expandPriceSum(String year, String month, int page) {
-		return expandDao.expandPriceSum(getSearchMap(year,month,page));
+		return expandDao.expandPriceSum(getSearchMap(year,month,"",page,""));
 	}
 
 	@Override
-	public List<Expand> expandList() {
-		return expandDao.expandList();
+	public List<Expand> expandList(String string) {
+		return expandDao.expandList(string);
+	}
+
+	@Override
+	public List<Expand> expandList(String nickname, String regdate) {
+		Map<String, String> oneMap = new HashMap<>();
+		oneMap.put("nickname", nickname);
+		oneMap.put("regdate", regdate);
+		return expandDao.expandMainList(oneMap);
 	}
 
 }

@@ -6,9 +6,9 @@ import khj.home.vo.Expand;
 
 public interface ExpandService {
 
-	List<Expand> expandList(String year, String month, int page);
+	List<Expand> expandList(String year, String month,String day, int page, String nickname);
 
-	List<Expand> expandList();
+	List<Expand> expandList(String string);
 	
 	void expandAdd(Expand expand);
 
@@ -21,5 +21,7 @@ public interface ExpandService {
 	int getTotalCount(String year, String month, int page);
 
 	int expandPriceSum(String year, String month, int page);
+
+	List<Expand> expandList(String nickname, String regdate);
 
 }

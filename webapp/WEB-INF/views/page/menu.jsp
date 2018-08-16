@@ -19,7 +19,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="/">가계부우~!!</a>
+      <a class="navbar-brand" href="/">우리둘이~!!</a>
     </div>        
     
     
@@ -35,6 +35,7 @@
          </li>
         <li><a href="/expand">지출목록</a></li>
         <li><a href="/income">수입목록</a></li>
+        <li><a href="/saving">적금관리</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
