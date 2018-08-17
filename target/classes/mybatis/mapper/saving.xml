@@ -6,4 +6,10 @@
 	<select id="savingList" resultType="saving">
 		select * from saving
 	</select>
+	<insert id="savingAdd" parameterType="saving">
+		insert into saving values
+			(seq_saving_idx.nextval,#{nickname}, #{regbank}, #{regname}
+			,#{startreg}, #{endreg},0,#{inputreg})
+	</insert>	
+	
 </mapper>

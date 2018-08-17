@@ -59,13 +59,7 @@
 						<div class="col-xs-6">
 							<input id="endreg" type="date" name="endreg" class="form-control"/>
 						</div>
-					</div>
-					<div class="form-group">						
-						<label for="price" class="control-label col-xs-3">금액</label>
-						<div class="col-xs-6">
-							<input id="price" type="number" name="price" class="form-control"/>
-						</div>
-					</div>
+					</div>					
 					<div class="button-group text-center">
 						<button class="btn btn-success">등록</button>
 						<button type="reset" class="btn btn-warning">취소</button>
@@ -75,7 +69,13 @@
 			</div>
 			<div class="col-xs-4">
 				<div id="savingbox" class="panel panel-default"
-		 	style="height:500px; padding-left:20px; overflow:auto;"></div>
+		 	style="height:500px; padding-left:20px; overflow:auto;">
+		 			<c:forEach var="saving" items="${savingList }">
+		 				${saving.regname }
+		 				${saving.regbank }
+		 				${saving.nickname }
+		 			</c:forEach>
+		 		</div>
 				</div>
 			<div class="col-xs-4">
 				<div id="listbox" class="panel panel-default"

@@ -7,6 +7,9 @@ public class Saving {
 	private String regbank;
 	private String regname;
 	private String startreg;
+	private String endreg;
+	private int price;
+	private String inputreg;
 	
 	public int getIdx() {
 		return idx;
@@ -38,12 +41,6 @@ public class Saving {
 	public void setStartreg(String startreg) {
 		this.startreg = startreg;
 	}
-	public String getEndReg() {
-		return endReg;
-	}
-	public void setEndReg(String endReg) {
-		this.endReg = endReg;
-	}
 	public int getPrice() {
 		return price;
 	}
@@ -56,8 +53,11 @@ public class Saving {
 	public void setInputreg(String inputreg) {
 		this.inputreg = inputreg;
 	}
-	private String endReg;
-	private int price;
-	private String inputreg;
+	public String getEndreg() {
+		return endreg;
+	}
+	public void setEndreg(String endreg) {
+		this.endreg = endreg;
+	}
 	
 }

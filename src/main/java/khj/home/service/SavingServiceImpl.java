@@ -19,4 +19,9 @@ public class SavingServiceImpl implements SavingService {
 		return savingDao.savingList();
 	}
 
+	@Override
+	public void savingAdd(Saving saving) {
+		savingDao.savingAdd(saving);		
+	}
+
 }

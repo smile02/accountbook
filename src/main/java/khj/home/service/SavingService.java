@@ -6,4 +6,6 @@ import khj.home.vo.Saving;
 
 public interface SavingService {
 	public List<Saving> savingList();
+
+	public void savingAdd(Saving saving);
 }

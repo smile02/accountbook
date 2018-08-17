@@ -18,4 +18,8 @@ public class SavingDao {
 		return session.selectList("saving.savingList");
 	}
 
+	public void savingAdd(Saving saving) {
+		session.insert("saving.savingAdd",saving);
+	}
+
 }
