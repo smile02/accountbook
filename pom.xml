@@ -21,7 +21,7 @@
   
   
   <build>
-  	<finalName>ROOT</finalName><!-- 나중에 war파일의 이름 -->
+  	<finalName>account</finalName><!-- 나중에 war파일의 이름 -->
   	<plugins>
   		<plugin>
   			<artifactId>maven-compiler-plugin</artifactId>
