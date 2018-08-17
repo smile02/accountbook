@@ -57,7 +57,7 @@ public class MemberController {
 		}
 		
 		memberService.memberSignup(member);
-		return "redirect:account/";
+		return "redirect:/account";
 	}
 	
 	@RequestMapping(value="/account/member/login", method=RequestMethod.GET)
@@ -91,7 +91,7 @@ public class MemberController {
 		Member loginMember = memberService.memberLogin(member);
 		request.getSession().setAttribute("loginMember", loginMember);
 		
-		return "redirect:account/";
+		return "redirect:/account";
 	}
 	
 	@RequestMapping(value="/account/member/dualcheck", method=RequestMethod.POST)
@@ -145,6 +145,6 @@ public class MemberController {
 			session.invalidate();
 		}
 		
-		return "redirect:account/";
+		return "redirect:/account";
 	}
 }
