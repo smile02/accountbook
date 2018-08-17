@@ -1,12 +1,19 @@
 package khj.home.vo;
 
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
+
 public class Saving {
 
 	private int idx;
 	private String nickname;
+	@Pattern(regexp="[가-힣]{4,10}",message="은행이름을 확인해주세요.")
 	private String regbank;
+	@Pattern(regexp="[가-힣]{2,16}",message="적금이름을 확인해주세요.")
 	private String regname;
+	@Null(message="가입날짜를 선택해주세요.")
 	private String startreg;
+	@Null(message="만기날짜를 선택해주세요.")
 	private String endreg;
 	private int price;
 	private String inputreg;
