@@ -22,7 +22,7 @@
 	<div class="container">	
 		<div class="col-sm-4 col-sm-offset-4">
 			<div id="login">
-				<form:form action="/member/login" modelAttribute="member" class="form-horizontal" type="post">
+				<form:form action="/account/member/login" modelAttribute="member" class="form-horizontal" type="post">
 					<h2 class="text-muted text-center">로 그 인</h2>
 					<div class="form-group">
 						<form:label path="nickname" class="control-label col-xs-4">닉네임 :</form:label>

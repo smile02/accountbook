@@ -24,7 +24,7 @@
 			<h2 class="text-muted text-center">지출 등록</h2><br />			
 				<div id="expandReg" class="row">				
 					<form:form id="form" class="form-horizontal" method="post"
-						action="/expand/add" modelAttribute="expand">
+						action="/account/expand/add" modelAttribute="expand">
 						<div class="form-group">
 						
 							<form:label path="nickname" class="control-label col-xs-3">작성자 :</form:label>
@@ -123,7 +123,7 @@
 			var big_name = $("#big_ways").val(); //select태그 안에 있는 선택되어진 option태그
 			console.log(big_name);
 			$.ajax({
-				url:"/ways/small",
+				url:"/account/ways/small",
 				type:"post",
 				data:{big_name:big_name},
 				success:function(smallWaysList){
@@ -141,7 +141,7 @@
 			var big_name = $("#big_purpose").val(); //select태그 안에 있는 선택되어진 option태그
 			console.log(big_name);
 			$.ajax({
-				url:"/purpose/small",
+				url:"/account/purpose/small",
 				type:"post",
 				data:{big_name:big_name},
 				success:function(smallPurposeList){

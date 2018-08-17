@@ -22,14 +22,14 @@ public class SavingController {
 	@Autowired
 	private SavingService savingService;
 	
-	@RequestMapping(value="/saving", method=RequestMethod.GET)
+	@RequestMapping(value="/account/saving", method=RequestMethod.GET)
 	public String saving(Model model) {
 		
 		model.addAttribute("savingList",savingService.savingList());
 		return "/saving/list.jsp";
 	}
 	
-	@RequestMapping(value="/saving/add", method=RequestMethod.POST)
+	@RequestMapping(value="/account/saving/add", method=RequestMethod.POST)
 	public String savingAdd(@ModelAttribute Saving saving,HttpSession session) {		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		Date today = new Date();
@@ -38,6 +38,6 @@ public class SavingController {
 		saving.setInputreg(date.format(today));
 		saving.setNickname(loginMember.getNickname());
 		savingService.savingAdd(saving);
-		return "redirect:/saving";
+		return "redirect:/account/saving";
 	}
 }

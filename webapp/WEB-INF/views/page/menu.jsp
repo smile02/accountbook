@@ -29,24 +29,24 @@
         <a id="aDrop" class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="dropClick();"
         aria-controls="collapseOne">가계부 등록<span class="caret"></span></a>
           <ul  class="dropdown-menu" role="menu">
-            <li role="presentation"><a role="menuitem" href="/expand/add">지출등록</a></li>
-            <li role="presentation"><a role="menuitem" href="/income/add">수입등록</a></li>
+            <li role="presentation"><a role="menuitem" href="/account/expand/add">지출등록</a></li>
+            <li role="presentation"><a role="menuitem" href="/account/income/add">수입등록</a></li>
           </ul>
          </li>
-        <li><a href="/expand">지출목록</a></li>
-        <li><a href="/income">수입목록</a></li>
-        <li><a href="/saving">적금관리</a></li>
+        <li><a href="/account/expand">지출목록</a></li>
+        <li><a href="/account/income">수입목록</a></li>
+        <li><a href="/account/saving">적금관리</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
    		  <c:if test="${sessionScope.loginMember == null }">
-	    	<li><a href="/member/login"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
-  				<li><a href="/member/signup"><span class="glyphicon glyphicon-user"></span>회원가입</a> </li>
+	    	<li><a href="/account/member/login"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
+  				<li><a href="/account/member/signup"><span class="glyphicon glyphicon-user"></span>회원가입</a> </li>
     		</c:if>
     		<c:if test="${sessionScope.loginMember != null }">
 	    		<li><span class="text-muted text-right">${sessionScope.loginMember.nickname}님 환영합니다.</span><li>
 				<li><a href="#">마이페이지</a></li>
-				<li><a href="/member/logout">로그아웃</a></li>
+				<li><a href="/account/member/logout">로그아웃</a></li>
     		</c:if>
       	</ul>
     </div>

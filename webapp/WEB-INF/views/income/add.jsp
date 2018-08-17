@@ -24,7 +24,7 @@
 			<h2 class="text-center text-muted">수입 등록</h2><br />
 				<div id="incomeReg" class="row">
 					<form:form id="form" class="form-horizontal"
-						action="/income/add" modelAttribute="income">
+						action="/account/income/add" modelAttribute="income">
 						<div class="form-group">
 						
 							<form:label path="nickname" class="control-label col-xs-3">작성자 :</form:label>

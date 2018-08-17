@@ -159,13 +159,13 @@
 		var year = $("#year").val();
 		var month = $("#month").val();
 			if(year == '' && month == ''){
-				location.href="/income";
+				location.href="/account/income";
 			}else if(year == ''){
-				location.href="/income?month="+month;
+				location.href="/account/income?month="+month;
 			}else if(month == ''){
-				location.href="/income?year="+year;
+				location.href="/account/income?year="+year;
 			}else{
-				location.href="/income?year="+year+"&month="+month;	
+				location.href="/account/income?year="+year+"&month="+month;	
 			}
 		}
 		function closeBtn(){
@@ -179,7 +179,7 @@
 				return;
 			}				
 			$.ajax({
-				url:"/income/del",
+				url:"/account/income/del",
 				type:"post",
 				data:{idx:idx},
 				success:function(data){
@@ -194,7 +194,7 @@
 		
 		function modView(idx){
 			$.ajax({
-				url:"/income/mod",
+				url:"/account/income/mod",
 				type:"get",
 				data:{idx:idx},
 				success:function(data){
@@ -216,7 +216,7 @@
 		
 		function incomeModBtn(){
 			$.ajax({
-				url:"/income/mod",
+				url:"/account/income/mod",
 				type:"post",
 				data:{idx:$("#idx").val(),
 					  comments:$("#comments").val(),
