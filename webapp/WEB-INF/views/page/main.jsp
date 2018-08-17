@@ -133,7 +133,7 @@
 		}
 		console.log(month);
 		$("#sendMonth").text(month);
-		location.href="account/?year="+year+"&month="+month;
+		location.href="/?year="+year+"&month="+month;
 		
 	});
 	
@@ -149,7 +149,7 @@
 		}
 		console.log(month);
 		$("#sendMonth").text(month);
-		location.href="account/?year="+year+"&month="+month;
+		location.href="/?year="+year+"&month="+month;
 		
 	});
 	
@@ -159,7 +159,7 @@
 		console.log(year);
 		year++;		
 		$("#sendYear").text(year);
-		location.href="account/?year="+year+"&month="+month;
+		location.href="/?year="+year+"&month="+month;
 		
 	});
 	
@@ -169,7 +169,7 @@
 		console.log(year);
 		year--;		
 		$("#sendYear").text(year);
-		location.href="account/?year="+year+"&month="+month;
+		location.href="/?year="+year+"&month="+month;
 		
 	});
 	
@@ -178,14 +178,14 @@
 			if(reg[1].length < 2){
 				reg[1] = "0"+reg[1];
 			}
-			location.href="/account/expand?year="+reg[0]+"&month="+reg[1]+"&day="+reg[2];
+			location.href="/expand?year="+reg[0]+"&month="+reg[1]+"&day="+reg[2];
 		}
 		
 		function incomeList(){
 			if(reg[1].length < 2){
 				reg[1] = "0"+reg[1];
 			}
-			location.href="/account/income?year="+reg[0]+"&month="+reg[1]+"&day="+reg[2];
+			location.href="/income?year="+reg[0]+"&month="+reg[1]+"&day="+reg[2];
 		}
 		
 		function expandBtn(btn){
@@ -202,7 +202,7 @@
 			console.log(regdate);
 			console.log(nickname);
 			$.ajax({
-				url:"/account/expand/selectExpand",
+				url:"/expand/selectExpand",
 				type:"post",
 				data:{nickname:nickname,
 					  regdate:regdate},
@@ -240,7 +240,7 @@
 			console.log(regdate);
 			console.log(nickname);
 			$.ajax({
-				url:"/account/income/selectIncome",
+				url:"/income/selectIncome",
 				type:"post",
 				data:{nickname:nickname,
 					  regdate:regdate},

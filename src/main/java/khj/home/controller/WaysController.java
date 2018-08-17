@@ -18,7 +18,7 @@ public class WaysController {
 	@Autowired
 	private SmallWaysService smallWaysService;
 	
-	@RequestMapping(value="/account/ways/small", method=RequestMethod.POST)
+	@RequestMapping(value="/ways/small", method=RequestMethod.POST)
 	@ResponseBody
 	public List<SmallWays> smallWays(@RequestParam String big_name) {
 		return smallWaysService.smallWaysList(big_name);

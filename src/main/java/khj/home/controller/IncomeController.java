@@ -33,7 +33,7 @@ public class IncomeController {
 	@Autowired
 	private Paging paging;
 	
-	@RequestMapping(value = "/account/income", method=RequestMethod.GET)
+	@RequestMapping(value = "/income", method=RequestMethod.GET)
 	public String incomeList(Model model,
 							@RequestParam(required=false) String year,
 							@RequestParam(required=false) String month,
@@ -70,7 +70,7 @@ public class IncomeController {
 		return "/income/list.jsp";
 	}
 	
-	@RequestMapping(value="/account/income/selectIncome", method=RequestMethod.POST)
+	@RequestMapping(value="/income/selectIncome", method=RequestMethod.POST)
 	@ResponseBody
 	public List<Income> selectIncome(@RequestParam String regdate, @RequestParam String nickname){
 		List<Income> selectIncome = incomeService.selectIncome(regdate, nickname);
@@ -78,13 +78,13 @@ public class IncomeController {
 		return selectIncome;
 	}
 	
-	@RequestMapping(value = "/account/income/add", method=RequestMethod.GET)
+	@RequestMapping(value = "/income/add", method=RequestMethod.GET)
 	public String incomeAdd(Model model) {
 		model.addAttribute("income",new Income());
 		return "/income/add.jsp";
 	}
 	
-	@RequestMapping(value = "/account/income/add", method=RequestMethod.POST)
+	@RequestMapping(value = "/income/add", method=RequestMethod.POST)
 	public String incomeAdd(@ModelAttribute @Valid Income income,BindingResult result
 			,Model model, HttpSession session) {
 		if(result.hasErrors()) {
@@ -99,7 +99,7 @@ public class IncomeController {
 		return "redirect:/income";
 	}
 	
-	@RequestMapping(value="/account/income/mod", method=RequestMethod.GET)
+	@RequestMapping(value="/income/mod", method=RequestMethod.GET)
 	@ResponseBody
 	public Income incomeView(@RequestParam int idx) {
 		Income incomeView = incomeService.incomeView(idx);
@@ -107,7 +107,7 @@ public class IncomeController {
 		return incomeView;		
 	}
 	
-	@RequestMapping(value="/account/income/mod", method=RequestMethod.POST)
+	@RequestMapping(value="/income/mod", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> incomeMod(@ModelAttribute @Valid Income income, BindingResult result){
 		Map<String, Object> incomeMap = new HashMap<>();
@@ -125,7 +125,7 @@ public class IncomeController {
 		return incomeMap;
 	}
 	
-	@RequestMapping(value="/account/income/del", method=RequestMethod.POST)
+	@RequestMapping(value="/income/del", method=RequestMethod.POST)
 	@ResponseBody
 	public String incomeDel(@RequestParam int idx) {
 		if(idx != 0 && idx >0) {

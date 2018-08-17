@@ -51,7 +51,7 @@ public class ExpandController {
 	@Autowired
 	private Paging paging;
 	
-	@RequestMapping(value="/account/expand", method=RequestMethod.GET)
+	@RequestMapping(value="/expand", method=RequestMethod.GET)
 	public String expandList(Model model,
 							@RequestParam(defaultValue="1") int page,
 							@RequestParam(required=false) String year,
@@ -92,7 +92,7 @@ public class ExpandController {
 		return "/expand/list.jsp";
 	}
 	
-	@RequestMapping(value = "/account/expand/selectExpand", method=RequestMethod.POST)
+	@RequestMapping(value = "/expand/selectExpand", method=RequestMethod.POST)
 	@ResponseBody
 	public List<Expand> selectExpand(@RequestParam String nickname,@RequestParam String regdate) {
 		List<Expand> expand = expandService.expandList(nickname, regdate);
@@ -100,7 +100,7 @@ public class ExpandController {
 		return expand;		
 	}
 	
-	@RequestMapping(value="/account/expand/add", method=RequestMethod.GET)
+	@RequestMapping(value="/expand/add", method=RequestMethod.GET)
 	public String expandAdd(Model model) {
 		model.addAttribute("expand",new Expand());
 		model.addAttribute("big_waysList",bigWaysList());
@@ -108,7 +108,7 @@ public class ExpandController {
 		return "/expand/add.jsp";
 	}
 	
-	@RequestMapping(value = "/account/expand/add", method=RequestMethod.POST)
+	@RequestMapping(value = "/expand/add", method=RequestMethod.POST)
 	public String expandAdd(@ModelAttribute @Valid Expand expand,BindingResult result
 				,Model model, HttpSession session) {
 		
@@ -122,7 +122,7 @@ public class ExpandController {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		expand.setNickname(loginMember.getNickname());
 		expandService.expandAdd(expand);
-		return "redirect:/account/expand";
+		return "redirect:/expand";
 	}
 	
 	private List<BigWays> bigWaysList() {
@@ -134,7 +134,7 @@ public class ExpandController {
 		return bigPurposeList;
 	}
 	
-	@RequestMapping(value = "/account/expand/mod", method=RequestMethod.GET)
+	@RequestMapping(value = "/expand/mod", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> expandView(@RequestParam int idx,Model model) {
 		
@@ -151,7 +151,7 @@ public class ExpandController {
 		return expandMap;
 	}
 	
-	@RequestMapping(value="/account/expand/mod", method=RequestMethod.POST)
+	@RequestMapping(value="/expand/mod", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> expandMod(@ModelAttribute @Valid Expand expand, BindingResult result){
 		Map<String, Object> expandMod = new HashMap<>();
@@ -172,7 +172,7 @@ public class ExpandController {
 		return expandMod;
 	}
 	
-	@RequestMapping(value="/account/expand/del", method=RequestMethod.POST)
+	@RequestMapping(value="/expand/del", method=RequestMethod.POST)
 	@ResponseBody
 	public String expandDel(@RequestParam int idx) {
 		if(idx <= 0 || idx != 0) {

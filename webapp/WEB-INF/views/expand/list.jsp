@@ -187,13 +187,13 @@
 		var year = $("#year").val();
 		var month = $("#month").val();
 		if(year == '' && month == ''){
-			location.href="/account/expand";
+			location.href="/expand";
 		}else if(year == ''){
-			location.href="/account/expand?month="+month;
+			location.href="/expand?month="+month;
 		}else if(month == ''){
-			location.href="/account/expand?year="+year;
+			location.href="/expand?year="+year;
 		}else{
-			location.href="/account/expand?year="+year+"&month="+month;	
+			location.href="/expand?year="+year+"&month="+month;	
 		}
 	}
 		function closeBtn(){
@@ -205,7 +205,7 @@
 				$("#price").val(0);
 			}
 			$.ajax({
-				url:"/account/expand/mod",
+				url:"/expand/mod",
 				type:"post",
 				data:{	  
 				  idx:$("#idx").val(),
@@ -254,7 +254,7 @@
 		}	
 		function modView(idx){
 			$.ajax({
-				url:"/account/expand/mod",
+				url:"/expand/mod",
 				type:"get",
 				data:{idx:idx},
 				success:function(data){
@@ -311,7 +311,7 @@
 				return;
 			}
 			$.ajax({
-				url:"/account/expand/del",
+				url:"/expand/del",
 				type:"post",
 				data:{idx:idx},
 				success:function(data){
@@ -326,7 +326,7 @@
 		function waysChange(){
 			var big_name = $("#big_ways").val(); //select태그 안에 있는 선택되어진 option태그			
 			$.ajax({
-				url:"/account/ways/small",
+				url:"/ways/small",
 				type:"post",
 				data:{big_name:big_name},
 				success:function(smallWaysList){
@@ -343,7 +343,7 @@
 		function purposeChange(){
 			var big_name = $("#big_purpose").val(); //select태그 안에 있는 선택되어진 option태그		
 			$.ajax({
-				url:"/account/purpose/small",
+				url:"/purpose/small",
 				type:"post",
 				data:{big_name:big_name},
 				success:function(smallPurposeList){

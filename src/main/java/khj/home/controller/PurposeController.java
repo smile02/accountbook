@@ -18,7 +18,7 @@ public class PurposeController {
 	@Autowired
 	private SmallPurposeService smallPurposeService;
 	
-	@RequestMapping(value="/account/purpose/small", method=RequestMethod.POST)
+	@RequestMapping(value="/purpose/small", method=RequestMethod.POST)
 	@ResponseBody
 	public List<SmallPurpose> smallPurpose(@RequestParam String big_name){
 		

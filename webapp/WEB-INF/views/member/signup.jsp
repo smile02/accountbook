@@ -22,7 +22,7 @@
 	<div class="container">			
 		<div class="col-sm-4 col-sm-offset-4">		
 			<div id="signUp">
-				<form:form action="/account/member/signup" modelAttribute="member" class="form-horizontal">
+				<form:form action="/member/signup" modelAttribute="member" class="form-horizontal">
 					<h2 class="text-muted text-center">회 원 가 입</h2>
 					
 					<div class="form-group">
@@ -106,7 +106,7 @@
 		}
 		function dualCheck(){
 			$.ajax({
-				url:"/account/member/dualcheck",
+				url:"/member/dualcheck",
 				type:"post",
 				data:{nickname:$("#nickname").val()},
 				success:function(data){
@@ -151,7 +151,7 @@
 			$("#emailAuth").attr("disabled","disabled");
 			$(".error").text("");
 			$.ajax({
-				url:"/account/member/emailcheck",
+				url:"/member/emailcheck",
 				type:"post",
 				data:{email:$("#email").val()},
 				success:function(data){

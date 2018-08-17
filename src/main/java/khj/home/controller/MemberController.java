@@ -26,13 +26,13 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	@RequestMapping(value="/account/member/signup", method=RequestMethod.GET)
+	@RequestMapping(value="/member/signup", method=RequestMethod.GET)
 	public String memberSignup(Model model) {
 		model.addAttribute("member",new Member());
 		return "/member/signup.jsp";
 	}
 	
-	@RequestMapping(value="/account/member/signup", method=RequestMethod.POST)
+	@RequestMapping(value="/member/signup", method=RequestMethod.POST)
 	public String memberSignup(@ModelAttribute @Valid Member member,BindingResult result,
 							Model model,HttpSession session) {
 		
@@ -60,13 +60,13 @@ public class MemberController {
 		return "redirect:/account";
 	}
 	
-	@RequestMapping(value="/account/member/login", method=RequestMethod.GET)
+	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public String memberLogin(Model model) {
 		model.addAttribute("member",new Member());
 		return "/member/login.jsp";
 	}
 	
-	@RequestMapping(value="/account/member/login", method=RequestMethod.POST)
+	@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public String memberLogin(@ModelAttribute Member member,BindingResult result,
 			HttpServletRequest request,Model model) {
 		
@@ -91,10 +91,10 @@ public class MemberController {
 		Member loginMember = memberService.memberLogin(member);
 		request.getSession().setAttribute("loginMember", loginMember);
 		
-		return "redirect:/account";
+		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/account/member/dualcheck", method=RequestMethod.POST)
+	@RequestMapping(value="/member/dualcheck", method=RequestMethod.POST)
 	@ResponseBody
 	public String memberDualcheck(@RequestParam  String nickname) {
 		String memberId = memberService.memberDualcheck(nickname);
@@ -104,7 +104,7 @@ public class MemberController {
 		return "y";
 	}
 	
-	@RequestMapping(value="/account/member/emailcheck", method=RequestMethod.POST)
+	@RequestMapping(value="/member/emailcheck", method=RequestMethod.POST)
 	@ResponseBody
 	public String memberEmailCheck(@RequestParam String email, HttpSession session) {
 		
@@ -137,7 +137,7 @@ public class MemberController {
 		return Pattern.compile("([A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z]{2,10})").matcher(email).matches();
 	}
 	
-	@RequestMapping(value="/account/member/logout", method=RequestMethod.GET)
+	@RequestMapping(value="/member/logout", method=RequestMethod.GET)
 	public String memberLogout(HttpSession session) {
 		Member member = (Member) session.getAttribute("loginMember");
 		if(member != null) {
@@ -145,6 +145,6 @@ public class MemberController {
 			session.invalidate();
 		}
 		
-		return "redirect:/account";
+		return "redirect:/";
 	}
 }

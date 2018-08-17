@@ -31,7 +31,7 @@ public class MainController {
 	@Autowired
 	private IncomeService incomeService;
 	
-	@RequestMapping(value = "/account", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mainPage(Model model,@RequestParam(defaultValue="0") int year,
 									   @RequestParam(defaultValue="0") int month,
 									   HttpSession session) {
