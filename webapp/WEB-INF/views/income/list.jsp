@@ -47,15 +47,19 @@
 			<span class="small text-muted">년,월로 검색이 가능하고, 둘 중 하나만 입력해도 됩니다.
 			아무것도 입력하지 않고 검색할 시 전체검색이 됩니다. </span>
 		</div>
-		<div class="row col-xs-12 col-xs-offset-6">
-				<span class="text-muted col-xs-1">전체합계</span>
-				<label class="col-xs-1 control-label">${priceAllSum}원</label>
-				
-				<span class="text-muted col-xs-1">년별합계</span>
-				<label class="col-xs-1 control-label">${priceYearSum}원</label>
-				
-				<span class="text-muted col-xs-1">월별합계</span>
-				<label class="col-xs-1 control-label">${priceMonthSum}원</label>
+		<div class="row" style="margin:0; padding:0;">
+				<div class="col-xs-4">
+					<span class="text-muted col-xs-3">전체</span>
+					<label class="col-xs-6 control-label"><f:formatNumber value="${priceAllSum}" pattern="#,###"/> 원</label>
+				</div>
+				<div class="col-xs-4">
+					<span class="text-muted col-xs-3">년별</span>
+						<label class="col-xs-6 control-label"><f:formatNumber value="${priceYearSum}" pattern="#,###"/> 원</label>
+				</div>
+				<div class="col-xs-4">
+					<span class="text-muted col-xs-3">월별</span>
+					<label class="col-xs-6 control-label"><f:formatNumber value="${priceMonthSum}" pattern="#,###"/> 원</label>
+				</div>
 			</div>
 		<br/>
 		<c:forEach var="income" items="${incomeList }">
@@ -64,7 +68,7 @@
 					<div class="panel-heading">수입내역 : ${income.comments }</div>
 					<div class="panel-body">수입한 사람 : ${income.nickname }</div>
 					<div class="panel-body">수입방법 : ${income.ways}</div>					
-					<div class="panel-body">금액 : ${income.price }</div>
+					<div class="panel-body">금액 : <f:formatNumber value="${income.price }" pattern="#,###"/> </div>
 					<div class="panel-body">메모 : <textarea rows="5" class="form-control" 
 					readonly="readonly" style="resize:none;">${income.memo }</textarea></div>
 					<div class="panel-footer">수입일 : ${income.regdate } <br />

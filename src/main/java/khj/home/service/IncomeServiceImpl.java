@@ -66,8 +66,8 @@ public class IncomeServiceImpl implements IncomeService {
 	}
 
 	@Override
-	public int incomePriceSum(String year, String month, int page) {
-		return incomeDao.incomePriceSum(getMap(year,month,"",page,""));
+	public int incomePriceSum(String year, String month, int page,String nickname) {
+		return incomeDao.incomePriceSum(getMap(year,month,"",page,nickname));
 	}
 
 	@Override

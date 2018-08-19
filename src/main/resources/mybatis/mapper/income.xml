@@ -85,19 +85,17 @@
 	</select>
 	
 	<select id="incomePriceSum" resultType="int" parameterType="map">
-		select nvl(sum(price),0) from income
+		select nvl(sum(price),0) from income where nickname = #{nickname}
 			<if test="year != null or month != null">
+					and
 					<choose>
 						<when test="year != null and month != null">
-						where
 							regdate like #{year}||'-'||#{month}||'%'
 						</when>
 						<when test="year != null">
-						where
 							regdate like #{year}||'%'
 						</when>
 						<when test="month != null">
-						where
 							regdate like '%-'||#{month}||'-%'
 						</when>
 					</choose>

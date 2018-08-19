@@ -214,7 +214,8 @@
 						var row = $("<div class='row'>");
 						var p = $("<p class='control-label'>");
 					 	var comments = $("<span id='ex_comments"+cnt+"' class='col-xs-5 control-label'>").text("제목:"+expand.comments);
-						var price = $("<span id='ex_price"+cnt+"' class='col-xs-3 control-label'>").text("가격:"+expand.price);
+					 	var com = comma(expand.price);
+					 	var price = $("<span id='ex_price"+cnt+"' class='col-xs-3 control-label'>").text("가격:"+com);
 						var purpose = $("<span id='ex_purpose"+cnt+"' class='col-xs-4 control-label'>").text("목적:"+expand.big_purpose+"-"+expand.small_purpose+"\n");
 						p.append(comments);
 						p.append(price);
@@ -225,6 +226,11 @@
 				}
 			});
 		}
+		//콤마찍기
+	    function comma(str) {
+	        str = String(str);
+	        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	    }
 		
 		function incomeBtn(btn){
 			var regId = btn.id;
@@ -253,7 +259,8 @@
 						var row = $("<div class='row'>");
 						var p = $("<p class='control-label'>");
 					 	var comments = $("<span id='in_comments"+cnt+"' class='col-xs-5 control-label'>").text("제목:"+income.comments);
-						var price = $("<span id='in_price"+cnt+"' class='col-xs-3 control-label'>").text("가격:"+income.price);
+					 	var com = comma(income.price);
+						var price = $("<span id='in_price"+cnt+"' class='col-xs-3 control-label'>").text("가격:"+com);
 						var ways = $("<span id='in_ways"+cnt+"' class='col-xs-4 control-label'>").text("방법:"+income.ways+"\n");
 						p.append(comments);
 						p.append(price);

@@ -20,7 +20,7 @@ public interface ExpandService {
 
 	int getTotalCount(String year, String month, int page);
 
-	int expandPriceSum(String year, String month, int page);
+	int expandPriceSum(String year, String month, int page, String nickname);
 
 	List<Expand> expandList(String nickname, String regdate);
 

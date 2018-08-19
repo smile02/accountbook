@@ -6,10 +6,25 @@
 	<select id="savingList" resultType="saving">
 		select * from saving
 	</select>
+	
 	<insert id="savingAdd" parameterType="saving">
 		insert into saving values
 			(seq_saving_idx.nextval,#{nickname}, #{regbank}, #{regname}
 			,#{startreg}, #{endreg},0,#{inputreg})
 	</insert>	
 	
+	<select id="savingPayList" parameterType="int" resultType="savingPay">
+		select * from savingpay where idx = #{idx}
+	</select>
+	
+	<insert id="savingPayAdd" parameterType="savingPay">
+		insert into savingpay values
+			(seq_savingpay_num.nextval, #{idx}, #{nickname}, #{regdate},
+				#{paybank}, #{payname}, #{price})
+	</insert>
+	
+	<update id="savingSumUpdate" parameterType="map">
+		update saving set price = price + #{price}
+			where idx = #{idx}
+	</update>
 </mapper>

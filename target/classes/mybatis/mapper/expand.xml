@@ -82,22 +82,20 @@
 				</if>
 	</select>
 	<select id="expandPriceSum" parameterType="map" resultType="int">
-		select nvl(sum(price),0) from expand
+		select nvl(sum(price),0) from expand where nickname = #{nickname}
 			<if test="year != null or month != null">
+					and
 					<choose>
 						<when test="year != null and month != null">
-						where
 							regdate like #{year}||'-'||#{month}||'%'
 						</when>
 						<when test="year != null">
-						where
 							regdate like #{year}||'%'
 						</when>
-						<when test="month != null">
-						where
+						<when test="month != null">where
 							regdate like '%-'||#{month}||'-%'
 						</when>
 					</choose>
-				</if>
+			</if>
 	</select>
 </mapper>

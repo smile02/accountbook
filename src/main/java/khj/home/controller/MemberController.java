@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import khj.home.service.MemberService;
+import khj.home.util.SHA256Encryptor;
 import khj.home.vo.Member;
 
 @Controller
@@ -35,7 +36,7 @@ public class MemberController {
 	@RequestMapping(value="/member/signup", method=RequestMethod.POST)
 	public String memberSignup(@ModelAttribute @Valid Member member,BindingResult result,
 							Model model,HttpSession session) {
-		
+		System.out.println("회원가입 비번 :"+member.getPassword());
 		if(!member.getEmail().equals(
 				(String)session.getAttribute("email"))) {
 			FieldError error = 
@@ -55,9 +56,10 @@ public class MemberController {
 			model.addAttribute("member",member);
 			return "/member/signup.jsp";
 		}
-		
+		String password = SHA256Encryptor.shaEncrypt(member.getPassword());
+		member.setPassword(password);
 		memberService.memberSignup(member);
-		return "redirect:/account";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
@@ -69,13 +71,16 @@ public class MemberController {
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public String memberLogin(@ModelAttribute Member member,BindingResult result,
 			HttpServletRequest request,Model model) {
-		
+		System.out.println("로그인 비번 :"+member.getPassword());
 		if(memberService.memberDualcheck(member.getNickname()) == null) {
 			FieldError error = 
 					new FieldError("NicknameInputError", "nickname", "존재하지 않는 아이디입니다.");
 			//적어주는이름, 변수명(세션에 넣은 변수명), 에러메세지 내용
 			result.addError(error);
 		}
+
+		String password = SHA256Encryptor.shaEncrypt(member.getPassword());
+		member.setPassword(password);
 		
 		if(memberService.memberDualcheck(member.getNickname()) != null
 				&& memberService.memberPasswordCheck(member.getNickname(),member.getPassword()) == null) {
@@ -88,6 +93,7 @@ public class MemberController {
 			model.addAttribute("member",member);
 			return "/member/login.jsp";
 		}
+		
 		Member loginMember = memberService.memberLogin(member);
 		request.getSession().setAttribute("loginMember", loginMember);
 		

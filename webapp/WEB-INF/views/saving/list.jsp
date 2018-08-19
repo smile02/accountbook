@@ -87,11 +87,11 @@
 		 				<div class="row">
 		 					<div class="col-xs-12">
 			 					<div class="list-group">
-								    <a href="#" class="list-group-item" onclick="selectList();">
-								    <input type="hidden" id="num" value="${saving.idx }" />
-								    	<span id="bank">은행 : ${saving.regbank }</span>&nbsp;&nbsp;&nbsp;<span id="name">적금이름:${saving.regname }</span>
+								    <a href="#" class="list-group-item" onclick="selectList(${saving.idx});">
+								    <input type="hidden" id="num_${saving.idx }" value="${saving.idx }" />
+								    	<span id="bank_${saving.idx }">은행 : ${saving.regbank }</span>&nbsp;&nbsp;&nbsp;<span id="name_${saving.idx }">적금이름:${saving.regname }</span>
 			 						<br /><span id="start">가입날짜 : ${saving.startreg }</span> / <span id="end">만기날짜 : ${saving.endreg }</span>
-			 						<br /><span id="sum">누적금액 : ${saving.price }</span>
+			 						<br /><span id="sum">누적금액 : <f:formatNumber value="${saving.price }" pattern="#,###"/></span>
 								    </a>
 								</div>
 		 					</div>
@@ -99,9 +99,40 @@
 		 			</c:forEach>
 		 		</div>
 				</div>
-			<div class="col-xs-4">
-				<div id="listbox" class="panel panel-default"
-		 	style="height:500px; padding-left:20px; overflow:auto;"></div>
+				<div class="col-xs-4">
+					<div id="listbox" class="panel panel-default"
+			 	style="height:500px; padding-left:20px; overflow:auto;">
+			 		<form id="form" action="/savingpay/add" class="form-horizontal" method="post"
+			 			style="display:none;">
+			 				<input id="payIdx" type="hidden" name="idx" />
+			 				<input id="payBank" type="hidden" name="paybank" />
+			 				<input id="payName" type="hidden" name="payname" />
+			 				<div class="form-group">
+			 				<div class="row">
+			 					<div class="col-xs-3">
+			 						<span class="text-center">은행이름</span>
+			 					</div>
+			 					<div class="col-xs-4">
+			 						<span class="text-center">적금이름</span>
+			 					</div>
+			 					<div class="col-xs-5">
+			 						<span class="text-center">금액</span>
+			 					</div>
+			 				</div>
+			 					<span class="col-xs-3" id="spanbank"></span>
+			 					<span class="col-xs-4" id="spanname"></span>
+			 					<div class="col-xs-5">
+			 						<input type="number" name="price" class="form-control"/>
+			 					</div>
+			 				</div>
+			 				<div class="button-group text-right">
+			 					<button class="btn btn-info">등록</button>
+			 				</div>
+			 			</form>
+			 		<div id="savingList" class="list-group">
+			 			
+			 		</div>
+			 	</div>
 			</div>
 		</div>
 	</div>
@@ -110,17 +141,46 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
-		function selectList(){
-			var idx = $("#num").val();
+	var spanbank = "";
+	var spanname = "";	
+		function selectList(idx){
+			var idx = $("#num_"+idx).val();
+			var bankidx = $("#bank_"+idx).text().indexOf(":");
+			var nameidx = $("#name_"+idx).text().indexOf(":");
+			spanbank = $("#bank_"+idx).text().substring(bankidx+1,$("#bank_"+idx).text().length);
+			spanname = $("#name_"+idx).text().substring(nameidx+1,$("#name_"+idx).text().length);
+			$("#payIdx").val(idx);
+			$("#payBank").val(spanbank);
+			$("#payName").val(spanname);
 			$.ajax({
 				url:"/saving/selectList",
 				type:"post",
 				data:{idx:idx},
 				success:function(data){
-					console.log(data);
+					$("#savingList").empty();
+					$("#form").css("display","block");
+					$("#spanbank").text(spanbank);
+					$("#spanname").text(spanname);
+					for(var saving of data){
+						var $row = $("<div class='row list-group-item'>");
+						var $p1 = $("<p class='control-label'>");
+						var $p2 = $("<p class='control-label'>");
+						var price=comma(saving.price);
+						$p1.text("적금이름 : "+saving.payname+" 날짜 : "+saving.regdate);
+						$p2.text(" 금액 : "+price);
+						$row.append($p1);
+						$row.append($p2);
+						var $savingList = $("#savingList").append($row);	
+					}
+					$("#listbox").append($savingList);
 				}
 			});
 		}
+		    //콤마찍기
+		    function comma(str) {
+		        str = String(str);
+		        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		    }
 	</script>
 </body>
 </html>

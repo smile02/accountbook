@@ -53,15 +53,15 @@
 			<div class="row" style="margin:0; padding:0;">
 				<div class="col-xs-4">
 					<span class="text-muted col-xs-3">전체</span>
-					<label class="col-xs-6 control-label">${priceAllSum} 원</label>
+					<label class="col-xs-6 control-label"><f:formatNumber value="${priceAllSum}" pattern="#,###"/> 원</label>
 				</div>
 				<div class="col-xs-4">
 					<span class="text-muted col-xs-3">년별</span>
-						<label class="col-xs-6 control-label">${priceYearSum} 원</label>
+						<label class="col-xs-6 control-label"><f:formatNumber value="${priceYearSum}" pattern="#,###"/> 원</label>
 				</div>
 				<div class="col-xs-4">
 					<span class="text-muted col-xs-3">월별</span>
-					<label class="col-xs-6 control-label">${priceMonthSum} 원</label>
+					<label class="col-xs-6 control-label"><f:formatNumber value="${priceMonthSum}" pattern="#,###"/> 원</label>
 				</div>
 			</div>
 		<br/>
@@ -72,7 +72,7 @@
 					<div class="panel-body">지출한 사람 : ${expand.nickname }</div>
 					<div class="panel-body">지출방법 : ${expand.big_ways}-${expand.small_ways}</div>
 					<div class="panel-body">지출목적 : ${expand.big_purpose}-${expand.small_purpose}</div>					
-					<div class="panel-body">금액 : ${expand.price }</div>
+					<div class="panel-body">금액 : <f:formatNumber value="${expand.price }" pattern="#,###"/></div>
 					
 					<div class="panel-body">메모 : <textarea rows="5" class="form-control" 
 					readonly="readonly" style="resize:none;">${expand.memo }</textarea></div>

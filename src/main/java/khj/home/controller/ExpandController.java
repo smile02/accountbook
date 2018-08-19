@@ -81,12 +81,13 @@ public class ExpandController {
 				ExpandServiceImpl.numberOfList,
 				ExpandServiceImpl.numberOfPage,
 				searchParam));
+		//합계에서 닉네임을 보내야 함.
 		if(year == null && month == null) {
-			model.addAttribute("priceAllSum",expandService.expandPriceSum(year,month,page));
+			model.addAttribute("priceAllSum",expandService.expandPriceSum(year,month,page,loginMember.getNickname()));
 		}else if(month == null) {
-			model.addAttribute("priceYearSum",expandService.expandPriceSum(year,month,page));
+			model.addAttribute("priceYearSum",expandService.expandPriceSum(year,month,page,loginMember.getNickname()));
 		}else {
-			model.addAttribute("priceMonthSum",expandService.expandPriceSum(year,month,page));
+			model.addAttribute("priceMonthSum",expandService.expandPriceSum(year,month,page,loginMember.getNickname()));
 		}
 		
 		return "/expand/list.jsp";

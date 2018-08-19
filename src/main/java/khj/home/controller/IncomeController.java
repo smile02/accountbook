@@ -60,11 +60,11 @@ public class IncomeController {
 					searchParam));
 		
 		if(year == null && month == null) {
-			model.addAttribute("priceAllSum",incomeService.incomePriceSum(year,month,page));
+			model.addAttribute("priceAllSum",incomeService.incomePriceSum(year,month,page,loginMember.getNickname()));
 		}else if(month == null) {
-			model.addAttribute("priceYearSum",incomeService.incomePriceSum(year,month,page));
+			model.addAttribute("priceYearSum",incomeService.incomePriceSum(year,month,page,loginMember.getNickname()));
 		}else {
-			model.addAttribute("priceMonthSum",incomeService.incomePriceSum(year,month,page));
+			model.addAttribute("priceMonthSum",incomeService.incomePriceSum(year,month,page,loginMember.getNickname()));
 		}
 		
 		return "/income/list.jsp";

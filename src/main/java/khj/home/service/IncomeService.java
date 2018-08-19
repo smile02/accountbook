@@ -18,7 +18,7 @@ public interface IncomeService {
 
 	int getIncomeCount(String year, String month, int page);
 
-	int incomePriceSum(String year, String month, int page);
+	int incomePriceSum(String year, String month, int page, String nickname);
 
 	List<Income> incomeList(String nickname);
 

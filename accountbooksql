@@ -1,0 +1,8 @@
+select * from savingpay;
+desc savingpay;
+
+select * from members;
+
+delete from members where nickname = '우리둘이';
+
+commit;
