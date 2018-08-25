@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="saving">
 	<select id="savingList" resultType="saving">
-		select * from saving
+		select * from saving order by inputreg desc
 	</select>
 	
 	<insert id="savingAdd" parameterType="saving">
@@ -14,7 +14,7 @@
 	</insert>	
 	
 	<select id="savingPayList" parameterType="int" resultType="savingPay">
-		select * from savingpay where idx = #{idx}
+		select * from savingpay where idx = #{idx} order by regdate desc
 	</select>
 	
 	<insert id="savingPayAdd" parameterType="savingPay">

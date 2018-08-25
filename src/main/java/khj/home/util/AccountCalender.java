@@ -1,5 +1,6 @@
 package khj.home.util;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,7 +105,16 @@ public class AccountCalender {
 		total_sum = ((nYear - base_year) * 365) + count_leap((base_year - nYear));
 	}
 
+	//로그인을 했을 때의 달력
 	public String result(int nYear, int mth, List<Expand> expand, List<Income> income) {
+		boolean todayCheck = false;
+		Calendar cal = Calendar.getInstance( );
+		int compareYear = cal.get(Calendar.YEAR);
+		int compareMonth = cal.get(Calendar.MONTH)+1;
+		int compareDate = cal.get(Calendar.DATE);
+		
+		
+		
 		sb.setLength(0);
 		int i, j; // 카운트를 위한 변수입니다.
 		int month;
@@ -167,8 +177,6 @@ public class AccountCalender {
 					ex_reg = ex_reg.replace("-0", "-");
 					e.setRegdate(ex_reg);
 
-					System.out.println("e.getRegDate() : "+e.getRegdate());
-					System.out.println(" :"+nYear+"-"+month+"-"+j);
 					if(e.getRegdate().equals(nYear+"-"+month+"-"+j)) {
 						ex_regdate.put("regdate", e.getRegdate());
 						exRegMap.put(ex_regdate, e.getCount());
@@ -179,16 +187,14 @@ public class AccountCalender {
 					String in_reg = in.getRegdate();
 					in_reg = in_reg.replace("-0", "-");
 					in.setRegdate(in_reg);
-
-					System.out.println("in.getRegDate() : "+in.getRegdate());
-					System.out.println(" :"+nYear+"-"+month+"-"+j);
+					
 					if(in.getRegdate().equals(nYear+"-"+month+"-"+j)) {
 						in_regdate.put("regdate", in.getRegdate());
 						inRegMap.put(in_regdate, in.getCount());
 					}
 				}
 				
-				
+				//지출, 수입에 있는 날짜와 달력에서 불러온 날짜가 같은경우
 				if((nYear+"-"+month+"-"+j).equals(ex_regdate.get("regdate")) && (nYear+"-"+month+"-"+j).equals(in_regdate.get("regdate"))) {
 					
 					sb.append("<td style='width:100px;' class='text-center'>"+j
@@ -197,18 +203,21 @@ public class AccountCalender {
 							+exRegMap.get(ex_regdate)
 							+"개 </button><br/>"
 							+"<button id="+in_regdate.get("regdate")+" type='button' class='btn btn-primary btn-xs' style='width:60px;' onclick='incomeBtn(this);' data-toggle='modal' data-target='#incomeModal' data-backdrop='false'>수입 : "+inRegMap.get(in_regdate)+"개 </button></td>");
+				//지출만 같은경우
 				}else if((nYear+"-"+month+"-"+j).equals(ex_regdate.get("regdate"))){
 					sb.append("<td style='width:100px;' class='text-center'>"+j
 							+"<br/><button id='"+ex_regdate.get("regdate")
 							+"' type='button' class='btn btn-danger btn-xs' style='width:60px;' onclick='expandBtn(this);' data-toggle='modal' data-target='#expandModal' data-backdrop='false'>지출 : "
 							+exRegMap.get(ex_regdate)
 							+"개 </button>");
+				//수입만 같은경우
 				}else if((nYear+"-"+month+"-"+j).equals(in_regdate.get("regdate"))) {
 					sb.append("<td style='width:100px;' class='text-center'>"+j
 							+"<br/><button id='"+in_regdate.get("regdate")
 							+"' type='button' class='btn btn-primary btn-xs' style='width:60px;' onclick='incomeBtn(this);' data-toggle='modal' data-target='#incomeModal' data-backdrop='false'>수입 : "
 							+inRegMap.get(in_regdate)
 							+"개 </button>");
+				//둘 다 아닌경우
 				}else {
 					sb.append("<td style='width:100px;' class='text-center'>"+j+"</td>");
 				}
