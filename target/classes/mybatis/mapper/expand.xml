@@ -27,7 +27,7 @@
 						</when>
 					</choose>
 				</if>
-			order by regdate desc) 
+			order by orderdate desc) 
 				a
 			)
 		where rnum between #{start} and #{end} and nickname = #{nickname}
@@ -35,15 +35,15 @@
 	<select id="list" resultType="expand" parameterType="String">
 		select regdate, count(regdate) as count from expand
 			where nickname = #{value}
-			group by regdate
-			order by regdate desc
+			group by regdate,orderdate
+			order by orderdate desc
 	</select>
 	<insert id="expandAdd" parameterType="expand">
 		insert into expand values
 			(seq_expand_idx.nextval,#{nickname},#{regdate},
 			#{comments},#{big_ways},#{small_ways},
 			#{big_purpose},#{small_purpose},
-			#{memo},#{price})
+			#{memo},#{price}, sysdate)
 	</insert>
 	<select id="expandView" parameterType="int" resultType="expand">
 		select * from expand where idx = #{value}

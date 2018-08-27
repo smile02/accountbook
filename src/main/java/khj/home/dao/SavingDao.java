@@ -16,16 +16,16 @@ public class SavingDao {
 	@Autowired
 	private SqlSession session;
 	
-	public List<Saving> savingList() {
-		return session.selectList("saving.savingList");
+	public List<Saving> savingList(String nickname) {
+		return session.selectList("saving.savingList", nickname);
 	}
 
 	public void savingAdd(Saving saving) {
 		session.insert("saving.savingAdd",saving);
 	}
 
-	public List<SavingPay> savingPayList(int idx) {
-		return session.selectList("saving.savingPayList",idx);
+	public List<SavingPay> savingPayList(Map<String, Object> savingMap) {
+		return session.selectList("saving.savingPayList",savingMap);
 	}
 
 	public void savingPayAdd(SavingPay savingPay) {
@@ -34,6 +34,26 @@ public class SavingDao {
 
 	public void savingSumUpdate(Map<String,Object> sumMap) {
 		session.update("saving.savingSumUpdate",sumMap);
+	}
+
+	public void savingMod(Saving saving) {
+		session.update("saving.savingMod",saving);
+	}
+
+	public void savingDel(int idx) {
+		session.delete("saving.savingDel",idx);
+	}
+
+	public SavingPay savingPaySelectOne(int num) {
+		return session.selectOne("saving.savingPaySelectOne",num);
+	}
+
+	public void savingPayMod(Map<String, Object> payMod) {
+		session.update("saving.savingPayMod",payMod);
+	}
+
+	public void savingPayDel(int num) {
+		session.delete("saving.savingPayDel",num);
 	}
 
 }

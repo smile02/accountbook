@@ -1,7 +1,5 @@
 package khj.home.vo;
 
-import org.hibernate.validator.constraints.Range;
-
 public class SavingPay {
 	
 	private int num;
@@ -10,8 +8,8 @@ public class SavingPay {
 	private String regdate;
 	private String paybank;
 	private String payname;
-	@Range(min=1, max=999999999, message="금액을 확인해주세요.")
 	private int price;
+	private String orderdate;
 	
 	public int getNum() {
 		return num;
@@ -54,5 +52,11 @@ public class SavingPay {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public String getOrderdate() {
+		return orderdate;
+	}
+	public void setOrderdate(String orderdate) {
+		this.orderdate = orderdate;
 	}
 }

@@ -3,28 +3,50 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="saving">
-	<select id="savingList" resultType="saving">
-		select * from saving order by inputreg desc
+	<select id="savingList" resultType="saving" parameterType="String">
+		select * from saving where nickname = #{value} order by orderdate desc
 	</select>
 	
 	<insert id="savingAdd" parameterType="saving">
 		insert into saving values
 			(seq_saving_idx.nextval,#{nickname}, #{regbank}, #{regname}
-			,#{startreg}, #{endreg},0,#{inputreg})
+			,#{startreg}, #{endreg},0,#{inputreg},sysdate)
 	</insert>	
 	
-	<select id="savingPayList" parameterType="int" resultType="savingPay">
-		select * from savingpay where idx = #{idx} order by regdate desc
+	<select id="savingPayList" parameterType="map" resultType="savingPay">
+		select * from savingpay where idx = #{idx} and nickname = #{nickname} order by orderdate desc
 	</select>
 	
 	<insert id="savingPayAdd" parameterType="savingPay">
 		insert into savingpay values
 			(seq_savingpay_num.nextval, #{idx}, #{nickname}, #{regdate},
-				#{paybank}, #{payname}, #{price})
+				#{paybank}, #{payname}, #{price},sysdate)
 	</insert>
 	
 	<update id="savingSumUpdate" parameterType="map">
 		update saving set price = price + #{price}
 			where idx = #{idx}
 	</update>
+	
+	<update id="savingMod" parameterType="saving">
+		update saving set regbank = #{regbank}, regname = #{regname}, startreg = #{startreg}, endreg=#{endreg}
+			where idx = #{idx}
+	</update>
+	
+	<delete id="savingDel" parameterType="int">
+		delete from saving where idx = #{value}
+	</delete>
+	
+	<select id="savingPaySelectOne" parameterType="int" resultType="savingPay">
+		select * from savingpay where num = #{value}
+	</select>
+	
+	<update id="savingPayMod" parameterType="map">
+		update savingpay set price = #{price}
+			where num = #{num}
+	</update>
+	
+	<delete id="savingPayDel" parameterType="int">
+		delete from savingpay where num = #{value}
+	</delete>
 </mapper>

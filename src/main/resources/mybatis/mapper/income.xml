@@ -27,7 +27,7 @@
 						</when>
 					</choose>
 				</if> 
-				order by regdate desc)
+				order by orderdate desc)
 			a)
 			where rnum between #{start} and #{end} and nickname = #{nickname}
 	</select>	
@@ -35,8 +35,8 @@
 	<select id="income" parameterType="String" resultType="income">
 		select regdate, count(regdate) as count from income
 			where nickname = #{value}
-			group by regdate
-			order by regdate desc
+			group by regdate,orderdate
+			order by orderdate desc
 	</select>
 	
 	<select id="selectIncome" parameterType="map" resultType="income">
@@ -48,7 +48,7 @@
 		insert into income values
 			(seq_income_idx.nextval,#{nickname},#{regdate},
 			#{comments},#{ways},
-			#{memo},#{price})
+			#{memo},#{price},sysdate)
 	</insert>
 	<select id="incomeView" parameterType="int" resultType="income">
 		select * from income where idx = #{value}

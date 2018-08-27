@@ -18,8 +18,8 @@ public class SavingServiceImpl implements SavingService {
 	private SavingDao savingDao;
 	
 	@Override
-	public List<Saving> savingList() {
-		return savingDao.savingList();
+	public List<Saving> savingList(String nickname) {
+		return savingDao.savingList(nickname);
 	}
 
 	@Override
@@ -28,8 +28,11 @@ public class SavingServiceImpl implements SavingService {
 	}
 
 	@Override
-	public List<SavingPay> savingPayList(int idx) {
-		return savingDao.savingPayList(idx);
+	public List<SavingPay> savingPayList(int idx, String nickname) {
+		Map<String, Object> savingMap = new HashMap<>();
+		savingMap.put("idx", idx);
+		savingMap.put("nickname", nickname);
+		return savingDao.savingPayList(savingMap);
 	}
 
 	@Override
@@ -43,6 +46,34 @@ public class SavingServiceImpl implements SavingService {
 		sumMap.put("price", price);
 		sumMap.put("idx", idx);
 		savingDao.savingSumUpdate(sumMap);
+	}
+
+	@Override
+	public void savingMod(Saving saving) {
+		savingDao.savingMod(saving);
+	}
+
+	@Override
+	public void savingDel(int idx) {
+		savingDao.savingDel(idx);
+	}
+
+	@Override
+	public SavingPay savingPaySelectOne(int num) {
+		return savingDao.savingPaySelectOne(num);
+	}
+
+	@Override
+	public void savingPayMod(int num, int price) {
+		Map<String, Object> payMod = new HashMap<>();
+		payMod.put("num", num);
+		payMod.put("price", price);
+		savingDao.savingPayMod(payMod);
+	}
+
+	@Override
+	public void savingPayDel(int num) {
+		savingDao.savingPayDel(num);
 	}
 
 }

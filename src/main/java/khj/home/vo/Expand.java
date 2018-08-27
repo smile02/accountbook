@@ -26,6 +26,7 @@ public class Expand {
 	@Range(min=1, max=999999999, message="가격-> 확인해주세요.")
 	private int price;
 	private int count;
+	private String orderdate;
 	
 	
 	public int getIdx() {
@@ -93,6 +94,12 @@ public class Expand {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public String getOrderdate() {
+		return orderdate;
+	}
+	public void setOrderdate(String orderdate) {
+		this.orderdate = orderdate;
 	}
 	
 	

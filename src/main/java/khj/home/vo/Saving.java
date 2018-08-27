@@ -1,6 +1,5 @@
 package khj.home.vo;
 
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 
 public class Saving {
@@ -11,12 +10,13 @@ public class Saving {
 	private String regbank;
 	@Pattern(regexp="[가-힣]{2,16}",message="적금이름을 확인해주세요.")
 	private String regname;
-	@Null(message="가입날짜를 선택해주세요.")
+	@Pattern(regexp="\\d{4}-\\d{2}-\\d{2}", message="가입날짜를 선택해주세요.")
 	private String startreg;
-	@Null(message="만기날짜를 선택해주세요.")
+	@Pattern(regexp="\\d{4}-\\d{2}-\\d{2}", message="만기날짜를 선택해주세요.")
 	private String endreg;
 	private int price;
 	private String inputreg;
+	private String orderdate;
 	
 	public int getIdx() {
 		return idx;
@@ -65,6 +65,12 @@ public class Saving {
 	}
 	public void setEndreg(String endreg) {
 		this.endreg = endreg;
+	}
+	public String getOrderdate() {
+		return orderdate;
+	}
+	public void setOrderdate(String orderdate) {
+		this.orderdate = orderdate;
 	}
 	
 }

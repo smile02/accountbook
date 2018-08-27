@@ -109,10 +109,10 @@ public class AccountCalender {
 	public String result(int nYear, int mth, List<Expand> expand, List<Income> income) {
 		boolean todayCheck = false;
 		Calendar cal = Calendar.getInstance( );
-		int compareYear = cal.get(Calendar.YEAR);
-		int compareMonth = cal.get(Calendar.MONTH)+1;
 		int compareDate = cal.get(Calendar.DATE);
-		
+		String background = "";
+		String red = "color:red;"; //th태그
+		String blue = "color:blue;"; //th태그
 		
 		
 		sb.setLength(0);
@@ -155,7 +155,7 @@ public class AccountCalender {
 			
 			//System.out.println(+month + " 월의 달력");
 			sb.append("<thead>");
-			sb.append("<tr> <th class='text-center'>일</th> <th class='text-center'>월</th> <th class='text-center'>화</th> <th class='text-center'>수</th> <th class='text-center'>목</th> <th class='text-center'>금</th> <th class='text-center'>토</th> </tr>");
+			sb.append("<tr> <th class='text-center' style='"+red+"'>일</th> <th class='text-center'>월</th> <th class='text-center'>화</th> <th class='text-center'>수</th> <th class='text-center'>목</th> <th class='text-center'>금</th> <th class='text-center' style='"+blue+"'>토</th> </tr>");
 			//System.out.println("일 월     화     수     목     금     토");
 			sb.append("</thead>");
 			sb.append("<tbody><tr style='height:70px;'>");
@@ -169,8 +169,38 @@ public class AccountCalender {
 			Map<String, Object> in_regdate = new HashMap<>();
 			
 			for (j = 1; j <= month_table[month - 1]; j++)
-			// month변수에서 1을 빼준이유는 배열은 0부터 시작하기때문입니다.
+			// month변수에서 1을 빼준이유는 배열은 0부터 시작하기때문입니다.		
 			{
+				String color = ""; //td태그
+				switch(day) {
+					case 0: if(j == 1 || j == 8 || j == 15 || j == 22 || j == 29) { color = "color:red;";}
+							if(j == 7 || j == 14 || j == 21|| j ==28) {color = "color:blue;";}
+							break;
+					case 1: if(j == 6 || j == 13 || j ==20 || j == 27) { color="color:blue;";}
+							if(j == 7 || j == 14 || j == 21 || j == 28) { color="color:red;";}
+							break;
+					case 2: if(j == 5 || j == 12 || j == 19 || j == 26) { color="color:blue;"; }
+							if(j == 6 || j == 13 || j == 20 || j == 27) {color="color:red;";}
+							break;
+					case 3: if(j == 4 || j == 11 || j == 18 || j == 25) { color="color:blue;";}
+							if(j == 5 || j == 12 || j == 19 || j == 26) { color="color:red;";}
+							break;
+					case 4: if(j == 3 || j == 10 || j == 17 || j == 24 || j == 31) { color="color:blue;";}
+							if(j == 4 || j == 11 || j == 18 || j == 25) { color="color:red;";}
+							break;
+					case 5: if(j == 2 || j == 9 || j == 16 || j == 23 || j == 30) { color="color:blue;";}
+							if(j == 3 || j == 10 || j == 17 || j == 24 || j == 31) { color="color:red;";}
+							break;
+					case 6: if(j == 1 || j == 8 || j == 15 || j == 22 || j == 29) { color="color:blue;";}
+							if(j == 2 || j == 9 || j == 16 || j == 23 || j == 30) { color="color:red;";}
+							break;
+				}
+				
+				if(j == compareDate) {
+					background = "background-color:#FFFF96;";
+				}else {
+					background = "";
+				}
 				//System.out.print(j + "\t");// j를 증가시켜가며 차례데로 날짜를 출력합니다.
 				for(Expand e : expand) {
 					String ex_reg = e.getRegdate();
@@ -197,7 +227,7 @@ public class AccountCalender {
 				//지출, 수입에 있는 날짜와 달력에서 불러온 날짜가 같은경우
 				if((nYear+"-"+month+"-"+j).equals(ex_regdate.get("regdate")) && (nYear+"-"+month+"-"+j).equals(in_regdate.get("regdate"))) {
 					
-					sb.append("<td style='width:100px;' class='text-center'>"+j
+					sb.append("<td style='width:100px;"+background+" "+color+"' class='text-center'>"+j
 							+"<br/><button id='"+ex_regdate.get("regdate")
 							+"' type='button' class='btn btn-danger btn-xs' style='width:60px;' onclick='expandBtn(this);' data-toggle='modal' data-target='#expandModal' data-backdrop='false'>지출 : "
 							+exRegMap.get(ex_regdate)
@@ -205,22 +235,23 @@ public class AccountCalender {
 							+"<button id="+in_regdate.get("regdate")+" type='button' class='btn btn-primary btn-xs' style='width:60px;' onclick='incomeBtn(this);' data-toggle='modal' data-target='#incomeModal' data-backdrop='false'>수입 : "+inRegMap.get(in_regdate)+"개 </button></td>");
 				//지출만 같은경우
 				}else if((nYear+"-"+month+"-"+j).equals(ex_regdate.get("regdate"))){
-					sb.append("<td style='width:100px;' class='text-center'>"+j
+					sb.append("<td style='width:100px;"+background+" "+color+"' class='text-center'>"+j
 							+"<br/><button id='"+ex_regdate.get("regdate")
 							+"' type='button' class='btn btn-danger btn-xs' style='width:60px;' onclick='expandBtn(this);' data-toggle='modal' data-target='#expandModal' data-backdrop='false'>지출 : "
 							+exRegMap.get(ex_regdate)
 							+"개 </button>");
 				//수입만 같은경우
 				}else if((nYear+"-"+month+"-"+j).equals(in_regdate.get("regdate"))) {
-					sb.append("<td style='width:100px;' class='text-center'>"+j
+					sb.append("<td style='width:100px;"+background+" "+color+"' class='text-center'>"+j
 							+"<br/><button id='"+in_regdate.get("regdate")
 							+"' type='button' class='btn btn-primary btn-xs' style='width:60px;' onclick='incomeBtn(this);' data-toggle='modal' data-target='#incomeModal' data-backdrop='false'>수입 : "
 							+inRegMap.get(in_regdate)
 							+"개 </button>");
 				//둘 다 아닌경우
 				}else {
-					sb.append("<td style='width:100px;' class='text-center'>"+j+"</td>");
+					sb.append("<td style='width:100px;"+background+" "+color+"' class='text-center'>"+j+"</td>");
 				}
+				
 				if (((j + day) % 7) == 0)
 					//System.out.println();
 				{
