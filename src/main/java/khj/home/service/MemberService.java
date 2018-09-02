@@ -16,4 +16,6 @@ public interface MemberService {
 
 	String memberPasswordCheck(String nickname, String password);
 
+	void memberInfo(Member member);
+
 }

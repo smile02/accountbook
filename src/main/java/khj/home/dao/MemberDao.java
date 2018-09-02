@@ -33,4 +33,8 @@ public class MemberDao {
 	public String memberPasswordCheck(Map<String, Object> pwdCheckMap) {
 		return session.selectOne("member.memberPasswordCheck",pwdCheckMap);
 	}
+
+	public void memberInfo(Member member) {
+		session.update("member.memberInfo",member);
+	}
 }

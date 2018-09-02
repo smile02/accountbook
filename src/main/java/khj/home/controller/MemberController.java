@@ -153,4 +153,48 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/member/info", method=RequestMethod.GET)
+	public String memberInfo() {
+		
+		return "/member/mypage.jsp";
+	}
+	
+	@RequestMapping(value="/member/info", method=RequestMethod.POST)
+	@ResponseBody
+	public String memberInfoMod(@ModelAttribute Member member, HttpSession session) {
+		System.out.println((String)session.getAttribute("email"));
+		System.out.println(member.getEmail());
+		
+		if("".equals(member.getNickname())) {
+			return "noNickname";
+		}
+		
+		if("".equals(member.getEmail())) {
+			return "noEmail";
+		}
+		
+		if("false".equals(member.getEmailCode())) {
+			return "noEmailCode";
+		}
+		
+		if(!member.getEmail().equals(
+				(String)session.getAttribute("email"))) {
+			return "emailCheck";
+		}
+		
+		if(!"".equals(member.getEmailCode()) && 
+				!member.getEmailCode().equals((String)session.getAttribute("emailCode"))) {			
+			return "emailCodeCheck";
+		}
+		
+		
+		if(member.getPassword().length() != 0 || "".equals(member.getPassword())) {
+			String password = SHA256Encryptor.shaEncrypt(member.getPassword());
+			member.setPassword(password);
+		}
+		
+		memberService.memberInfo(member);
+		return "y";
+	}
 }

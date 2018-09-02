@@ -3,11 +3,10 @@ package khj.home.vo;
 import javax.validation.constraints.Pattern;
 
 public class Member {
-
+	
+	private int idx;
 	@Pattern(regexp="[a-zA-Z0-9가-힣]{2,12}",message="닉네임은 대소문자, 숫자, 단어만(2~12)글자")
 	private String nickname;
-	@Pattern(regexp="[a-z0-9]{4,12}",message="아이디는 소문자와 숫자만(4~12)글자")
-	private String id;
 	@Pattern(regexp="[a-zA-Z0-9]{4,20}",message="비밀번호는 대소문자, 숫자로 4~20글자 사이")
 	private String password;
 	private String passwordCheck;
@@ -20,12 +19,6 @@ public class Member {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getPassword() {
 		return password;
@@ -50,6 +43,12 @@ public class Member {
 	}
 	public void setEmailCode(String emailCode) {
 		this.emailCode = emailCode;
+	}
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
 	}
 	
 	

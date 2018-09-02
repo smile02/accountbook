@@ -132,7 +132,7 @@ public class SavingController {
 		}else if(price > tempPrice) {
 			price = price - tempPrice;
 		}else {
-			price = tempPrice - price;
+			price = (tempPrice - price) * -1;
 		}
 		savingService.savingSumUpdate(price,idx);
 		return "y";

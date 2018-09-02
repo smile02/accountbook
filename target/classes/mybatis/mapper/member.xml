@@ -5,7 +5,7 @@
 <mapper namespace="member">
 	<insert id="memberSignup" parameterType="member">
 		insert into members values
-			(#{nickname},#{password},#{email})
+			(seq_members_idx.nextval, #{nickname},#{password},#{email})
 	</insert>	
 	<select id="memberLogin" parameterType="member" resultType="member">
 		select * from members where nickname = #{nickname} and password = #{password}
@@ -19,4 +19,8 @@
 	<select id="memberPasswordCheck" parameterType="Map" resultType="String">
 		select password from members where nickname = #{nickname} and password = #{password}
 	</select>
+	<update id="memberInfo" parameterType="member">
+		update members set nickname = #{nickname}, password = #{password}, email = #{email}
+			where idx = #{idx} 
+	</update>
 </mapper>

@@ -85,4 +85,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.memberPasswordCheck(pwdCheckMap);
 	}
 
+	@Override
+	public void memberInfo(Member member) {
+		memberDao.memberInfo(member);
+	}
+
 }
