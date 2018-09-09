@@ -35,8 +35,7 @@
 	<select id="income" parameterType="String" resultType="income">
 		select regdate, count(regdate) as count from income
 			where nickname = #{value}
-			group by regdate,orderdate
-			order by orderdate desc
+			group by regdate
 	</select>
 	
 	<select id="selectIncome" parameterType="map" resultType="income">

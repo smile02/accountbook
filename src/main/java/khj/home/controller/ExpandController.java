@@ -112,7 +112,6 @@ public class ExpandController {
 	@RequestMapping(value = "/expand/add", method=RequestMethod.POST)
 	public String expandAdd(@ModelAttribute @Valid Expand expand,BindingResult result
 				,Model model, HttpSession session) {
-		
 		if(result.hasErrors()) {
 			model.addAttribute("expand",expand);
 			model.addAttribute("big_waysList",bigWaysList());

@@ -35,8 +35,7 @@
 	<select id="list" resultType="expand" parameterType="String">
 		select regdate, count(regdate) as count from expand
 			where nickname = #{value}
-			group by regdate,orderdate
-			order by orderdate desc
+			group by regdate
 	</select>
 	<insert id="expandAdd" parameterType="expand">
 		insert into expand values
@@ -92,7 +91,7 @@
 						<when test="year != null">
 							regdate like #{year}||'%'
 						</when>
-						<when test="month != null">where
+						<when test="month != null">
 							regdate like '%-'||#{month}||'-%'
 						</when>
 					</choose>

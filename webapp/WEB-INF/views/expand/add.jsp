@@ -89,7 +89,7 @@
 						<div class="form-group">
 							<form:label path="price" class="control-label col-xs-3">금액 :</form:label>
 							<div class="col-xs-8">
-								<form:input path="price" class="form-control" value="0"/>
+								<form:input path="price" class="form-control" value="0" onkeypress="inputNumberFormat(this);"/>
 							</div>
 							<div class="col-xs-8 col-xs-offset-3">
 								<form:errors path="price" class="error" />
@@ -106,7 +106,7 @@
 							<form:errors path="memo" class="error" />
 						</div><br />	
 						<div class="row text-right">					
-							<button class="btn btn-success">등록</button>
+							<button type="button" class="btn btn-success" onclick="expandReg(this.form);">등록</button>
 						</div>
 					</form:form>						
 				</div>
@@ -119,6 +119,14 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
+	
+		function expandReg(form){
+			var price = uncomma(form.price.value);
+			form.price.value = price;
+			
+			form.submit();
+		}
+	
 		function waysChange(){
 			var big_name = $("#big_ways").val(); //select태그 안에 있는 선택되어진 option태그
 			console.log(big_name);
@@ -153,6 +161,20 @@
 					}
 				}			
 			});
+		}
+		
+		function comma(str) {
+		    str = String(str);
+		    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		}
+		
+		function uncomma(str) {
+		    str = String(str);
+		    return str.replace(/[^\d]+/g, '');
+		}
+		
+		function inputNumberFormat(obj) {
+		    obj.value = comma(uncomma(obj.value));
 		}
 	</script>
 </body>

@@ -6,7 +6,7 @@ public class Saving {
 
 	private int idx;
 	private String nickname;
-	@Pattern(regexp="[가-힣]{4,10}",message="은행이름을 확인해주세요.")
+	@Pattern(regexp="[가-힣]{2,10}",message="은행이름을 확인해주세요.")
 	private String regbank;
 	@Pattern(regexp="[가-힣]{2,16}",message="적금이름을 확인해주세요.")
 	private String regname;

@@ -233,7 +233,10 @@ public class AccountCalender {
 							+exRegMap.get(ex_regdate)
 							+"개 </button><br/>"
 							+"<button id="+in_regdate.get("regdate")+" type='button' class='btn btn-primary btn-xs' style='width:60px;' onclick='incomeBtn(this);' data-toggle='modal' data-target='#incomeModal' data-backdrop='false'>수입 : "+inRegMap.get(in_regdate)+"개 </button></td>");
-				//지출만 같은경우
+							System.out.println("기준날짜 : "+nYear+"-"+month+"-"+j);
+							System.out.println("지출날짜 : "+ex_regdate+", 갯수 : "+exRegMap.get(ex_regdate));
+							System.out.println("수입날짜 : "+in_regdate+", 갯수 : "+inRegMap.get(in_regdate));
+					//지출만 같은경우
 				}else if((nYear+"-"+month+"-"+j).equals(ex_regdate.get("regdate"))){
 					sb.append("<td style='width:100px;"+background+" "+color+"' class='text-center'>"+j
 							+"<br/><button id='"+ex_regdate.get("regdate")

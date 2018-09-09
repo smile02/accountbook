@@ -84,20 +84,40 @@
 						
 						<br />
 						<div class="row text-right">
-							<button class="btn btn-success">등록</button>
+							<button type="button" class="btn btn-success" onclick="incomeReg(this.form);">등록</button>
 							<button type="button" class="btn btn-default">다시 입력하기</button>
 						</div>
 					</form:form>
 					<br />					
 				</div>
 			</div>
-			
 		</div>
 
 	<!--스크립트 라이브러리 -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script>
+	function incomeReg(form){
+		var price = uncomma(form.price.value);
+		form.price.value = price;
+		
+		form.submit();
+	}
 	
+	function comma(str) {
+	    str = String(str);
+	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	}
+	
+	function uncomma(str) {
+	    str = String(str);
+	    return str.replace(/[^\d]+/g, '');
+	}
+	
+	function inputNumberFormat(obj) {
+	    obj.value = comma(uncomma(obj.value));
+	}
+	</script>
 </body>
 </html>

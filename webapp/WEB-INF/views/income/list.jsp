@@ -28,18 +28,22 @@
 		<div class="row">
 			<label class="control-label col-xs-1">일자검색</label>
 			
-			<div class="col-xs-1">
+			<div class="col-xs-3">
 				<input type="text" class="form-control" id="year" placeholder="년"
 				onkeypress="return onlyMyNumber(event);" />
 			</div>
-			<div class="col-xs-1">
+			<div class="col-xs-3">
 				<input type="text" class="form-control" id="month" placeholder="월"
 				onkeypress="return onlyMyNumber(event);" />
 			</div>
-			<div class="button-group">
-				<div class="col-xs-1">
+			<div class="button-group col-xs-3">
+				<div class="col-xs-5">
 					<button type="button" class="form-control btn btn-info"
 					onclick="selectSearch();">검색</button>
+				</div>
+				<div class="col-xs-6">
+					<button type="button" class="form-control btn btn-success"
+					onclick="location.href='/income/add'">수입등록으로</button>
 				</div>
 			</div>
 		</div>

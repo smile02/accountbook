@@ -39,7 +39,7 @@
         </div>        
         <div class="modal-footer">
           <button type="button" class="btn btn-info" onclick="expandList();">지출목록으로</button>
-          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">수정 취소</button>          
+          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">취소</button>          
         </div>
       </div>      
       
@@ -60,7 +60,7 @@
         </div>        
         <div class="modal-footer">
           <button type="button" class="btn btn-info" onclick="incomeList();">수입목록으로</button>
-          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">수정 취소</button>          
+          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">취소</button>          
         </div>
       </div>      
       
@@ -94,8 +94,8 @@
         	</form>
         </div>        
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" onclick="regChange();">변경완료</button>
-          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">변경취소</button>          
+          <button type="button" class="btn btn-info" onclick="regChange();">적용</button>
+          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">취소</button>          
         </div>
       </div>      
       
@@ -228,9 +228,18 @@
 		}
 		//콤마찍기
 	    function comma(str) {
-	        str = String(str);
-	        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-	    }
+		    str = String(str);
+		    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		}
+		
+		function uncomma(str) {
+		    str = String(str);
+		    return str.replace(/[^\d]+/g, '');
+		}
+		
+		function inputNumberFormat(obj) {
+		    obj.value = comma(uncomma(obj.value));
+		}
 		
 		function incomeBtn(btn){
 			var regId = btn.id;

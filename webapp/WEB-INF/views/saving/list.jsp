@@ -12,6 +12,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <style>
+
 	.error{
 		color:red;
 	}
@@ -154,8 +155,9 @@
 			 					<span class="col-xs-3" id="spanbank"></span>
 			 					<span class="col-xs-4" id="spanname"></span>
 			 					
+			 					s
 			 					<div class="col-xs-5">
-			 						<input type="number" name="price" class="form-control"/>
+			 						<input type="text" name="price" class="form-control" onkeyup="inputNumberFormat(this);"/>
 			 					</div>
 			 				</div>
 			 				
@@ -245,15 +247,15 @@
 		}
 		
 		function payReg(form){
-			var price = form.price.value;
+			var tempPrice = form.price.value;
 			var idx = form.idx.value;
 			var paybank = form.paybank.value;
 			var payname = form.payname.value;
-			if(price <= 0){
+			if(tempPrice <= 0){
 				alert("금액을 확인해주세요.");
 				return;
 			}
-			
+			var price = uncomma(tempPrice);
 			$.ajax({
 				url:"/savingpay/add",
 				data:{price:price,
@@ -346,9 +348,18 @@
 		}
 		    //콤마찍기
 		    function comma(str) {
-		        str = String(str);
-		        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-		    }
+		    str = String(str);
+		    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		}
+		
+		function uncomma(str) {
+		    str = String(str);
+		    return str.replace(/[^\d]+/g, '');
+		}
+		
+		function inputNumberFormat(obj) {
+		    obj.value = comma(uncomma(obj.value));
+		}
 	</script>
 </body>
 </html>

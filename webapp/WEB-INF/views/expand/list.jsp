@@ -37,9 +37,15 @@
 						<input type="text" class="form-control" id="month" placeholder="월"
 						onkeypress="return onlyMyNumber(event);" />
 					</div>
-					<div class="col-xs-3">
-						<button type="button" class="form-control btn btn-info"
-						onclick="selectSearch();">검색</button>
+					<div class="button-group col-xs-3">
+						<div class="col-xs-5">
+							<button type="button" class="form-control btn btn-info"
+							onclick="selectSearch();">검색</button>
+						</div>
+						<div class="col-xs-6">
+							<button type="button" class="form-control btn btn-success"
+							onclick="location.href='/expand/add'">지출등록으로</button>
+						</div>
 					</div>
 				</div>
 			</form>
