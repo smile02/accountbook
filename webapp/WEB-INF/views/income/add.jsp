@@ -65,7 +65,7 @@
 						<div class="form-group">
 							<form:label path="price" class="control-label col-xs-3">금액 :</form:label>
 							<div class="col-xs-8">
-								<form:input path="price" class="form-control" value="0"/>
+								<form:input path="price" class="form-control" value="0"  onkeyup="inputNumberFormat(this);"/>
 							</div>
 						</div>
 						<div class="col-xs-8 col-xs-offset-3">

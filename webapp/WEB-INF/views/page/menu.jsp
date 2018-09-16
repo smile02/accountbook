@@ -35,7 +35,7 @@
          </li>
         <li><a href="/expand">지출목록</a></li>
         <li><a href="/income">수입목록</a></li>
-        <li><a href="/saving">적금관리</a></li>
+        <li><a href="/saving">적금/대출 관리</a></li>
       </ul>      
       <ul class="nav navbar-nav navbar-right">
    		  <c:if test="${sessionScope.loginMember == null }">

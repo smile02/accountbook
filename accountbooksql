@@ -6,3 +6,83 @@ select * from members;
 delete from members where nickname = '우리둘이';
 
 commit;
+
+
+select * from expand;
+
+select regdate, count(regdate) as count from expand
+			where nickname = '우리둘이'
+			group by regdate;
+            
+
+select * from saving;
+
+select * from savingpay;
+desc savingpay;
+desc saving;
+
+create table loanpay(
+    num number primary key,
+    idx number references saving(idx) on delete cascade,
+    nickname varchar2(40) references members(nickname),
+    price number, --대출금액
+    inputreg date --입력날짜
+);
+
+--create or replace trigger account_nickname
+-- after update of nickname on users for each row
+--begin
+--   update expand
+--   set nickname=:new.nickname
+--   where nickname=:old.nickname;
+--   update income
+--   set nickname=:new.nickname
+--   where nickname=:old.nickname;
+--   update saving
+--   set nickname=:new.nickname
+--   where nickname=:old.nickname;
+--   update savingpay
+--   set nickname=:new.nickname
+--   where nickname=:old.nickname;
+--   update loan
+--   set nickname=:new.nickname
+--   where nickname=:old.nickname;
+--   update loanpay
+--   set nickname=:new.nickname
+--   where nickname=:old.nickname;
+--end;
+
+alter table saving add gubun char(1) check (gubun in ('y','n'));
+select * from savingpay;
+select * from saving;
+update saving set gubun = '' where idx = 1;
+commit;
+
+--alter table saving drop column gubun;
+
+create table loan(
+    idx number primary key,
+    nickname varchar2(40) references members(nickname) on delete cascade,
+    loan_place varchar2(50),
+    loan_purpose varchar2(50),
+    loan_price number,
+    loan_date varchar2(30),
+    orderdate date
+);
+insert into loan values(seq_loan_idx.nextval, '땡이', '한국장학재단', '학자금대출', '7900000', '2012-03-04', sysdate);
+
+commit;
+
+create sequence seq_loan_idx;
+
+select * from members;
+
+create table loanpay(
+    num number primary key,
+    idx number references loan(idx) on delete cascade,
+    nickname varchar2(40) references members(nickname),
+    price number,
+    orderdate date
+);
+--drop table loanpay;
+create sequence seq_loanpay_num;
