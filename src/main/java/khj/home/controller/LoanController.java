@@ -16,14 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import khj.home.service.LoanService;
+import khj.home.service.SavingService;
 import khj.home.vo.Loan;
 import khj.home.vo.Member;
+import khj.home.vo.Saving;
 
 @Controller
 public class LoanController {
 
 	@Autowired
 	private LoanService loanService;
+	
+	@Autowired
+	private SavingService savingService;
 	
 	//저장부터 시작
 	@RequestMapping(value="/loan/add", method=RequestMethod.POST)
@@ -33,15 +38,18 @@ public class LoanController {
 		Date today = new Date();		
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
-	//	loan.setInputreg(date.format(today));
+		loan.setLoan_date(date.format(today));
 		loan.setNickname(loginMember.getNickname());
 		
 		if(result.hasErrors()) {
-			model.addAttribute("saving",loan);
-		//	model.addAttribute("savingList",savingService.savingList(loginMember.getNickname()));
+			model.addAttribute("loan",loan);
+			model.addAttribute("saving",new Saving());
+			model.addAttribute("loanList",loanService.loanList(loginMember.getNickname()));
+			model.addAttribute("savingList",savingService.savingList(loginMember.getNickname()));
 			return "/saving/list.jsp";
 		}
-		//loanService.savingAdd(loan);
+		
+		loanService.loanAdd(loan);
 		return "redirect:/saving";
 	}
 }

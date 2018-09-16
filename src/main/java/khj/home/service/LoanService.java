@@ -7,4 +7,6 @@ import khj.home.vo.Loan;
 public interface LoanService {
 
 	public List<Loan> loanList(String nickname);
+
+	public void loanAdd(Loan loan);
 }

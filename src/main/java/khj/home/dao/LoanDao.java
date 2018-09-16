@@ -17,4 +17,8 @@ public class LoanDao {
 	public List<Loan> loanList(String nickname){
 		return session.selectList("loan.loanList", nickname);
 	}
+
+	public void loanAdd(Loan loan) {
+		session.insert("loan.loanAdd",loan);
+	}
 }

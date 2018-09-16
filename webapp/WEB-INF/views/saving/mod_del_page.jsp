@@ -20,7 +20,7 @@
 <body>
 	<jsp:include page="../page/menu.jsp" />	
 	<div class="container">
-		<h2>적금 수정 / 삭제</h2>
+		<h2>적금/대출 수정 ,삭제</h2>
   			<p><strong>적금을 삭제하게 되면 등록된 금액도 같이 삭제가 되므로 꼭!!! 확인하고 진행해주세요.</strong></p>    
 			  <table class="table table-hover table-condensed table-bordered">
 			    <thead>		    		    
@@ -55,10 +55,45 @@
 			      		</tr>		    
 				    </c:forEach>			  
 			    </tbody>
+			    
+			    <thead>		    		    
+			      <tr>
+			        <th class="text-center">대출처</th>
+			        <th class="text-center">대출목적</th>
+			        <th class="text-center">대출날짜</th>
+			        <th class="text-center">대출금액</th>
+			        <th class="text-center">누적금액</th>
+			        <th class="text-center">비고</th>
+			      </tr>
+			    </thead>	
+			    	    		    		    
+			    	    		    		    
+			    <tbody>			    
+				    <c:forEach var="loan" items="${loanList}">				   
+						<tr>
+					        <td><input type="text" class="form-control" id="loan_place_${loan.idx }" value="${loan.loan_place }"/></td>
+					        <td><input type="text" class="form-control" id="loan_purpose_${loan.idx }" value="${loan.loan_purpose }"/></td>
+					        <td><input type="date" class="form-control" id="loan_date_${loan.idx }" value="${loan.loan_date }"/></td>
+					        <td><input type="text" class="form-control" id="loan_price_${loan.idx }" value="${loan.loan_price }"/></td>
+					        <td>${loan.loan_price }</td>
+					        <td> 
+					        	<div class="button-group">
+						        	<div style="width:80px;" class="col-xs-3">
+						        		<button type="button" class="form-control btn btn-primary" onclick="loanMod(${loan.idx});">수정</button>
+						        	</div>
+						        	<div style="width:80px;" class="col-xs-3">
+						        		<button class="form-control btn btn-danger" onclick="loanDel(${loan.idx});">삭제</button>
+						        	</div>
+					        	</div>
+					         </td>
+			      		</tr>		    
+				    </c:forEach>			  
+			    </tbody>
+			    
 			  </table>
 		  <div class="row">
 		  	<div class="button-group text-center">
-		  		<button class="btn btn-default" type="button" onclick="location.href='/saving'">적금목록으로</button>
+		  		<button class="btn btn-default" type="button" onclick="location.href='/saving'">대출/적금목록으로</button>
 		  	</div>
 		  </div>
 	</div>

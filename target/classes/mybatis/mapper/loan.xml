@@ -6,4 +6,9 @@
 	<select id="loanList" parameterType="String" resultType="loan">
 		select * from loan where nickname = #{value}
 	</select>
+	
+	<insert id="loanAdd" parameterType="loan">
+		insert into loan values(seq_loan_idx.nextval,#{nickname},#{loan_place},#{loan_purpose},
+						#{loan_price}, #{loan_date}, sysdate)
+	</insert>
 </mapper>

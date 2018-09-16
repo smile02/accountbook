@@ -19,4 +19,9 @@ public class LoanServiceImpl implements LoanService{
 		return loanDao.loanList(nickname);
 	}
 
+	@Override
+	public void loanAdd(Loan loan) {
+		loanDao.loanAdd(loan);
+	}
+
 }

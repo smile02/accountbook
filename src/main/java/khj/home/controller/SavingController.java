@@ -60,7 +60,9 @@ public class SavingController {
 		
 		if(result.hasErrors()) {
 			model.addAttribute("saving",saving);
+			model.addAttribute("loan", new Loan());
 			model.addAttribute("savingList",savingService.savingList(loginMember.getNickname()));
+			model.addAttribute("loanList",loanService.loanList(loginMember.getNickname()));
 			return "/saving/list.jsp";
 		}
 		savingService.savingAdd(saving);
@@ -96,6 +98,7 @@ public class SavingController {
 	public String savingModDelPage(Model model, HttpSession session) {
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		model.addAttribute("savingList",savingService.savingList(loginMember.getNickname()));
+		model.addAttribute("loanList",loanService.loanList(loginMember.getNickname()));
 		
 		return "/saving/mod_del_page.jsp";
 	}

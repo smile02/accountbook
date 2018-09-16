@@ -206,9 +206,10 @@
 								    <input type="hidden" id="num_${loan.idx }" value="${loan.idx }" />
 								    	<span id="lpan_${loan.idx }">대출처 : ${loan.loan_place }</span>&nbsp;&nbsp;&nbsp;<span id="purpose_${loan.idx }">대출목적 :${loan.loan_purpose }</span>
 			 						<br /><span id="loanStart">대출날짜 : ${loan.loan_date }</span>
-			 						<br /><span id="loanSum">누적금액 : <f:formatNumber value="${loan.loan_price }" pattern="#,###"/></span>
+			 						<br /><span id="loanSum">누적금액 : ${loan.loan_price }</span>
 								    </a>
 								</div>
+								
 		 					</div>
 		 				</div>
 		 			</c:forEach>

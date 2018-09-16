@@ -1,12 +1,17 @@
 package khj.home.vo;
 
+import javax.validation.constraints.Pattern;
+
 public class Loan {
 
 	private int idx;
 	private String nickname;
+	@Pattern(regexp="[가-힣]{1,18}", message="단어로 입력해주세요.")
 	private String loan_place;
-	private int loan_price;
+	private String loan_price;
+	@Pattern(regexp="[가-힣]{1,18}", message="단어로 입력해주세요.")
 	private String loan_purpose;
+	@Pattern(regexp="\\d{4}-\\d{2}-\\d{2}", message="대출날짜를 선택해주세요.")
 	private String loan_date;
 	private String orderdate;
 	
@@ -29,10 +34,10 @@ public class Loan {
 	public void setLoan_place(String loan_place) {
 		this.loan_place = loan_place;
 	}
-	public int getLoan_price() {
+	public String getLoan_price() {
 		return loan_price;
 	}
-	public void setLoan_price(int loan_price) {
+	public void setLoan_price(String loan_price) {
 		this.loan_price = loan_price;
 	}
 	public String getLoan_purpose() {
