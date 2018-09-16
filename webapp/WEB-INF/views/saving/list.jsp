@@ -49,23 +49,47 @@
 	<jsp:include page="../page/menu.jsp" />	
 	<div class="container">
 	<div class="row">
-		<h1 class="text-muted text-center" style="color:black;">적 금 관 리 <div class="text-right"><button type="button" class="btn btn-default" onclick="modDelPage();">적금 수정/삭제페이지</button></div></h1>		
+		<h1 class="text-muted text-center" style="color:black;">적 금/대 출 관 리 <div class="text-right"><button type="button" class="btn btn-default" onclick="modDelPage();">적금 수정/삭제페이지</button></div></h1>		
 	</div>
 	<div class="row">
 		<div class="col-xs-4">
-			<h2 class="text-muted text-center">적금 등록</h2>
+			<h2 class="text-muted text-center">적금/대출 등록</h2>
 		</div>
 		<div class="col-xs-4">
-			<h2 class="text-muted text-center">적금 목록</h2>
+			<h2 class="text-muted text-center">적금/대출 목록</h2>
 		</div>
 		<div class="col-xs-4">
 			<h2 class="text-muted text-center">납입 목록</h2>
 			<!-- <span class="tooltiptext">아래 항목을 클릭하면 수정, 삭제를 할 수 있습니다.</span> -->
 		</div>
 	</div>
+	
+	
+	<div class="row">
+		<div class="col-xs-4">
+			<div class="button-group text-center">
+				<button id="saving_formBtn" class="btn btn-default btn-primary" type="button">적금</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<button id="loan_formBtn"  class="btn btn-default btn-danger" type="button">대출</button>
+			</div>	    		    
+		</div>
+		
+		
+		<div class="col-xs-4">
+			<ul class="nav nav-pills">
+			  <li><a href="#">적금보기</a></li>
+			  <li><a href="#">대출보기</a></li>
+			</ul>
+		</div>
+		
+		<div class="col-xs-4">
+			<!-- <span class="tooltiptext">아래 항목을 클릭하면 수정, 삭제를 할 수 있습니다.</span> -->
+		</div>
+	</div>
+	
 		<div class="row">
 			<div class="col-xs-4">
-				<form:form action="/saving/add" class="form-horizontal" method="post"
+				<form:form id="saving_form" action="/saving/add" class="form-horizontal" method="post"
 					modelAttribute="saving">
 					<div class="form-group">
 						<form:label path="regbank" class="control-label col-xs-3">가입은행</form:label>
@@ -107,8 +131,54 @@
 						<button class="btn btn-success">등록</button>
 						<button type="reset" class="btn btn-warning">취소</button>
 					</div>				
+				</form:form>
+				
+				<form:form id="loan_form" action="/loan/add" class="form-horizontal" method="post"
+					modelAttribute="loan" style="display:none;">
+					<div class="form-group">
+						<form:label path="loan_place" class="control-label col-xs-3">대출처</form:label>
+						<div class="col-xs-6">
+							<form:input path="loan_place" type="text" class="form-control"/>
+						</div>
+						<div class="col-xs-6">
+							<form:errors path="loan_place" class="error"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<form:label path="loan_purpose" class="control-label col-xs-3">대출목적</form:label>
+						<div class="col-xs-6">
+							<form:input path="loan_purpose" type="text" class="form-control"/>
+						</div>
+						<div class="col-xs-6">
+							<form:errors path="loan_purpose" class="error"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<form:label path="loan_date" class="control-label col-xs-3">대출날짜</form:label>
+						<div class="col-xs-6">
+							<form:input path="loan_date" type="date" class="form-control"/>
+						</div>
+						<div class="col-xs-6">
+							<form:errors path="loan_date" class="error"/>
+						</div>
+					</div>
+					<div class="form-group">						
+						<form:label path="loan_price" class="control-label col-xs-3">대출금액</form:label>
+						<div class="col-xs-6">
+							<form:input path="loan_price" type="text" class="form-control" onkeyup="inputNumberFormat(this);"/>
+						</div>
+						<div class="col-xs-6">
+							<form:errors path="loan_price" class="error"/>
+						</div>
+					</div>					
+					<div class="button-group text-center">
+						<button class="btn btn-success">등록</button>
+						<button type="reset" class="btn btn-warning">취소</button>
+					</div>				
 				</form:form>				
 			</div>			
+			
 			
 			<div class="col-xs-4">
 				<div id="savingbox" class="panel panel-default"
@@ -122,6 +192,21 @@
 								    	<span id="bank_${saving.idx }">은행 : ${saving.regbank }</span>&nbsp;&nbsp;&nbsp;<span id="name_${saving.idx }">적금이름:${saving.regname }</span>
 			 						<br /><span id="start">가입날짜 : ${saving.startreg }</span> / <span id="end">만기날짜 : ${saving.endreg }</span>
 			 						<br /><span id="sum">누적금액 : <f:formatNumber value="${saving.price }" pattern="#,###"/></span>
+								    </a>
+								</div>
+		 					</div>
+		 				</div>
+		 			</c:forEach>
+		 			
+		 			<c:forEach var="loan" items="${loanList }">
+		 				<div class="row">
+		 					<div class="col-xs-12">
+			 					<div class="list-group">
+								    <a href="#" class="list-group-item" onclick="selectLoanList(${loan.idx});">
+								    <input type="hidden" id="num_${loan.idx }" value="${loan.idx }" />
+								    	<span id="lpan_${loan.idx }">대출처 : ${loan.loan_place }</span>&nbsp;&nbsp;&nbsp;<span id="purpose_${loan.idx }">대출목적 :${loan.loan_purpose }</span>
+			 						<br /><span id="loanStart">대출날짜 : ${loan.loan_date }</span>
+			 						<br /><span id="loanSum">누적금액 : <f:formatNumber value="${loan.loan_price }" pattern="#,###"/></span>
 								    </a>
 								</div>
 		 					</div>
@@ -155,7 +240,7 @@
 			 					<span class="col-xs-3" id="spanbank"></span>
 			 					<span class="col-xs-4" id="spanname"></span>
 			 					
-			 					s
+			 					
 			 					<div class="col-xs-5">
 			 						<input type="text" name="price" class="form-control" onkeyup="inputNumberFormat(this);"/>
 			 					</div>
@@ -204,6 +289,18 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
+	
+	$("#saving_formBtn").on("click",function(){
+		$("#saving_form").show();
+		$("#loan_form").hide();
+	});
+	
+	$("#loan_formBtn").on("click",function(){
+		$("#saving_form").hide();
+		$("#loan_form").show();
+	});
+	
+	
 	var spanbank = "";
 	var spanname = "";	
 		function selectList(idx){

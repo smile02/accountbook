@@ -71,10 +71,11 @@
 				</div>
 			</div>
 		<br/>
+		
 		<c:forEach var="expand" items="${expandList }">
 			<div class="col-sm-3">
 				<div class="panel panel-default">
-					<div class="panel-heading">지출내역 : ${expand.comments }</div>
+					<div class="panel-heading" style="height:60px;">지출내역 : ${expand.comments }</div>
 					<div class="panel-body">지출한 사람 : ${expand.nickname }</div>
 					<div class="panel-body">지출방법 : ${expand.big_ways}-${expand.small_ways}</div>
 					<div class="panel-body">지출목적 : ${expand.big_purpose}-${expand.small_purpose}</div>					

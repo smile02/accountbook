@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import khj.home.service.LoanService;
 import khj.home.service.SavingService;
+import khj.home.vo.Loan;
 import khj.home.vo.Member;
 import khj.home.vo.Saving;
 import khj.home.vo.SavingPay;
@@ -31,11 +33,18 @@ public class SavingController {
 	@Autowired
 	private SavingService savingService;
 	
+	@Autowired
+	private LoanService loanService;
+	
 	@RequestMapping(value="/saving", method=RequestMethod.GET)
 	public String saving(Model model, HttpSession session) {
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		model.addAttribute("saving",new Saving());
+		model.addAttribute("loan", new Loan());
 		model.addAttribute("savingList",savingService.savingList(loginMember.getNickname()));
+		model.addAttribute("loanList", loanService.loanList(loginMember.getNickname()));
+		
+		
 		return "/saving/list.jsp";
 	}
 	

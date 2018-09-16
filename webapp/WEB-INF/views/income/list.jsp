@@ -65,11 +65,11 @@
 					<label class="col-xs-6 control-label"><f:formatNumber value="${priceMonthSum}" pattern="#,###"/> 원</label>
 				</div>
 			</div>
-		<br/>
+		<br/>		
 		<c:forEach var="income" items="${incomeList }">
 			<div class="col-sm-3">
 				<div class="panel panel-default">
-					<div class="panel-heading">수입내역 : ${income.comments }</div>
+					<div class="panel-heading" style="height:60px;">수입내역 : ${income.comments }</div>
 					<div class="panel-body">수입한 사람 : ${income.nickname }</div>
 					<div class="panel-body">수입방법 : ${income.ways}</div>					
 					<div class="panel-body">금액 : <f:formatNumber value="${income.price }" pattern="#,###"/> </div>
