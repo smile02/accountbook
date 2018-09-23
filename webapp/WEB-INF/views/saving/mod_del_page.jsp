@@ -146,6 +146,49 @@
 			}
 		});
 	}
+	
+	function loanMod(idx){
+		var loan_place = $("#loan_place_"+idx).val();
+		var loan_purpose = $("#loan_purpose_"+idx).val();
+		var loan_date = $("#loan_date_"+idx).val();
+		var loan_price = $("#loan_price_"+idx).val();
+		
+		$.ajax({
+			url:"/loan/mod",
+			type:"post",
+			data:{idx:idx,
+				  loan_place:loan_place,
+				  loan_purpose:loan_purpose,
+				  loan_date:loan_date,
+				  loan_price:loan_price},
+			success:function(data){
+				if(data.success != "success"){
+					alert(data.error);
+					return;
+				}else{
+					alert("수정되었습니다.");
+					location.href="/saving";
+				}
+			}
+		});
+	}
+	
+	function loanDel(idx){
+		if(!confirm("정말로 삭제하시겠습니까?")){
+			return;
+		}
+		$.ajax({
+			url:"/loan/del",
+			type:"post",
+			data:{idx:idx},
+			success:function(data){
+				if(data == 'y'){
+					alert("삭제가 완료되었습니다.");
+					location.href="/saving";
+				}
+			}
+		});
+	}
 	</script>
 </body>
 </html>

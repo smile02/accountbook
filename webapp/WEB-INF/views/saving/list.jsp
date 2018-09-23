@@ -203,10 +203,10 @@
 		 					<div class="col-xs-12">
 			 					<div class="list-group">
 								    <a href="#" class="list-group-item" onclick="selectLoanList(${loan.idx});">
-								    <input type="hidden" id="num_${loan.idx }" value="${loan.idx }" />
+								    <input type="hidden" id="loan_${loan.idx }" value="${loan.idx }" />
 								    	<span id="lpan_${loan.idx }">대출처 : ${loan.loan_place }</span>&nbsp;&nbsp;&nbsp;<span id="purpose_${loan.idx }">대출목적 :${loan.loan_purpose }</span>
 			 						<br /><span id="loanStart">대출날짜 : ${loan.loan_date }</span>
-			 						<br /><span id="loanSum">누적금액 : ${loan.loan_price }</span>
+			 						<br /><span id="loanSum">대출잔액 : ${loan.loan_price }</span>
 								    </a>
 								</div>
 								
@@ -255,6 +255,44 @@
 			 		<div id="savingList" class="list-group">
 			 			
 			 		</div>
+			 		
+			 		<form id="lform" action="/loanpay/add" class="form-horizontal" method="post"
+			 			style="display:none;">
+			 				<input id="loanIdx" type="hidden" name="idx" />
+			 				<input id="loanPlace" type="hidden" name="loan_place" />
+			 				<input id="loanPurpose" type="hidden" name="loan_purpose" />
+			 				
+			 				<div class="form-group">
+			 				
+				 				<div class="row">
+				 					<div class="col-xs-3">
+				 						<span class="text-center">대출처</span>
+				 					</div>
+				 					<div class="col-xs-4">
+				 						<span class="text-center">대출목적</span>
+				 					</div>
+				 					<div class="col-xs-5">
+				 						<span class="text-center">잔액</span>
+				 					</div>
+				 				</div>
+			 					
+			 					<span class="col-xs-3" id="spanplace"></span>
+			 					<span class="col-xs-4" id="spanpurpose"></span>
+			 					
+			 					
+			 					<div class="col-xs-5">
+			 						<input type="text" name="price" class="form-control" onkeyup="inputNumberFormat(this);"/>
+			 					</div>
+			 				</div>
+			 				
+			 				<div class="button-group text-right">
+			 					
+			 					<button type="submit" class="btn btn-info">등록</button>
+			 				</div>
+			 			</form>
+			 		<div id="loanList" class="list-group">
+			 			
+			 		</div>
 			 		<div class="modal fade" id="payModal" role="dialog">
 					    <div class="modal-dialog modal-sm">
 					      <div class="modal-content">
@@ -269,7 +307,7 @@
 					          <p>가입은행 : <span id='payBankModal'></span></p>
 					          <p>적금이름 : <span id='payNameModal'></span></p>
 					          <p>입력날짜 : <span id='payRegModal'></span></p>
-					          <input type="number" class="form-control" id="payPriceModal" />
+					          <input type="text" class="form-control" id="payPriceModal" />
 					        </div>
 					        <div class="modal-footer">
 					          <button type="button" class="btn btn-primary" onclick="savingPayMod();">수정</button>
@@ -278,7 +316,34 @@
 					        </div>
 					      </div>
 					    </div>
-					  </div>			 		
+					  </div>
+					  
+					  
+					  <div class="modal fade" id="loanModal" role="dialog">
+					    <div class="modal-dialog modal-sm">
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title">대출금액 수정/삭제</h4>
+					        </div>
+					        <div class="modal-body">
+					        	<input type="hidden" id="loanTempPrice" />
+					        	<input type="hidden" id="loanIdxModal" />
+					        	<input type="hidden" id="loanNumModal" />
+					          <p>대출처 : <span id='loanPlaceModal'></span></p>
+					          <p>대출목적 : <span id='loanPurposeModal'></span></p>
+					          <p>입력날짜 : <span id='loanRegModal'></span></p>
+					          <input type="text" class="form-control" id="loanPriceModal" onkeyup="inputNumberFormat(this);" />
+					        </div>
+					        <div class="modal-footer">
+					          <button type="button" class="btn btn-primary" onclick="loanPayMod();">수정</button>
+					          <button type="button" class="btn btn-danger" onclick="loanPayDel();">삭제</button>
+					          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+					  		 		
 			 	</div>
 			 	
 			</div>
@@ -314,13 +379,15 @@
 			$("#payIdx").val(idx);
 			$("#payBank").val(spanbank);
 			$("#payName").val(spanname);
-			
+						
 			$.ajax({
 				url:"/saving/selectList",
 				type:"post",
 				data:{idx:idx},
 				success:function(data){
 					$("#savingList").empty();
+					$("#loanList").empty();
+					$("#lform").hide();
 					$("#form").css("display","block");
 					$("#spanbank").text(spanbank);
 					$("#spanname").text(spanname);
@@ -342,7 +409,52 @@
 					$("#listbox").append($savingList);
 				}
 			});
-		}
+		}				
+		
+		
+		var spanplace = "";
+		var spanpurpose = "";	
+			function selectLoanList(idx){
+				var idx = $("#loan_"+idx).val();
+				var placeidx = $("#lpan_"+idx).text().indexOf(":");
+				var purposeidx = $("#purpose_"+idx).text().indexOf(":");
+				spanplace = $("#lpan_"+idx).text().substring(placeidx+1,$("#lpan_"+idx).text().length);
+				spanpurpose = $("#purpose_"+idx).text().substring(purposeidx+1,$("#purpose_"+idx).text().length);
+				
+				$("#loanIdx").val(idx);
+				$("#loanPlace").val(spanplace);
+				$("#loanPurpose").val(spanpurpose);
+				
+				$.ajax({
+					url:"/loan/selectList",
+					type:"post",
+					data:{idx:idx},
+					success:function(data){
+						$("#loanList").empty();
+						$("#savingList").empty();
+						$("#form").hide();
+						$("#lform").css("display","block");
+						$("#spanplace").text(spanplace);
+						$("#spanpurpose").text(spanpurpose);
+						var count = 0;
+						for(var loan of data){
+							count++;
+							var $row = $("<div id='loanlist_"+count+"' class='row list-group-item' data-toggle='modal' data-target='#loanModal' data-backdrop='false' onclick='loanListClick("+count+");'>");
+							var $input = $("<input type='hidden' id='loanInput_"+count+"' value='"+loan.num+"'>");
+							var $p1 = $("<p class='control-label'>");
+							var $p2 = $("<p id='loanPrice_"+count+"' class='control-label'>");
+							var price=loan.price;
+							$p1.text("대출처 : "+loan.loan_place+" 날짜 : "+loan.inputreg);
+							$p2.text(" 금액 : "+price);
+							$row.append($p1);
+							$row.append($p2);
+							$row.append($input);
+							var $loanList = $("#loanList").append($row);	
+						}
+						$("#listbox").append($loanList);
+					}
+				});
+			}
 		
 		function payReg(form){
 			var tempPrice = form.price.value;
@@ -371,7 +483,7 @@
 		}
 				
 		function listClick(count){
-			console.log("넘기는 num : "+count);
+//			console.log("넘기는 num : "+count);
 			$("#list_"+count).find("#payInput_"+count).each(function(e){
 				var num = $(this).val();
 				
@@ -391,7 +503,32 @@
 				});
 			});	
 		}
+		
+		
 				
+		function loanListClick(count){
+//			console.log("넘기는 num : "+count);
+			$("#loanlist_"+count).find("#loanInput_"+count).each(function(e){
+				var num = $(this).val();
+				
+				$.ajax({
+					url:"/loanpay/selectOne",
+					type:"post",
+					data:{num:num},
+					success:function(data){
+						$("#loanTempPrice").val(data.price); //수정, 삭제시 비교할 가격
+						$("#loanIdxModal").val(data.idx);
+						$("#loanNumModal").val(data.num);
+						$("#loanPlaceModal").text(data.loan_place);
+						$("#loanPurposeModal").text(data.loan_purpose);
+						$("#loanPriceModal").val(data.price);
+						$("#loanRegModal").text(data.inputreg);
+					}
+				});
+			});	
+		}
+				
+		
 		function savingPayMod(){
 			var tempPrice = eval($("#tempPrice").val());
 			var price = eval($("#payPriceModal").val());			
@@ -428,6 +565,54 @@
 			var price = eval($("#tempPrice").val());
 			$.ajax({
 				url:"/savingpay/del",
+				type:"post",
+				data:{num:num,
+					 price:price,
+					 idx:idx},
+				success:function(data){
+					if(data == 'y'){
+						alert("삭제가 완료되었습니다.");
+						location.href="/saving";
+					}
+				}
+			});
+		}
+		
+		
+		function loanPayMod(){
+			var tempPrice = $("#loanTempPrice").val();
+			var price = $("#loanPriceModal").val();			
+			var num = eval($("#loanNumModal").val());
+			var idx = eval($("#loanIdxModal").val());
+			//console.log(typeof tempPrice);
+			//console.log(typeof price);
+			//console.log(typeof num);
+			//console.log(typeof idx);
+						
+			
+			$.ajax({
+				url:"/loanpay/mod",
+				type:"post",
+				data:{num:num,
+					  price:price,
+					  temp_price:tempPrice,
+					  idx:idx},
+				success:function(data){
+					if(data == 'y'){
+						alert("수정이 완료되었습니다.");
+						location.href="/saving";
+					}
+				}
+			});
+		}
+		
+		function loanPayDel(){
+			var num = $("#loanNumModal").val();
+			var idx = $("#loanIdxModal").val();
+			var price = $("#loanTempPrice").val();
+			
+			$.ajax({
+				url:"/loanpay/del",
 				type:"post",
 				data:{num:num,
 					 price:price,

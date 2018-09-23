@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="loanPay">
+	<select id="loanPaySelectList" parameterType="map" resultType="loanPay">
+		select * from loanpay where idx = #{idx} and nickname = #{nickname}
+	</select>
+	
+	<insert id="loanPayAdd" parameterType="loanPay">
+		insert into loanpay values (seq_loanpay_num.nextval, #{idx}, #{nickname}, #{price}, sysdate,
+		 #{loan_place}, #{loan_purpose}, #{inputreg} )
+	</insert>
+	
+	<select id="loanPaySelectOne" parameterType="map" resultType="loanPay">
+		select * from loanpay where num = #{num} and nickname = #{nickname}
+	</select>
+	
+	<update id="loanPayMod" parameterType="loanPay">
+		update loanpay set price = #{price}
+			where idx = #{idx} and num = #{num}
+	</update>
+	
+	<delete id="loanPayDel" parameterType="int">
+		delete from loanpay where num = #{value}
+	</delete>
+	
+</mapper>

@@ -5,9 +5,25 @@ public class LoanPay {
 	private int num;
 	private int idx;
 	private String nickname;
-	private int price;
+	private String loan_place;	
+	private String loan_purpose;
+	private String price;
 	private String orderdate;
+	private String inputreg;
 	
+	
+	public String getLoan_place() {
+		return loan_place;
+	}
+	public void setLoan_place(String loan_place) {
+		this.loan_place = loan_place;
+	}
+	public String getLoan_purpose() {
+		return loan_purpose;
+	}
+	public void setLoan_purpose(String loan_purpose) {
+		this.loan_purpose = loan_purpose;
+	}
 	
 	public int getNum() {
 		return num;
@@ -27,10 +43,10 @@ public class LoanPay {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getOrderdate() {
@@ -38,5 +54,11 @@ public class LoanPay {
 	}
 	public void setOrderdate(String orderdate) {
 		this.orderdate = orderdate;
+	}
+	public String getInputreg() {
+		return inputreg;
+	}
+	public void setInputreg(String inputreg) {
+		this.inputreg = inputreg;
 	}
 }
