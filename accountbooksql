@@ -76,13 +76,44 @@ commit;
 create sequence seq_loan_idx;
 
 select * from members;
+desc members;
 
 create table loanpay(
     num number primary key,
     idx number references loan(idx) on delete cascade,
-    nickname varchar2(40) references members(nickname),
+    nickname varchar2(40) references members(nickname) ,
     price number,
     orderdate date
 );
 --drop table loanpay;
 create sequence seq_loanpay_num;
+
+
+update members set nickname = '‹¯ÀÌ2', password = '2345', email = 'gosu1200212@gmail.com'
+    where idx = 21;
+    
+select * from expand;
+select * from saving;
+select * from savingpay;
+
+select * from loan;
+select * from loanpay;
+
+desc loanpay;
+desc loan;
+
+alter table teacher drop constraint teacher_gender_chk;
+
+alter table loanpay drop constraint SYS_C004116;
+
+alter table loan drop constraint SYS_C004110;
+
+alter table savingpay drop constraint SYS_C004104;
+
+alter table saving drop constraint SYS_C004101;
+
+alter table income drop constraint SYS_C004097;
+
+alter table expand drop constraint SYS_C004095;
+
+select * from members;

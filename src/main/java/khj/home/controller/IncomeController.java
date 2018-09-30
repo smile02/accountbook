@@ -54,7 +54,7 @@ public class IncomeController {
 		
 		model.addAttribute("incomeList",incomeService.incomeList(year, month, day, page,loginMember.getNickname()));
 		model.addAttribute("paging",paging.getPaging("/income",
-					page, incomeService.getIncomeCount(year, month, page),
+					page, incomeService.getIncomeCount(year, month, page, loginMember.getNickname()),
 					IncomeServiceImpl.numberOfList,
 					IncomeServiceImpl.numberOfPage, 
 					searchParam));

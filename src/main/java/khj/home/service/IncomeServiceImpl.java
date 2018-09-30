@@ -40,8 +40,8 @@ public class IncomeServiceImpl implements IncomeService {
 	}
 
 	@Override
-	public int getIncomeCount(String year, String month, int page) {
-		return incomeDao.getIncomeCount(getMap(year,month,"",page,""));
+	public int getIncomeCount(String year, String month, int page, String nickname) {
+		return incomeDao.getIncomeCount(getMap(year,month,"",page,nickname));
 	}
 
 	@Override

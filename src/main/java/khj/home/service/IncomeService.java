@@ -16,7 +16,7 @@ public interface IncomeService {
 
 	void incomeMod(Income income);
 
-	int getIncomeCount(String year, String month, int page);
+	int getIncomeCount(String year, String month, int page, String nickname);
 
 	int incomePriceSum(String year, String month, int page, String nickname);
 

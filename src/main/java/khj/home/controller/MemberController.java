@@ -71,7 +71,7 @@ public class MemberController {
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public String memberLogin(@ModelAttribute Member member,BindingResult result,
 			HttpServletRequest request,Model model) {
-		System.out.println("로그인 비번 :"+member.getPassword());
+	//	System.out.println("로그인 비번 :"+member.getPassword());
 		if(memberService.memberDualcheck(member.getNickname()) == null) {
 			FieldError error = 
 					new FieldError("NicknameInputError", "nickname", "존재하지 않는 아이디입니다.");
@@ -162,9 +162,12 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/info", method=RequestMethod.POST)
 	@ResponseBody
-	public String memberInfoMod(@ModelAttribute Member member, HttpSession session) {
+	public String memberInfoMod(@ModelAttribute Member member, @RequestParam String noInputEmail, HttpSession session) {
 		System.out.println((String)session.getAttribute("email"));
 		System.out.println(member.getEmail());
+		System.out.println(member.getEmailCode());
+		System.out.println(member.getNickname());
+		System.out.println(member.getIdx());
 		
 		if("".equals(member.getNickname())) {
 			return "noNickname";
@@ -179,22 +182,46 @@ public class MemberController {
 		}
 		
 		if(!member.getEmail().equals(
-				(String)session.getAttribute("email"))) {
+				(String)session.getAttribute("email")) && !"no".equals(noInputEmail)) {
 			return "emailCheck";
 		}
 		
-		if(!"".equals(member.getEmailCode()) && 
+		if(!"no".equals(member.getEmailCode()) &&!"".equals(member.getEmailCode()) && 
 				!member.getEmailCode().equals((String)session.getAttribute("emailCode"))) {			
 			return "emailCodeCheck";
 		}
 		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-		if(member.getPassword().length() != 0 || "".equals(member.getPassword())) {
-			String password = SHA256Encryptor.shaEncrypt(member.getPassword());
-			member.setPassword(password);
+		if(member.getPassword() != null && member.getPassword().length() != 0) {
+			if(member.getPassword().length() != 0 || "".equals(member.getPassword())) {
+				String password = SHA256Encryptor.shaEncrypt(member.getPassword());
+				member.setPassword(password);
+			}
+		}else {
+			
+			member.setPassword(loginMember.getPassword());
 		}
+		
+		System.out.println(member.getPassword());
 		
 		memberService.memberInfo(member);
 		return "y";
+	}
+	
+	@RequestMapping(value="/member/memberfind", method=RequestMethod.GET)
+	public String memberFindPage() {
+		
+		return "/member/find.jsp";
+	}
+	
+	@RequestMapping(value="/member/memberfind", method=RequestMethod.POST)
+	@ResponseBody
+	public Member memberFindPage(@RequestParam String email) {
+		System.out.println("이메일 : "+email);
+		Member resultMember = memberService.getMember(email);
+		System.out.println(resultMember.getNickname());
+		System.out.println(resultMember.getEmail());
+		return resultMember;
 	}
 }

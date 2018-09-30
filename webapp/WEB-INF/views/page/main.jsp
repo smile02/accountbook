@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, user-scalable=no">
 <title>환영 환영~</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -15,6 +15,47 @@
 	.error{
 		color:red;
 	}
+	
+	
+	@media all and (min-width:100px){
+		.container{
+			width:40%;
+		}
+		.row{
+			width:80%;
+		}
+		table > caption{
+			width:180%;
+		}
+	}
+	
+	@media all and (min-width:220px){
+		.container{
+			width:100%;
+		}
+		.row{
+			width:100%;
+		}
+	}
+	
+	
+	@media all and (min-width:768px){
+		.container .row{
+			width:30%;
+		}
+		table > caption{
+			width:100%;
+		}
+	}
+	
+	
+	@media all and (min-width:1024px){
+		.container .row{
+			width:100%;
+		}
+	}
+	
+	
 </style>
 </head>
 <body>
@@ -39,7 +80,7 @@
         </div>        
         <div class="modal-footer">
           <button type="button" class="btn btn-info" onclick="expandList();">지출목록으로</button>
-          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">취소</button>          
+          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">닫기</button>          
         </div>
       </div>      
       
@@ -60,7 +101,7 @@
         </div>        
         <div class="modal-footer">
           <button type="button" class="btn btn-info" onclick="incomeList();">수입목록으로</button>
-          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">취소</button>          
+          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">닫기</button>          
         </div>
       </div>      
       
@@ -95,7 +136,7 @@
         </div>        
         <div class="modal-footer">
           <button type="button" class="btn btn-info" onclick="regChange();">적용</button>
-          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">취소</button>          
+          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">닫기</button>          
         </div>
       </div>      
       

@@ -89,5 +89,24 @@ public class MemberServiceImpl implements MemberService {
 	public void memberInfo(Member member) {
 		memberDao.memberInfo(member);
 	}
+	
+	public Map<String, Object> memberFindMap(String email, String nickname){
+		Map<String, Object> memberMap = new HashMap<>();
+		
+		memberMap.put("email", email);
+		memberMap.put("nickname", nickname);
+			
+		return memberMap;
+	}
+	
+	@Override
+	public Member getMember(String email) {
+		return memberDao.getMember(memberFindMap(email,""));
+	}
+	
+	@Override
+	public Member getMember(String email,String nickname) {
+		return memberDao.getMember(memberFindMap(email,nickname));
+	}
 
 }

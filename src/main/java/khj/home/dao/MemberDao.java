@@ -37,4 +37,8 @@ public class MemberDao {
 	public void memberInfo(Member member) {
 		session.update("member.memberInfo",member);
 	}
+
+	public Member getMember(Map<String, Object> memberFindMap) {
+		return session.selectOne("member.getMember",memberFindMap);
+	}
 }

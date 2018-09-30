@@ -64,19 +64,17 @@
 	</delete>
 	
 	<select id="getIncomeCount" resultType="int" parameterType="map">
-		select count(*) from income
+		select count(*) from income where nickname = #{nickname}
 			<if test="year != null or month != null">
+				and
 					<choose>
 						<when test="year != null and month != null">
-						where
 							regdate like #{year}||'-'||#{month}||'%'
 						</when>
 						<when test="year != null">
-						where
 							regdate like #{year}||'%'
 						</when>
 						<when test="month != null">
-						where
 							regdate like '%-'||#{month}||'-%'
 						</when>
 					</choose>

@@ -42,14 +42,17 @@
 				<div class="form-group">
 					<label for="password" class="control-label col-xs-3 col-xs-offset-1">비밀번호</label>
 					<div class="col-xs-3">
-						<input id="password" type="password" class="form-control" name="password" readonly="readonly" />
+						<input id="password" type="password" class="form-control" name="password" readonly="readonly" onkeyup="passwordCorrect();"s />
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="passwordCheck" class="control-label col-xs-3 col-xs-offset-1">비밀번호 확인</label>
 					<div class="col-xs-3">
-						<input id="passwordCheck" type="password" class="form-control" readonly="readonly"/>
+						<input id="passwordCheck" type="password" class="form-control" readonly="readonly" onkeyup="passwordCorrect();"/>
+					</div>
+					<div class="col-xs-1">
+						<span id="passwordCorrect" class="error"></span>
 					</div>
 				</div>
 				
@@ -107,6 +110,7 @@
 				success:function(data){
 					if(data == 'n'){
 						alert("이미 존재하는 닉네임입니다.");
+						return;
 					}else{
 						alert("사용 가능한 닉네임입니다.");
 						nickChange = false;
@@ -149,6 +153,24 @@
 			});			
 		}
 		
+		var pwdCheck = false;
+		
+		function passwordCorrect(){			
+			var	password = $("#password").val();
+			var passwordCheck = $("#passwordCheck").val();
+			pwdCheck = false;
+			//console.log("password : "+password+", passwordCheck : "+passwordCheck);
+			//console.log(password == passwordCheck);
+			if(password != passwordCheck){
+				$("#passwordCorrect").removeClass("glyphicon glyphicon-ok");
+				$("#passwordCorrect").addClass("glyphicon glyphicon-remove").css("color","red");
+			}else{
+				$("#passwordCorrect").removeClass("glyphicon glyphicon-remove");
+				$("#passwordCorrect").addClass("glyphicon glyphicon-ok").css("color","green");
+				pwdCheck = true;
+			}
+			
+		}
 		
 		function changeSuccess(){
 			var idx = $("#idx").val();
@@ -156,8 +178,12 @@
 			var password = $("#password").val();
 			var email = $("#email").val();
 			var emailCode = $("#emailCode").val();
-			if(emailChange){
+			var noInputEmail = "";
+			if(emailChange){ //이메일을 수정했는데 인증을 하지 않았을 때
 				emailCode = "false";
+			}else{
+				emailCode = "no";
+				noInputEmail = "no";
 			}			
 			
 			if(nickChange){
@@ -176,13 +202,15 @@
 					  nickname:nickname,
 					  password:password,
 					  email:email,
-					  emailCode:emailCode},					  
+					  emailCode:emailCode,
+					  noInputEmail:noInputEmail},					  
 				success:function(data){
 					if(data == 'y'){
 						alert("회원정보를 수정했습니다.");
 						changeCancel();
 						nickChange = false;
 						emailChange = false;
+						return;
 					}else if(data == "noEmail"){
 						alert("이메일을 확인해주세요");
 					}else if(data == "noNickname"){
