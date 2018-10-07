@@ -18,7 +18,7 @@ public interface ExpandService {
 
 	void expandDel(int idx);
 
-	int getTotalCount(String year, String month, int page);
+	int getTotalCount(String year, String month, int page, String nickname);
 
 	int expandPriceSum(String year, String month, int page, String nickname);
 

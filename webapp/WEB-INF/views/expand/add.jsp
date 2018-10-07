@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, user-scalable=no">
 <title>환영 환영~</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -15,6 +15,38 @@
 	.error{
 		color:red;
 	}
+	
+	@media all and (min-width:100px){
+		.container{
+			width:80%;
+		}
+		.row{
+			width:100%;
+		}
+	}
+	
+	@media all and (min-width:220px){
+		.container{
+			width:100%;
+		}
+		.row{
+			width:100%;
+		}
+	}
+	
+	
+	@media all and (min-width:768px){
+		.container .row{
+			width:30%;
+		}
+	}
+	
+	@media all and (min-width:1024px){
+		.container .row{
+			width:100%;
+		}
+	}
+	
 </style>
 </head>
 <body>

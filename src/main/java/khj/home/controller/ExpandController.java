@@ -77,7 +77,7 @@ public class ExpandController {
 		model.addAttribute("expandList",expandService.expandList(year,month,day,page,loginMember.getNickname()));
 		model.addAttribute("paging", paging.getPaging("/expand",
 				page,
-				expandService.getTotalCount(year, month, page),
+				expandService.getTotalCount(year, month, page, loginMember.getNickname()),
 				ExpandServiceImpl.numberOfList,
 				ExpandServiceImpl.numberOfPage,
 				searchParam));

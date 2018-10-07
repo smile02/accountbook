@@ -23,4 +23,10 @@
 		update members set nickname = #{nickname}, password = #{password}, email = #{email}
 			where idx = #{idx} 
 	</update>
+	<select id="getMember" parameterType="map" resultType="member">
+		select * from members where email = #{email}
+			<if test="nickname != '' and nickname != null">
+				and nickname = #{nickname}
+			</if>
+	</select>
 </mapper>

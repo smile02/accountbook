@@ -18,4 +18,8 @@ public interface MemberService {
 
 	void memberInfo(Member member);
 
+	Member getMember(String email);
+	
+	Member getMember(String email, String nickname);
+
 }

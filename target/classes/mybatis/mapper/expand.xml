@@ -62,19 +62,17 @@
 		delete from expand where idx = #{value}
 	</delete>
 	<select id="expandCount" parameterType="map" resultType="int">
-		select count(*) from expand
+		select count(*) from expand where nickname = #{nickname}
 			<if test="year != null or month != null">
+				and
 					<choose>
 						<when test="year != null and month != null">
-						where
 							regdate like #{year}||'-'||#{month}||'%'
 						</when>
 						<when test="year != null">
-						where
 							regdate like #{year}||'%'
 						</when>
 						<when test="month != null">
-						where
 							regdate like '%-'||#{month}||'-%'
 						</when>
 					</choose>

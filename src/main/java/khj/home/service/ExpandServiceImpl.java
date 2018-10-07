@@ -61,8 +61,8 @@ public class ExpandServiceImpl implements ExpandService {
 	}
 
 	@Override
-	public int getTotalCount(String year, String month, int page) {
-		return expandDao.getTotalCount(getSearchMap(year, month,"", page,""));
+	public int getTotalCount(String year, String month, int page, String nickname) {
+		return expandDao.getTotalCount(getSearchMap(year, month,"", page, nickname));
 	}
 
 	@Override
