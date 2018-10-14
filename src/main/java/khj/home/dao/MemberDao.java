@@ -41,4 +41,16 @@ public class MemberDao {
 	public Member getMember(Map<String, Object> memberFindMap) {
 		return session.selectOne("member.getMember",memberFindMap);
 	}
+
+	public Member setPassword(Map<String, Object> memberFindMap) {
+		return session.selectOne("member.setPassword", memberFindMap);
+	}
+
+	public void setPasswordUpdate(Map<String, Object> passwordMap) {
+		session.update("member.setPasswordUpdate",passwordMap);
+	}
+
+	public String getDiffPrice(Map<String, Object> diffMap) {
+		return session.selectOne("member.getDiffPrice", diffMap);
+	}
 }

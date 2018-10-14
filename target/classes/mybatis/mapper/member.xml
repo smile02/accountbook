@@ -24,9 +24,30 @@
 			where idx = #{idx} 
 	</update>
 	<select id="getMember" parameterType="map" resultType="member">
-		select * from members where email = #{email}
-			<if test="nickname != '' and nickname != null">
-				and nickname = #{nickname}
+		select * from members where 1=1
+			<if test="(nickname != '' and nickname != null) or (email != '' and email != null)">
+					and
+				<choose>
+					<when test="nickname != '' and nickname != null">
+						nickname = #{nickname}
+					</when>
+					<otherwise>
+						email = #{email}
+					</otherwise>
+				</choose>
 			</if>
+	</select>
+	
+	<select id="setPassword" parameterType="map" resultType="member">
+		select * from members where nickname = #{nickname} and email = #{email}
+	</select>
+	
+	<update id="setPasswordUpdate" parameterType="map">
+		update members set password = #{password}
+			where email = #{email} and nickname = #{nickname}
+	</update>
+	
+	<select id="getDiffPrice" parameterType="map" resultType="String">
+		select (select )
 	</select>
 </mapper>

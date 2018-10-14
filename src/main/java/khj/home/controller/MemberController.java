@@ -203,7 +203,7 @@ public class MemberController {
 			member.setPassword(loginMember.getPassword());
 		}
 		
-		System.out.println(member.getPassword());
+//		System.out.println(member.getPassword());
 		
 		memberService.memberInfo(member);
 		return "y";
@@ -217,11 +217,31 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/memberfind", method=RequestMethod.POST)
 	@ResponseBody
-	public Member memberFindPage(@RequestParam String email) {
-		System.out.println("이메일 : "+email);
-		Member resultMember = memberService.getMember(email);
-		System.out.println(resultMember.getNickname());
-		System.out.println(resultMember.getEmail());
+	public Member memberFindPage(@RequestParam(defaultValue="") String email, @RequestParam(defaultValue="") String nickname) {
+//		System.out.println("이메일 : "+email);
+		Member resultMember = memberService.getMember(email, nickname);
+//		System.out.println(resultMember.getNickname());
+//		System.out.println(resultMember.getEmail());
 		return resultMember;
+	}
+	
+	@RequestMapping(value="/member/passwordSet", method=RequestMethod.POST)
+	@ResponseBody
+	public String memberPasswordSet(@RequestParam(defaultValue="") String email, @RequestParam(defaultValue="") String nickname) {
+//		System.out.println("이메일 : "+email);
+		Member resultMember = memberService.setPassword(email, nickname);
+//		System.out.println(resultMember);
+		if(resultMember != null) {
+			String password = memberService.sendPasswordCode(email);
+			memberService.setPasswordUpdate(SHA256Encryptor.shaEncrypt(password), email, nickname);
+			System.out.println("1 : "+password);
+			System.out.println("2 : "+SHA256Encryptor.shaEncrypt(password));
+			
+			return "y";
+		}
+		
+		return "n";
+//		System.out.println(resultMember.getNickname());
+//		System.out.println(resultMember.getEmail());
 	}
 }

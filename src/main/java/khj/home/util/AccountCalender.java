@@ -1,5 +1,6 @@
 package khj.home.util;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -106,14 +107,14 @@ public class AccountCalender {
 	}
 
 	//로그인을 했을 때의 달력
-	public String result(int nYear, int mth, List<Expand> expand, List<Income> income) {
+	public String result(int nYear, int mth, List<Expand> expand, List<Income> income, String diffPrice) {
 		boolean todayCheck = false;
 		Calendar cal = Calendar.getInstance( );
 		int compareDate = cal.get(Calendar.DATE);
 		String background = "";
 		String red = "color:red;"; //th태그
 		String blue = "color:blue;"; //th태그
-		
+		DecimalFormat df = new DecimalFormat("#,###");
 		
 		sb.setLength(0);
 		int i, j; // 카운트를 위한 변수입니다.
@@ -150,7 +151,8 @@ public class AccountCalender {
 			+"<button id='bottomBtn' type='button' class='btn btn-default'><span class='glyphicon glyphicon-triangle-bottom'></span></button>"
 			+"<button id='rightBtn' type='button' class='btn btn-default'><span class='glyphicon glyphicon-triangle-right'></span></button>&nbsp;&nbsp;"
 			+"<button class='btn btn-warning' type='button' data-toggle='modal' data-target='#changeModal' data-backdrop='false'>날짜변경</button>&nbsp;&nbsp;"
-			+"<button id='today' class='btn btn-default' type='button'>오늘날짜</button>"
+			+"<button id='today' class='btn btn-default' type='button'>오늘날짜</button>&nbsp;"
+			+"<input type='text' class='form-control' style='width:90px; display:inline-block; padding-left:15px; margin-left:5px; font-wight:300;' value='"+df.format(Integer.parseInt(diffPrice))+"'/>"	
 			+"</caption>");
 			
 			//System.out.println(+month + " 월의 달력");

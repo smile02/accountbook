@@ -1,4 +1,7 @@
 select * from savingpay;
+
+select * from members where password = '136514e6d4f47d204177d92261aa5440aa503528ab839c794a321ee5bbfc15cc';
+
 desc savingpay;
 
 select * from members;
@@ -117,3 +120,15 @@ alter table income drop constraint SYS_C004097;
 alter table expand drop constraint SYS_C004095;
 
 select * from members;
+
+select * from income;
+
+select * from expand order by regdate desc;
+select * from income order by regdate desc;
+
+select sum(price) from expand where regdate like '2018-10%';
+select sum(price) from income where regdate like '2018-10%';
+
+select if((select sum(price) from income where nickname='快府笛捞' and regdate like '2018-10%') > (select sum(price) from expand where nickname='快府笛捞' and regdate like '2018-10%'),
+            diffPrice, concat('-',diffPrice)) as diffPrice
+    from members where nickname = '快府笛捞';

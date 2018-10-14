@@ -77,8 +77,9 @@
 		
 		<div class="col-xs-4">
 			<ul class="nav nav-pills">
-			  <li><a href="#">적금보기</a></li>
-			  <li><a href="#">대출보기</a></li>
+			  <li><a href="#" class="btn" onclick="listViews('s')">적금보기</a></li>
+			  <li><a href="#" class="btn" onclick="listViews('l')">대출보기</a></li>
+			  <li><a href="#" class="btn" onclick="listViews('a')">전체보기</a></li>
 			</ul>
 		</div>
 		
@@ -183,6 +184,7 @@
 			<div class="col-xs-4">
 				<div id="savingbox" class="panel panel-default"
 		 	style="height:500px; padding-left:20px; overflow:auto;">
+		 		<div id="savingView">
 		 			<c:forEach var="saving" items="${savingList }">
 		 				<div class="row">
 		 					<div class="col-xs-12">
@@ -197,7 +199,9 @@
 		 					</div>
 		 				</div>
 		 			</c:forEach>
-		 			
+		 		</div>
+		 		
+		 		<div id="loanView">
 		 			<c:forEach var="loan" items="${loanList }">
 		 				<div class="row">
 		 					<div class="col-xs-12">
@@ -213,6 +217,8 @@
 		 					</div>
 		 				</div>
 		 			</c:forEach>
+		 		</div>
+		 		
 		 		</div>
 				</div>
 				<div class="col-xs-4">
@@ -626,6 +632,18 @@
 			});
 		}
 		
+		function listViews(value){
+			if(value == 's'){
+				$("#loanView").css("display","none");
+				$("#savingView").css("display","block");
+			}else if(value == 'l'){
+				$("#loanView").css("display","block");
+				$("#savingView").css("display","none");
+			}else{
+				$("#loanView").css("display","block");
+				$("#savingView").css("display","block");
+			}
+		}
 		function modDelPage(){
 			location.href="/saving/moddelpage";
 		}

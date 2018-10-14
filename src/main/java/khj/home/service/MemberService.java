@@ -14,12 +14,18 @@ public interface MemberService {
 
 	String sendEmailCode(String email);
 
+	String sendPasswordCode(String email);
+	
 	String memberPasswordCheck(String nickname, String password);
 
 	void memberInfo(Member member);
 
-	Member getMember(String email);
-	
 	Member getMember(String email, String nickname);
+
+	Member setPassword(String email, String nickname);
+
+	void setPasswordUpdate(String password, String email, String nickname);
+
+	String getDiffPrice(String nickname, int outYear, String diffMonth);
 
 }

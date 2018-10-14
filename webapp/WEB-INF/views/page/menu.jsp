@@ -39,7 +39,7 @@
       </ul>      
       <ul class="nav navbar-nav navbar-right">
    		  <c:if test="${sessionScope.loginMember == null }">
-   		  		<li><a href="/member/memberfind"><span class="glyphicon glyphicon-list-alt"></span>닉네임/비밀번호찾기</a></li>
+   		  		<li><a href="/member/memberfind"><span class="glyphicon glyphicon-list-alt"></span>계정정보 찾기</a></li>
 	    		<li><a href="/member/login"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
   				<li><a href="/member/signup"><span class="glyphicon glyphicon-user"></span>회원가입</a> </li>
     		</c:if>
