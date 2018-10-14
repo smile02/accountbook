@@ -27,7 +27,7 @@
 						</when>
 					</choose>
 				</if> 
-				order by orderdate desc)
+				order by regdate desc)
 			a)
 			where rnum between #{start} and #{end} and nickname = #{nickname}
 	</select>	

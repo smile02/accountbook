@@ -80,13 +80,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String sendPasswordCode(String email) {
 		String from = "lbread2.bread2l@gmail.com";
-		String subject = "가계부 임시 비빌번호 발송";
+		String subject = "가계부 임시 비빌번호 전송";
 		String tempPassword = makeRandomPassword();
 		
 		StringBuffer sb = new StringBuffer();
 		sb.append("임시 비밀번호 : "+tempPassword);
-		sb.append("\n임시비밀번호로 로그인 하신 뒤 마이페이지에서 비밀번호를");
-		sb.append("\n변경해주시 바랍니다.");
+		sb.append("\n**임시비밀번호로 로그인 하신 뒤 마이페이지에서 비밀번호를**");
+		sb.append("\n**변경해주시기 바랍니다.**");
 		
 		try {
 			MimeMessage msg = javaMailSender.createMimeMessage();
