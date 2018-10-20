@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import khj.home.service.FileService;
 import khj.home.service.MemberService;
 import khj.home.util.SHA256Encryptor;
 import khj.home.vo.Member;
@@ -26,6 +27,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private FileService fileService;
 	
 	@RequestMapping(value="/member/signup", method=RequestMethod.GET)
 	public String memberSignup(Model model) {
@@ -244,4 +248,10 @@ public class MemberController {
 //		System.out.println(resultMember.getNickname());
 //		System.out.println(resultMember.getEmail());
 	}
+	
+	@RequestMapping(value = "/member/music", method=RequestMethod.GET)
+	public String memberMusicManage() {
+		return "/member/music.jsp";
+	}
+
 }

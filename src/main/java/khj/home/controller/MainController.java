@@ -97,39 +97,54 @@ public class MainController {
 	public String nextYearMonth(@RequestParam int year, @RequestParam int month,
 					@RequestParam String price, HttpSession session) {
 		Member loginMember = (Member)session.getAttribute("loginMember");
-		Calendar cal = Calendar.getInstance();
-		cal.set(year, month-1,1); //가져온 년, 월을 기준으로 캘린더 셋팅
-		//받아온 년, 월을 기준으로 해당월의 마지막일을 가져오기.
-//		System.out.println("년 : "+year+", 월 : "+month+", 금액"+price);
-//		System.out.println(cal.getActualMaximum(Calendar.DAY_OF_MONTH)); //해당월의 마지막 일
-		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		//위에서 만든 년, 월, 일과 금액으로 지출에 추가.
-		Expand diffExpand = new Expand();
-		diffExpand.setNickname(loginMember.getNickname());
-		diffExpand.setPrice(Integer.parseInt(price.replace(",", "")));
-		diffExpand.setBig_purpose("기타");
-		diffExpand.setSmall_purpose("이월");
-		diffExpand.setBig_ways("카드");
-		diffExpand.setSmall_ways("일시불");
-		diffExpand.setRegdate(year+"-"+month+"-"+lastDay);
-		diffExpand.setComments(month+"월 잔액 이월예정");
-		diffExpand.setMemo(month+"월 잔액 이월(지출)");
-//		expandService.expandAdd(diffExpand);
+		if(loginMember != null) {
+			Calendar cal = Calendar.getInstance();
+			cal.set(year, month-1,1); //가져온 년, 월을 기준으로 캘린더 셋팅
+			//받아온 년, 월을 기준으로 해당월의 마지막일을 가져오기.
+//			System.out.println("년 : "+year+", 월 : "+month+", 금액"+price);
+//			System.out.println(cal.getActualMaximum(Calendar.DAY_OF_MONTH)); //해당월의 마지막 일
+			int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			//위에서 만든 년, 월, 일과 금액으로 지출에 추가.
+			Expand diffExpand = new Expand();
+			diffExpand.setNickname(loginMember.getNickname());
+			diffExpand.setPrice(Integer.parseInt(price.replace(",", "")));
+			diffExpand.setBig_purpose("기타");
+			diffExpand.setSmall_purpose("이월");
+			diffExpand.setBig_ways("카드");
+			diffExpand.setSmall_ways("일시불");
+			diffExpand.setRegdate(year+"-"+month+"-"+lastDay);
+			diffExpand.setComments(month+"월 잔액 이월예정");
+			diffExpand.setMemo(month+"월 잔액 이월(지출)");
+			expandService.expandAdd(diffExpand); //해당월 마지막날의 지출
+			
+			/*
+			System.out.println("몇월일지 : "+cal.get(Calendar.MONTH));
+			System.out.println("몇월일지 : "+(cal.get(Calendar.MONTH)+1));
+			System.out.println("몇월일지 : "+(cal.get(Calendar.MONTH)+2)); 
+			 */
+			//다음달이 내년인 경우를 생각
+			//받아온 년, 월을 기준으로 다음달의 첫일을 가져오기.
+			int nextMonth = (cal.get(Calendar.MONTH)+2);
+			int nextYear = 0;
+			if(nextMonth == 12) {
+				nextYear = year + 1;
+			}else {
+				nextYear = year;
+			}
+			Income diffIncome = new Income();
+			diffIncome.setNickname(loginMember.getNickname());
+			diffIncome.setPrice(Integer.parseInt(price.replace(",", "")));		
+			diffIncome.setWays("카드");
+			diffIncome.setRegdate(nextYear+"-"+nextMonth+"-"+1);
+			diffIncome.setComments(year+"년 "+month+"월 이월금액");
+			diffIncome.setMemo("이월한 금액");
+			//위에서 만든 년, 월, 일과 금액으로 수입에 추가.
+			incomeService.incomeAdd(diffIncome);
+			
+			return "y";
+		}else {
+			return "n";
+		}
 		
-		/*
-		System.out.println("몇월일지 : "+cal.get(Calendar.MONTH));
-		System.out.println("몇월일지 : "+(cal.get(Calendar.MONTH)+1));
-		System.out.println("몇월일지 : "+(cal.get(Calendar.MONTH)+2)); 
-		 */
-		//다음달이 내년인 경우를 생각
-		//받아온 년, 월을 기준으로 다음달의 첫일을 가져오기.
-		int nextMonth = (cal.get(Calendar.MONTH)+2);
-		Income diffIncome = new Income();
-		diffIncome.setNickname(loginMember.getNickname());
-		diffIncome.setPrice(Integer.parseInt(price.replace(",", "")));		
-		diffIncome.setWays("카드");
-		diffIncome.setRegdate(year+"-"+nextMonth+"-"+1);
-		//위에서 만든 년, 월, 일과 금액으로 수입에 추가.
-		return "";
 	}
 }

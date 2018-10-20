@@ -44,7 +44,7 @@
   				<li><a href="/member/signup"><span class="glyphicon glyphicon-user"></span>회원가입</a> </li>
     		</c:if>
     		<c:if test="${sessionScope.loginMember != null }">
-	    		<li><span class="text-muted text-right">${sessionScope.loginMember.nickname}님 환영합니다.</span><li>
+	    		<li><span class="text-muted text-right" style="vertical-align: middle;">${sessionScope.loginMember.nickname}님 환영합니다.</span><li>
 				<li><a href="/member/info"><span class="glyphicon glyphicon-info-sign"></span>마이페이지</a></li>
 				<li><a href="/member/logout"><span class="glyphicon glyphicon-log-out"></span>로그아웃</a></li>
     		</c:if>

@@ -59,8 +59,15 @@
 </style>
 </head>
 <body>
+
 	<jsp:include page="menu.jsp" />
 	<div class="container">
+		<!-- <audio controls>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="horse.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio> -->
+
 		<div class="row">
 			${calendar }
 		</div>			
@@ -339,8 +346,13 @@
 						  month:$("#sendMonth").text(),
 						  price:$("#b_Price").text()},
 					success:function(data){
-						alert("이월 완료");
-						location.href="/?year="+$("#sendYear").text()+"&month="+$("#sendMonth").text();
+						if(data == 'y'){
+							alert("이월 완료");
+							location.href="/?year="+$("#sendYear").text()+"&month="+$("#sendMonth").text();
+						}else{
+							alert("안됨~");
+						}
+						
 					}
 				});
 				

@@ -78,6 +78,7 @@
 					<button id="main" class="btn btn-default" type="button" onclick="location.href='/'">메인으로</button>
 					<button onclick="changeSuccess();" style="display:none;" id="success" class="btn btn-primary" type="button">수정완료</button>
 					<button onclick="changeCancel();" style="display:none;" id="cancel" class="btn btn-default" type="button">수정취소</button>
+					<button type="button" class="btn btn-default" id="mucis_man" onclick="location.href='/member/music'">음악관리</button>
 				</div>				
 			</form>			
 		</div>

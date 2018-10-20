@@ -132,3 +132,22 @@ select sum(price) from income where regdate like '2018-10%';
 select if((select sum(price) from income where nickname='快府笛捞' and regdate like '2018-10%') > (select sum(price) from expand where nickname='快府笛捞' and regdate like '2018-10%'),
             diffPrice, concat('-',diffPrice)) as diffPrice
     from members where nickname = '快府笛捞';
+    
+    
+create table account_memo(
+    idx number primary key,
+    nickname varchar2(40) references members(nickname),
+    memo clob,
+    orderdate date
+);
+
+create sequence seq_account_memo_idx;
+
+create sequence seq_account_music_idx;
+
+create table account_music(
+    idx number primary key,
+    nickname varchar2(40) references members(nickname),
+    name varchar2(100),
+    orderdate date
+);

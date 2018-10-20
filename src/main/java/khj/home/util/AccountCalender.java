@@ -160,7 +160,7 @@ public class AccountCalender {
 			sb.append("<tr> <th class='text-center' style='"+red+"'>일</th> <th class='text-center'>월</th> <th class='text-center'>화</th> <th class='text-center'>수</th> <th class='text-center'>목</th> <th class='text-center'>금</th> <th class='text-center' style='"+blue+"'>토</th> </tr>");
 			//System.out.println("일 월     화     수     목     금     토");
 			sb.append("</thead>");
-			sb.append("<tbody><tr style='height:70px;'>");
+			sb.append("<tbody><tr style='height:120px;'>");
 			for (i = 0; i < day; i++) // day 변수는 요일 입니다. 갯수만큼 \t로 공백을 만들어줍니다.
 				//System.out.print("\t");
 			{	
@@ -262,7 +262,7 @@ public class AccountCalender {
 					//System.out.println();
 				{
 					sb.append("<tr/>");
-					sb.append("<tr style='height:70px;'>");
+					sb.append("<tr style='height:120px;'>");
 				}
 				// 그리고 처음 요일을 출력하기위한 공백만큼 계산해서 출력
 			}
