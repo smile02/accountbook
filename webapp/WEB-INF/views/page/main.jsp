@@ -326,6 +326,29 @@
 			$("#closeBtn").attr("data-dismiss","modal");
 			location.reload();
 		}
+		
+		$("#diffPrice").on("click",function(){
+			var p
+			if(!confirm("잔액을 이월하시겠습니까?")){
+				return;
+			}else{
+				$.ajax({
+					url:"/next",
+					type:"post",
+					data:{year:$("#sendYear").text(),
+						  month:$("#sendMonth").text(),
+						  price:$("#b_Price").text()},
+					success:function(data){
+						alert("이월 완료");
+						location.href="/?year="+$("#sendYear").text()+"&month="+$("#sendMonth").text();
+					}
+				});
+				
+			//	alert("네 이월하겠습니다.");
+				//지출목록에 현재 잔액으로 지출 추가 내용은 이월하는 거로 작성 (insert)
+				//수입목록에 현재 잔액으로 수입 추가 내용은 이월한거 작성 (insert)
+			}
+		});
 	</script>
 </body>
 </html>

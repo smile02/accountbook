@@ -152,7 +152,7 @@ public class AccountCalender {
 			+"<button id='rightBtn' type='button' class='btn btn-default'><span class='glyphicon glyphicon-triangle-right'></span></button>&nbsp;&nbsp;"
 			+"<button class='btn btn-warning' type='button' data-toggle='modal' data-target='#changeModal' data-backdrop='false'>날짜변경</button>&nbsp;&nbsp;"
 			+"<button id='today' class='btn btn-default' type='button'>오늘날짜</button>&nbsp;"
-			+"<span class='conrol-label' style='display:inline-block; margin-left:5px;'><strong>잔액 : "+df.format(Integer.parseInt(diffPrice))+"원</strong></span>"
+			+"<span id='diffPrice' class='cotrol-label' style='display:inline-block; margin-left:5px; cursor:pointer;'>잔액 : <strong id='b_Price'>"+df.format(Integer.parseInt(diffPrice))+"</strong>원</span>"
 			+"</caption>");
 			
 			//System.out.println(+month + " 월의 달력");
