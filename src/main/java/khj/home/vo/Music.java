@@ -4,11 +4,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Music {
 
+	private int rnum;
 	private String nickname;
 	private String music;
 	private int count;
 	private MultipartFile music_file;
 	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public String getNickname() {
 		return nickname;
 	}

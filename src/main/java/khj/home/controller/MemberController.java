@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import khj.home.service.FileService;
 import khj.home.service.MemberService;
+import khj.home.service.MusicService;
+import khj.home.service.MusicServiceImpl;
+import khj.home.util.Paging;
 import khj.home.util.SHA256Encryptor;
 import khj.home.vo.Member;
 
@@ -29,7 +31,10 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@Autowired
-	private FileService fileService;
+	private MusicService musicService;
+	
+	@Autowired
+	private Paging paging;
 	
 	@RequestMapping(value="/member/signup", method=RequestMethod.GET)
 	public String memberSignup(Model model) {
@@ -98,7 +103,10 @@ public class MemberController {
 			return "/member/login.jsp";
 		}
 		
+		
+		
 		Member loginMember = memberService.memberLogin(member);
+		request.getSession().setAttribute("musicMenuList", musicService.musicMenuList(loginMember.getNickname()));
 		request.getSession().setAttribute("loginMember", loginMember);
 		
 		return "redirect:/";
@@ -250,7 +258,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/member/music", method=RequestMethod.GET)
-	public String memberMusicManage() {
+	public String memberMusicManage(Model model, HttpSession session, @RequestParam(defaultValue="1") int page) {
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		model.addAttribute("musicList", musicService.musicList(loginMember.getNickname(), page));
+		model.addAttribute("paging", paging.getPaging("/member/music",
+				page,
+				musicService.getTotalCount(page, loginMember.getNickname()),
+				MusicServiceImpl.numberOfList,
+				MusicServiceImpl.numberOfPage,
+				""));
 		return "/member/music.jsp";
 	}
 

@@ -1,7 +1,26 @@
+<%@page import="khj.home.vo.Music"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.net.URLDecoder"%>
+<%
+	
+	List<String> musicList = null;
+	String[] musicArray = {};
+	
+	if(request.getSession().getAttribute("musicMenuList") !=null){
+		musicList = (List<String>)request.getSession().getAttribute("musicMenuList");
+		musicArray = new String[musicList.size()];
+		for(int i=0; i<musicList.size(); i++){
+			musicArray[i] = musicList.get(i);
+			System.out.println(musicArray[i]);
+			
+		}
+	}
+				
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +56,18 @@
         <li><a href="/income">수입목록</a></li>
         <li><a href="/saving">적금/대출 관리</a></li>
       </ul>      
+      
+      <c:if test="${sessionScope.loginMember != null && sessionScope.musicMenuList != null}">
+		<audio controls>
+		<% for(int i=0; i<musicArray.length; i++){ %>
+				<source 
+				src="/resources/music/<%=URLDecoder.decode(musicArray[i],"UTF-8") %>" type="audio/mpeg">
+		<%} %>
+		</audio>      
+      </c:if>
+		
+		<!-- D:/home/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/accountbook/WEB-INF -->
+		
       <ul class="nav navbar-nav navbar-right">
    		  <c:if test="${sessionScope.loginMember == null }">
    		  		<li><a href="/member/memberfind"><span class="glyphicon glyphicon-list-alt"></span>계정정보 찾기</a></li>

@@ -151,3 +151,16 @@ create table account_music(
     name varchar2(100),
     orderdate date
 );
+
+select * from
+(select rownum as num, a.* from
+(select * from account_music
+    where nickname = '∂Ø¿Ã') a
+    )
+    where num between 4 and 5;
+    
+ALTER TABLE account_music MODIFY(music varchar(300));
+
+    
+ --   ALTER TABLE account_music RENAME COLUMN name TO music;
+

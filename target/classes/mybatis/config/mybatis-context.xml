@@ -17,5 +17,6 @@
   	<mapper resource="mybatis/mapper/saving.xml"/>
   	<mapper resource="mybatis/mapper/loan.xml"/>
   	<mapper resource="mybatis/mapper/loanPay.xml"/>
+  	<mapper resource="mybatis/mapper/music.xml"/>  	
   </mappers>
 </configuration>

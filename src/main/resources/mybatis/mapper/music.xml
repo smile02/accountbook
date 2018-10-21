@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="music">
+	<select id="musicSelect" parameterType="map" resultType="music">
+		select * from
+		(select rownum as rnum, a.* from
+			(select * from account_music
+				) 
+			a)
+			where rnum between #{start} and #{end} and nickname = #{nickname}
+	</select>
+	
+	<insert id="musicAdd" parameterType = "music">
+		insert into account_music values (seq_account_music_idx.nextval, #{nickname}, #{music}, sysdate)
+	</insert>
+	
+	<select id="getTotalCount" parameterType="map" resultType="int">
+		select count(*) from account_music
+			where nickname = #{nickname}
+	</select>
+	
+	<select id="musicMenuList" parameterType="String" resultType="String">
+		select music from account_music
+			where nickname = #{nickname}
+	</select>
+</mapper>

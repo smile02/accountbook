@@ -23,6 +23,7 @@
 			<mvc:mapping path="/saving/**"/>
 			<mvc:mapping path="/member/logout/**"/>
 			<mvc:mapping path="/member/mypage/**"/>
+			<mvc:mapping path="/file/**"/>
 			<ref bean="loginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
