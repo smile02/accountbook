@@ -143,8 +143,11 @@ public class AccountCalender {
 			month = total_to_month(total_sum); // 입력받은 해당 날짜의 정확한 달을 구해서 저장합니다.
 			sb.append("<table class='table table-bordered'>");
 			
+			
 			sb.append(				
 			"<caption class='text-muted text-center'>"
+			+"<button type='button' id='memoBtn' class='btn btn-default' onclick='memoBtn(this);' data-toggle='modal' data-target='#memoModal' data-backdrop='false'"
+			+" style='margin-right:10px;'><span class='glyphicon glyphicon glyphicon-pencil'></span> 메모</button>"
 			+"<button id='leftBtn' type='button' class='btn btn-default'><span class='glyphicon glyphicon-triangle-left'></span></button>"
 			+"<button id='topBtn' type='button' class='btn btn-default'><span class='glyphicon glyphicon-triangle-top'></span></button> &nbsp;&nbsp;&nbsp;&nbsp;"
 			+"<span id='sendYear'>"+nYear+"</span>년"+"<span id='sendMonth'>"+month+"</span>월의달력~ &nbsp;&nbsp;&nbsp;&nbsp;"

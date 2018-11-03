@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import khj.home.vo.Member;
+import khj.home.vo.Memo;
 
 @Repository
 public class MemberDao {
@@ -52,5 +53,13 @@ public class MemberDao {
 
 	public String getDiffPrice(Map<String, Object> diffMap) {
 		return session.selectOne("member.getDiffPrice", diffMap);
+	}
+
+	public Memo memoList(String nickname) {
+		return session.selectOne("member.memoList",nickname);
+	}
+
+	public void memoSave(Map<String, Object> memoMap) {
+		session.update("member.memoSave",memoMap);
 	}
 }

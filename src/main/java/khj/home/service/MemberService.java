@@ -1,6 +1,7 @@
 package khj.home.service;
 
 import khj.home.vo.Member;
+import khj.home.vo.Memo;
 
 public interface MemberService {
 
@@ -27,5 +28,9 @@ public interface MemberService {
 	void setPasswordUpdate(String password, String email, String nickname);
 
 	String getDiffPrice(String nickname, int outYear, String diffMonth);
+
+	Memo memoList(String nickname);
+
+	void memoSave(String memo, String nickname);
 
 }
