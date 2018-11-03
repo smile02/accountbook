@@ -6,21 +6,20 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.net.URLDecoder"%>
 <%
-	
-	List<String> musicList = null;
+	 
+/* 	List<String> musicList = null;
 	String[] musicArray = {};
 	
 	if(request.getSession().getAttribute("musicMenuList") !=null){
 		musicList = (List<String>)request.getSession().getAttribute("musicMenuList");
 		musicArray = new String[musicList.size()];
 		for(int i=0; i<musicList.size(); i++){
-			musicArray[i] = musicList.get(i);
-			System.out.println(musicArray[i]);
+			musicArray[i] = URLDecoder.decode(musicList.get(i),"UTF-8");
 			
+//			System.out.println(URLDecoder.decode(musicArray[i],"UTF-8"));			
 		}
 	}
-				
-%>
+ */%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +40,6 @@
       <a class="navbar-brand" href="/">우리둘이~!!</a>
     </div>        
     
-    
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">      
         <li id="lDrop" class="dropdown" id="collapseOne">
@@ -58,14 +56,13 @@
       </ul>      
       
       <c:if test="${sessionScope.loginMember != null && sessionScope.musicMenuList != null}">
-		<audio controls>
-		<% for(int i=0; i<musicArray.length; i++){ %>
+		<c:forEach var="music" items="${musicMenuList}">
+			<audio controls>			
 				<source 
-				src="/resources/music/<%=URLDecoder.decode(musicArray[i],"UTF-8") %>" type="audio/mpeg">
-		<%} %>
-		</audio>      
-      </c:if>
-		
+				src="/music/${music}" type="audio/mpeg">			
+			</audio>
+		</c:forEach>
+      </c:if>            
 		<!-- D:/home/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/accountbook/WEB-INF -->
 		
       <ul class="nav navbar-nav navbar-right">

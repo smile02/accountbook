@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id="musicAdd" parameterType = "music">
-		insert into account_music values (seq_account_music_idx.nextval, #{nickname}, #{music}, sysdate)
+		insert into account_music values (seq_account_music_idx.nextval, #{nickname}, #{music}, sysdate, #{path})
 	</insert>
 	
 	<select id="getTotalCount" parameterType="map" resultType="int">

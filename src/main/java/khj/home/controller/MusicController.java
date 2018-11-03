@@ -39,6 +39,7 @@ public class MusicController {
 				filename = fileService.saveFile(path, music.getMusic_file());
 				music.setMusic(filename);
 				music.setNickname(loginMember.getNickname());
+				music.setPath(path);
 				musicService.musicAdd(music);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();

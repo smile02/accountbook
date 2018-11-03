@@ -9,6 +9,7 @@ public class Music {
 	private String music;
 	private int count;
 	private MultipartFile music_file;
+	private String path;
 	
 	public int getRnum() {
 		return rnum;
@@ -39,6 +40,12 @@ public class Music {
 	}
 	public void setMusic_file(MultipartFile music_file) {
 		this.music_file = music_file;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 	
