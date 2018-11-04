@@ -141,6 +141,8 @@ create table account_memo(
     orderdate date
 );
 
+select * from account_memo;
+
 create sequence seq_account_memo_idx;
 
 create sequence seq_account_music_idx;
@@ -164,3 +166,9 @@ ALTER TABLE account_music MODIFY(music varchar(300));
     
  --   ALTER TABLE account_music RENAME COLUMN name TO music;
 
+select * from account_memo;
+
+insert into account_memo 
+    values (seq_account_memo_idx.nextval, '땡이','메모 테스트 입니다. 한번 넣어보자 ',sysdate);
+    
+    commit;

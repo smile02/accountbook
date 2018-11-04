@@ -52,7 +52,7 @@
 		<div class="button-group">
 			<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span></button>
 			<button id="play" type="button" class="btn btn-default" onclick="musicPlay();"><span class="glyphicon glyphicon-play"></span></button>
-			<button id="stop" type="button" class="btn btn-default" onclick="musicStop();" style="display:none;"><span class="glyphicon glyphicon-stop"></span></button>
+			<button id="stop" type="button" class="btn btn-default" onclick="musicStop();" style="display:none;"><span class="glyphicon glyphicon-pause"></span></button>
 			<button type="button" class="btn btn-default" onclick="musicNext()"><span class="glyphicon glyphicon-forward"></span></button>	
 		</div>
 		
@@ -102,28 +102,76 @@ var musicChk = false;
 		}
 	}
 	
+	var musicCnt = 0;
+	var musicArray = new Array();
+	
+	
+	$(function(){
+		musicCnt = <%=musicList.size()%>
+		 for(var i=0; i<musicCnt; i++){
+			musicArray[i] = document.getElementById("music"+i);
+	//		console.log(musicArray[i]);
+		}
+	});
 	
 	function musicNext(){
-		var myAudio0 = document.getElementById("music0");
-		var myAudio1 = document.getElementById("music1");
-		myAudio1.pause();
-		myAudio1.play();
+		console.log(nowPlay);
+		console.log(nextPlay);
+		
+		music();
 	}
 	
+	function musicPrev(){
+		console.log(nowPlay);
+		console.log(nextPlay);
+		
+		music();
+	}
+	
+	var nowPlay;
+	var nextPlay;
+	var prevPlay;
 	function musicPlay(){
 		$("#play").css("display","none");
 		$("#stop").css("display","inline-block");
-		var myAudio = document.getElementById("music0"); 
+		music();
+		//var jb = document.getElementById( 'xyz' ).getAttribute( 'title' );
+		 
 //		var myAudio = document.getElementById("music0"); 
-			myAudio.play(); 
+//		var myAudio = document.getElementById("music0"); 
+//			myAudio.play(); 
 	}
 	
+	
+	function music(){
+		for(var i=0; i<musicArray.length; i++){
+//				console.log("i값 : "+i);
+			if(i ==0){
+				nowPlay = musicArray[i];
+				nextPlay = musicArray[i+1];
+				prevPlay = musicArray[musicCnt-1];
+			}else if(i == musicCnt-1){
+				nowPlay = musicArray[i];
+				nextPlay = musicArray[0];
+				prevPlay = musicArray[i-1];
+			}else{
+				nowPlay = musicArray[i];
+				nextPlay = musicArray[i+1];
+				prevPlay = musicArray[i-1];
+			}
+//			nextPlay.setAttribute("display","yes");
+//			prevPlay.setAttribute("display","yes");
+				
+			nowPlay.play();
+			break;
+		}
+	}
 	
 	function musicStop(){
 		$("#play").css("display","inline-block");
 		$("#stop").css("display","none");
-		var myAudio = document.getElementById("music0"); 
-		myAudio.pause(); 
+		nowPlay.pause();
+		
 	}
 	
 </script>
