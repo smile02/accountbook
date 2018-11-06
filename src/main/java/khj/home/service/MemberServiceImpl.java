@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import khj.home.dao.MemberDao;
 import khj.home.vo.Member;
+import khj.home.vo.Memo;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -169,6 +170,19 @@ public class MemberServiceImpl implements MemberService {
 		diffMap.put("year", outYear);
 		diffMap.put("month", Integer.parseInt(diffMonth));
 		return memberDao.getDiffPrice(diffMap);
+	}
+
+	@Override
+	public Memo memoList(String nickname) {
+		return memberDao.memoList(nickname);
+	}
+
+	@Override
+	public void memoSave(String memo, String nickname) {
+		Map<String, Object> memoMap = new HashMap<>();
+		memoMap.put("memo", memo);
+		memoMap.put("nickname", nickname);
+		memberDao.memoSave(memoMap);
 	}
 
 }

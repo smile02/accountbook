@@ -4,22 +4,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="java.net.URLDecoder"%>
 <%
 	 
-/* 	List<String> musicList = null;
-	String[] musicArray = {};
+ 	List<String> musicList = null;
 	
 	if(request.getSession().getAttribute("musicMenuList") !=null){
 		musicList = (List<String>)request.getSession().getAttribute("musicMenuList");
-		musicArray = new String[musicList.size()];
-		for(int i=0; i<musicList.size(); i++){
-			musicArray[i] = URLDecoder.decode(musicList.get(i),"UTF-8");
-			
-//			System.out.println(URLDecoder.decode(musicArray[i],"UTF-8"));			
-		}
 	}
- */%>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,14 +47,24 @@
         <li><a href="/saving">적금/대출 관리</a></li>
       </ul>      
       
+      
       <c:if test="${sessionScope.loginMember != null && sessionScope.musicMenuList != null}">
-		<c:forEach var="music" items="${musicMenuList}">
-			<audio controls>			
-				<source 
-				src="/music/${music}" type="audio/mpeg">			
+		<div class="button-group">
+			<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span></button>
+			<button id="play" type="button" class="btn btn-default" onclick="musicPlay();"><span class="glyphicon glyphicon-play"></span></button>
+			<button id="stop" type="button" class="btn btn-default" onclick="musicStop();" style="display:none;"><span class="glyphicon glyphicon-pause"></span></button>
+			<button type="button" class="btn btn-default" onclick="musicNext()"><span class="glyphicon glyphicon-forward"></span></button>	
+		</div>
+		
+		
+		<!-- style="display:none;"  -->
+		<%for(int i=0; i<musicList.size(); i++){ %>
+			<audio controls style="display:none;" id="music<%=i %>" >		
+				<source
+				src="/music/<%=musicList.get(i) %>" type="audio/mpeg">
 			</audio>
-		</c:forEach>
-      </c:if>            
+		<%} %>
+      </c:if>           
 		<!-- D:/home/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/accountbook/WEB-INF -->
 		
       <ul class="nav navbar-nav navbar-right">
@@ -87,6 +89,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 var check = false;
+var musicChk = false;
 	function dropClick(){
 		if(!check){
 			$("#lDrop").addClass("open");
@@ -97,9 +100,80 @@ var check = false;
 			$("#aDrop").removeAttr("aria-expanded");
 			check = false;
 		}
+	}
+	
+	var musicCnt = 0;
+	var musicArray = new Array();
+	
+	
+	$(function(){
+		musicCnt = <%=musicList.size()%>
+		 for(var i=0; i<musicCnt; i++){
+			musicArray[i] = document.getElementById("music"+i);
+	//		console.log(musicArray[i]);
+		}
+	});
+	
+	function musicNext(){
+		console.log(nowPlay);
+		console.log(nextPlay);
 		
+		music();
+	}
+	
+	function musicPrev(){
+		console.log(nowPlay);
+		console.log(nextPlay);
+		
+		music();
+	}
+	
+	var nowPlay;
+	var nextPlay;
+	var prevPlay;
+	function musicPlay(){
+		$("#play").css("display","none");
+		$("#stop").css("display","inline-block");
+		music();
+		//var jb = document.getElementById( 'xyz' ).getAttribute( 'title' );
+		 
+//		var myAudio = document.getElementById("music0"); 
+//		var myAudio = document.getElementById("music0"); 
+//			myAudio.play(); 
+	}
+	
+	
+	function music(){
+		for(var i=0; i<musicArray.length; i++){
+//				console.log("i값 : "+i);
+			if(i ==0){
+				nowPlay = musicArray[i];
+				nextPlay = musicArray[i+1];
+				prevPlay = musicArray[musicCnt-1];
+			}else if(i == musicCnt-1){
+				nowPlay = musicArray[i];
+				nextPlay = musicArray[0];
+				prevPlay = musicArray[i-1];
+			}else{
+				nowPlay = musicArray[i];
+				nextPlay = musicArray[i+1];
+				prevPlay = musicArray[i-1];
+			}
+//			nextPlay.setAttribute("display","yes");
+//			prevPlay.setAttribute("display","yes");
+				
+			nowPlay.play();
+			break;
+		}
+	}
+	
+	function musicStop(){
+		$("#play").css("display","inline-block");
+		$("#stop").css("display","none");
+		nowPlay.pause();
 		
 	}
+	
 </script>
 </body>
 </html>

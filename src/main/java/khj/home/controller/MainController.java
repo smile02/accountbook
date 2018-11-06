@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import khj.home.service.ExpandService;
 import khj.home.service.IncomeService;
+import khj.home.service.MemberService;
 import khj.home.util.AccountCalender;
 import khj.home.vo.Expand;
 import khj.home.vo.Income;
 import khj.home.vo.Member;
+import khj.home.vo.Memo;
 
 @Controller
 public class MainController {
@@ -31,6 +34,9 @@ public class MainController {
 	
 	@Autowired
 	private IncomeService incomeService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mainPage(Model model,@RequestParam(defaultValue="0") int year,
@@ -146,5 +152,24 @@ public class MainController {
 			return "n";
 		}
 		
+	}
+	
+	@RequestMapping(value="/memo/list", method = RequestMethod.POST)
+	@ResponseBody
+	public Memo memoList(@RequestParam String nickname) {
+		
+		Memo memo =  memberService.memoList(nickname);
+		System.out.println(memo.getMemo());
+		
+		return memo;
+	}
+	
+	@RequestMapping(value="/memo/save", method = RequestMethod.POST)
+	@ResponseBody
+	public String memoSave(@RequestParam String memo, @RequestParam String nickname) {
+		
+		memberService.memoSave(memo, nickname);
+		
+		return "y";
 	}
 }

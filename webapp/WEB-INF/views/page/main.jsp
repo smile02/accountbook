@@ -149,6 +149,30 @@
       
     </div>
   </div>
+  
+  <div class="modal fade" id="memoModal" role="dialog">
+    <div class="modal-dialog">    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">메모 입력</h4>
+        </div>
+        
+        <div class="modal-body">
+       		<textarea name="" id="memo_box" cols="75" rows="15" style="resize:none;"></textarea>
+        </div>       
+         
+         
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" onclick="memoSave();">저 장</button>
+          <button id="closeBtn" type="button" class="btn btn-default" onclick="closeBtn();">닫 기</button>          
+        </div>
+      </div>      
+      
+    </div>
+  </div>
+  
 	<!--스크립트 라이브러리 -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script
@@ -236,6 +260,35 @@
 			location.href="/income?year="+reg[0]+"&month="+reg[1]+"&day="+reg[2];
 		}
 		
+		function memoSave(){
+			var memo = $("#memo_box").val();
+			var nickname = "${sessionScope.loginMember.nickname}";
+			
+			$.ajax({
+				url:"/memo/save",
+				type:"post",
+				data:{memo:memo,nickname:nickname},
+				success:function(data){
+					memoBtn(data);
+				}
+			});
+		}
+		
+		function memoBtn(btn){
+	//		alert("메모 클릭");
+			var nickname = "${sessionScope.loginMember.nickname}";
+			$.ajax({
+				url:"/memo/list",
+				type:"post",
+				data:{nickname:nickname},
+				success:function(data){
+//					alert(data.memo);
+					$("#memo_box").val(data.memo);
+				}
+			});
+		}
+		
+		
 		function expandBtn(btn){
 			var regId = btn.id;
 			var nickname = "${sessionScope.loginMember.nickname}";
@@ -247,8 +300,8 @@
 				reg[2] = "0"+reg[2];
 			}
 			var regdate = reg[0]+"-"+reg[1]+"-"+reg[2];
-			console.log(regdate);
-			console.log(nickname);
+//			console.log(regdate);
+//			console.log(nickname);
 			$.ajax({
 				url:"/expand/selectExpand",
 				type:"post",

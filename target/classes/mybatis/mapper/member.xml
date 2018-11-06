@@ -47,7 +47,13 @@
 			where email = #{email} and nickname = #{nickname}
 	</update>
 	
-	<select id="getDiffPrice" parameterType="map" resultType="String">
-		select (select )
+	<select id="memoList" parameterType="String" resultType="memo">
+		select * from account_memo
+			where nickname = #{value}
 	</select>
+	
+	<update id="memoSave" parameterType="map">
+		update account_memo set memo = #{memo}
+			where nickname = #{nickname}
+	</update>
 </mapper>
