@@ -47,14 +47,14 @@
         <li><a href="/saving">적금/대출 관리</a></li>
       </ul>      
       
-      
+     
       <c:if test="${sessionScope.loginMember != null && sessionScope.musicMenuList != null}">
-		<div class="button-group">
+		<!-- <div class="button-group">
 			<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span></button>
 			<button id="play" type="button" class="btn btn-default" onclick="musicPlay();"><span class="glyphicon glyphicon-play"></span></button>
 			<button id="stop" type="button" class="btn btn-default" onclick="musicStop();" style="display:none;"><span class="glyphicon glyphicon-pause"></span></button>
 			<button type="button" class="btn btn-default" onclick="musicNext()"><span class="glyphicon glyphicon-forward"></span></button>	
-		</div>
+		</div> -->
 		
 		
 		<!-- style="display:none;"  -->
@@ -64,7 +64,8 @@
 				src="/music/<%=musicList.get(i) %>" type="audio/mpeg">
 			</audio>
 		<%} %>
-      </c:if>           
+      </c:if>   
+       -->        
 		<!-- D:/home/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/accountbook/WEB-INF -->
 		
       <ul class="nav navbar-nav navbar-right">
