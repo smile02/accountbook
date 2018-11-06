@@ -48,7 +48,7 @@
       </ul>      
       
      
-      <c:if test="${sessionScope.loginMember != null && sessionScope.musicMenuList != null}">
+      <%-- <c:if test="${sessionScope.loginMember != null && sessionScope.musicMenuList != null}">
 		<!-- <div class="button-group">
 			<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span></button>
 			<button id="play" type="button" class="btn btn-default" onclick="musicPlay();"><span class="glyphicon glyphicon-play"></span></button>
@@ -64,8 +64,8 @@
 				src="/music/<%=musicList.get(i) %>" type="audio/mpeg">
 			</audio>
 		<%} %>
-      </c:if>   
-       -->        
+      </c:if> --%>   
+           
 		<!-- D:/home/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/accountbook/WEB-INF -->
 		
       <ul class="nav navbar-nav navbar-right">
