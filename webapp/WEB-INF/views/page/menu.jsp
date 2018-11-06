@@ -108,11 +108,11 @@ var musicChk = false;
 	
 	
 	$(function(){
-		musicCnt = <%=musicList.size()%>
+		<%-- musicCnt = <%=musicList.size()%>
 		 for(var i=0; i<musicCnt; i++){
 			musicArray[i] = document.getElementById("music"+i);
 	//		console.log(musicArray[i]);
-		}
+		} --%>
 	});
 	
 	function musicNext(){
