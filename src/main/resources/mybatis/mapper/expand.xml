@@ -6,23 +6,20 @@
 	<select id="expandList" resultType="expand" parameterType="map">
 		select * from
 		(select rownum as rnum, a.* from 
-			(select * from expand
+			(select * from expand where nickname = #{nickname}
 				<if test="year != null or month != null">
-					<choose>
+					and
+					<choose>						
 						<when test="year != null and month != null and day != null">
-						where
 							regdate like #{year}||'-'||#{month}||'-'||#{day}
 						</when>
 						<when test="year != null and month != null">
-						where
 							regdate like #{year}||'-'||#{month}||'%'
 						</when>
 						<when test="year != null">
-						where
 							regdate like #{year}||'%'
 						</when>
 						<when test="month != null">
-						where
 							regdate like '%-'||#{month}||'-%'
 						</when>
 					</choose>
@@ -30,7 +27,7 @@
 			order by regdate desc) 
 				a
 			)
-		where rnum between #{start} and #{end} and nickname = #{nickname}
+		where rnum between #{start} and #{end}
 	</select>	
 	<select id="list" resultType="expand" parameterType="String">
 		select regdate, count(regdate) as count from expand

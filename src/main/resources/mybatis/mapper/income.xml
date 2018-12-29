@@ -6,30 +6,27 @@
 	<select id="incomeList" resultType="income" parameterType="map">
 		select * from
 			(select rownum as rnum, a.* from
-				(select * from income
-					<if test="year != null or month != null">
+				(select * from income where nickname = #{nickname}
+				<if test="year != null or month != null">
+					and
 					<choose>
 						<when test="year != null and month != null and day != null">
-						where
 							regdate like #{year}||'-'||#{month}||'-'||#{day}
 						</when>
 						<when test="year != null and month != null">
-						where
 							regdate like #{year}||'-'||#{month}||'%'
 						</when>
 						<when test="year != null">
-						where
 							regdate like #{year}||'%'
 						</when>
 						<when test="month != null">
-						where
 							regdate like '%-'||#{month}||'-%'
 						</when>
 					</choose>
 				</if> 
 				order by regdate desc)
 			a)
-			where rnum between #{start} and #{end} and nickname = #{nickname}
+			where rnum between #{start} and #{end}
 	</select>	
 	
 	<select id="income" parameterType="String" resultType="income">
