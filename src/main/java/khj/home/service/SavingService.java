@@ -25,4 +25,6 @@ public interface SavingService {
 	public void savingPayMod(int num, int price);
 
 	public void savingPayDel(int num);
+
+	public int savingSum(String nickname);
 }

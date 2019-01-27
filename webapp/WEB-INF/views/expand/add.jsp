@@ -162,7 +162,7 @@
 	
 		function waysChange(){
 			var big_name = $("#big_ways").val(); //select태그 안에 있는 선택되어진 option태그
-			console.log(big_name);
+//			console.log(big_name);
 			$.ajax({
 				url:"/ways/small",
 				type:"post",
@@ -180,7 +180,7 @@
 		
 		function purposeChange(){
 			var big_name = $("#big_purpose").val(); //select태그 안에 있는 선택되어진 option태그
-			console.log(big_name);
+//			console.log(big_name);
 			$.ajax({
 				url:"/purpose/small",
 				type:"post",

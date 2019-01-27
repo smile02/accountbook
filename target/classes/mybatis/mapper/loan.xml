@@ -31,4 +31,8 @@
 		delete from loan where idx = #{value}
 	</delete>
 	
+	
+	<select id="loanSum" parameterType="String" resultType="int">
+		select nvl(sum(price),0) as sum from loanPay where nickname = #{value}
+	</select>
 </mapper>

@@ -76,4 +76,11 @@ public class SavingServiceImpl implements SavingService {
 		savingDao.savingPayDel(num);
 	}
 
+	@Override
+	public int savingSum(String nickname) {
+		return savingDao.savingSum(nickname);
+	}
+	
+	
+
 }

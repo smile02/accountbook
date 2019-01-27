@@ -56,4 +56,8 @@ public class SavingDao {
 		session.delete("saving.savingPayDel",num);
 	}
 
+	public int savingSum(String nickname) {
+		return session.selectOne("saving.savingSum",nickname);
+	}
+
 }

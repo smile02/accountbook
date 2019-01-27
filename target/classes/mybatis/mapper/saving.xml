@@ -49,4 +49,8 @@
 	<delete id="savingPayDel" parameterType="int">
 		delete from savingpay where num = #{value}
 	</delete>
+	
+	<select id="savingSum" parameterType="String" resultType="int">
+	  select nvl(sum(price),0) as sum from savingPay where nickname = #{value}
+	</select>
 </mapper>

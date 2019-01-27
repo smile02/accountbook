@@ -83,4 +83,9 @@ public class LoanServiceImpl implements LoanService{
 		loanDao.loanDel(idx);
 	}
 
+	@Override
+	public int loanSum(String nickname) {
+		return loanDao.loanSum(nickname);
+	}
+
 }

@@ -59,4 +59,8 @@ public class LoanDao {
 	public void loanDel(int idx) {
 		session.delete("loan.loanDel",idx);
 	}
+
+	public int loanSum(String nickname) {
+		return session.selectOne("loan.loanSum",nickname);
+	}
 }

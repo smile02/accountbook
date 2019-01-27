@@ -49,7 +49,15 @@
 	<jsp:include page="../page/menu.jsp" />	
 	<div class="container">
 	<div class="row">
-		<h1 class="text-muted text-center" style="color:black;">적 금/대 출 관 리 <div class="text-right"><button type="button" class="btn btn-default" onclick="modDelPage();">적금 수정/삭제페이지</button></div></h1>		
+		<h1 class="text-muted text-center" style="color:black;">적 금/대 출 관 리 
+			<div class="text-right">			
+				<label style="width:110px; height:25px; font-size:16pt;">적금 총액</label>
+				<span style="font-size:16pt;">${savingSum }</span>
+				<label style="width:110px; height:25px; font-size:16pt;">대출 총액</label>
+				<span style="font-size:16pt;">${loanSum }</span>
+				<button type="button" class="btn btn-default" onclick="modDelPage();">적금 수정/삭제페이지</button>
+			</div>
+		</h1>		
 	</div>
 	<div class="row">
 		<div class="col-xs-4">
