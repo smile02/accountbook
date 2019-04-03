@@ -1,5 +1,6 @@
 package khj.home.controller;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,12 +39,18 @@ public class SavingController {
 	
 	@RequestMapping(value="/saving", method=RequestMethod.GET)
 	public String saving(Model model, HttpSession session) {
+		 DecimalFormat df = new DecimalFormat("#,###");
+		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		model.addAttribute("saving",new Saving());
 		model.addAttribute("loan", new Loan());
 		model.addAttribute("savingList",savingService.savingList(loginMember.getNickname()));
 		model.addAttribute("loanList", loanService.loanList(loginMember.getNickname()));
+		int savingSum = savingService.savingSum(loginMember.getNickname());
+		int loanSum = loanService.loanSum(loginMember.getNickname());
 		
+		model.addAttribute("savingSum", df.format(savingSum));
+		model.addAttribute("loanSum", df.format(loanSum));
 		
 		return "/saving/list.jsp";
 	}

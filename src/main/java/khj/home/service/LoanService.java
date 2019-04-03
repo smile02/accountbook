@@ -28,4 +28,6 @@ public interface LoanService {
 	public void loanMod(Loan loan);
 
 	public void loanDel(int idx);
+	
+	public int loanSum(String nickname);
 }

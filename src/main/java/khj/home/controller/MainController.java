@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,10 +79,10 @@ public class MainController {
 		//	System.out.println("수입 금액 : "+incomeSum);
 		//	System.out.println("지출 금액 : "+expandSum);
 			
-			if(incomeSum > expandSum || incomeSum == expandSum) {
+			if(incomeSum >= expandSum) {
 				diffPrice = (incomeSum - expandSum)+"";
 			}else{
-				diffPrice = (-1 * (incomeSum - expandSum))+"";
+				diffPrice = (-1 * (expandSum - incomeSum))+"";
 			}
 			
 			expand = expandService.expandList(loginMember.getNickname());
@@ -132,7 +131,7 @@ public class MainController {
 			//받아온 년, 월을 기준으로 다음달의 첫일을 가져오기.
 			int nextMonth = (cal.get(Calendar.MONTH)+2);
 			int nextYear = 0;
-			if(nextMonth == 12) {
+			if(nextMonth == 13) {
 				nextYear = year + 1;
 			}else {
 				nextYear = year;
