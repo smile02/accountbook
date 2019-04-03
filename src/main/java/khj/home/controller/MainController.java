@@ -141,7 +141,7 @@ public class MainController {
 			diffIncome.setNickname(loginMember.getNickname());
 			diffIncome.setPrice(Integer.parseInt(price.replace(",", "")));		
 			diffIncome.setWays("카드");
-			diffIncome.setRegdate(nextYear+"-"+nextMonth+"-"+1);
+			diffIncome.setRegdate(nextYear+"-"+nextMonth+"-0"+1);
 			diffIncome.setComments(year+"년 "+month+"월 이월금액");
 			diffIncome.setMemo("이월한 금액");
 			//위에서 만든 년, 월, 일과 금액으로 수입에 추가.
