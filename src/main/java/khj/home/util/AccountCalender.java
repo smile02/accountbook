@@ -107,7 +107,7 @@ public class AccountCalender {
 	}
 
 	//로그인을 했을 때의 달력
-	public String result(int nYear, int mth, List<Expand> expand, List<Income> income, String diffPrice) {
+	public String result(int nYear, int mth, List<Expand> expand, List<Income> income, String diffPrice, String isMinus) {
 		boolean todayCheck = false;
 		Calendar cal = Calendar.getInstance( );
 		int compareDate = cal.get(Calendar.DATE);
@@ -119,7 +119,8 @@ public class AccountCalender {
 		sb.setLength(0);
 		int i, j; // 카운트를 위한 변수입니다.
 		int month;
-
+		String v_minus = "";
+		String v_minus2 = "";
 //		int dy = count_leap(base_year - nYear); // dy는 기준연도부터 현재연도까지 낀 윤년의 갯수입니다.
 		convert_to_day(nYear); // ★ 우선 기준연도부터 현재 연도까지 년 단위로 총일수를 구합니다. ★
 
@@ -143,6 +144,13 @@ public class AccountCalender {
 			month = total_to_month(total_sum); // 입력받은 해당 날짜의 정확한 달을 구해서 저장합니다.
 			sb.append("<table class='table table-bordered'>");
 			
+			if("N".equals(isMinus)) {
+				v_minus = "style='color:blue;'";
+				v_minus2 = "";
+			}else {
+				v_minus = "style='color:red;'";
+				v_minus2 = "-";
+			}
 			
 			sb.append(				
 			"<caption class='text-muted text-center'>"
@@ -155,9 +163,8 @@ public class AccountCalender {
 			+"<button id='rightBtn' type='button' class='btn btn-default'><span class='glyphicon glyphicon-triangle-right'></span></button>&nbsp;&nbsp;"
 			+"<button class='btn btn-warning' type='button' data-toggle='modal' data-target='#changeModal' data-backdrop='false'>날짜변경</button>&nbsp;&nbsp;"
 			+"<button id='today' class='btn btn-default' type='button'>오늘날짜</button>&nbsp;"
-			+"<span id='diffPrice' class='cotrol-label' style='display:inline-block; margin-left:5px; cursor:pointer;'>잔액 : <strong id='b_Price'>"+df.format(Integer.parseInt(diffPrice))+"</strong>원</span>"
+			+"<span id='diffPrice' class='cotrol-label' style='display:inline-block; margin-left:5px; cursor:pointer;'>잔액 : <strong id='b_Price' "+v_minus+">"+df.format(Integer.parseInt(diffPrice))+"</strong>원</span>"
 			+"</caption>");
-			
 			//System.out.println(+month + " 월의 달력");
 			sb.append("<thead>");
 			sb.append("<tr> <th class='text-center' style='"+red+"'>일</th> <th class='text-center'>월</th> <th class='text-center'>화</th> <th class='text-center'>수</th> <th class='text-center'>목</th> <th class='text-center'>금</th> <th class='text-center' style='"+blue+"'>토</th> </tr>");

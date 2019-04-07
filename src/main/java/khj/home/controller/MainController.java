@@ -64,6 +64,7 @@ public class MainController {
 		List<Income> income = null;
 		String diffPrice = "";
 		String diffMonth = "";
+		String isMinus = "";
 		if(outMonth < 10) {
 			diffMonth = "0"+outMonth;
 		}else {
@@ -78,11 +79,11 @@ public class MainController {
 			incomeSum = incomeService.incomePriceSum(outYear+"", diffMonth, 0, loginMember.getNickname());
 		//	System.out.println("수입 금액 : "+incomeSum);
 		//	System.out.println("지출 금액 : "+expandSum);
-			
-			if(incomeSum >= expandSum) {
-				diffPrice = (incomeSum - expandSum)+"";
+			diffPrice = (incomeSum - expandSum)+"";
+			if(incomeSum >= expandSum) {				
+				isMinus = "N";
 			}else{
-				diffPrice = (-1 * (expandSum - incomeSum))+"";
+				isMinus = "Y";
 			}
 			
 			expand = expandService.expandList(loginMember.getNickname());
@@ -90,7 +91,7 @@ public class MainController {
 		}		
 		//System.out.println("차액 : "+diffPrice);
 		if(expand != null || income != null) {
-			model.addAttribute("calendar",accountCalender.result(outYear,outMonth,expand,income, diffPrice));
+			model.addAttribute("calendar",accountCalender.result(outYear,outMonth,expand,income, diffPrice,isMinus));
 		}else {
 			model.addAttribute("calendar",accountCalender.result(outYear,outMonth));
 		}
@@ -104,6 +105,7 @@ public class MainController {
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		if(loginMember != null) {
 			Calendar cal = Calendar.getInstance();
+			String r_month = String.format("%02d", month);
 			cal.set(year, month-1,1); //가져온 년, 월을 기준으로 캘린더 셋팅
 			//받아온 년, 월을 기준으로 해당월의 마지막일을 가져오기.
 //			System.out.println("년 : "+year+", 월 : "+month+", 금액"+price);
@@ -117,9 +119,10 @@ public class MainController {
 			diffExpand.setSmall_purpose("이월");
 			diffExpand.setBig_ways("카드");
 			diffExpand.setSmall_ways("일시불");
-			diffExpand.setRegdate(year+"-"+month+"-"+lastDay);
+			diffExpand.setRegdate(year+"-"+r_month+"-"+lastDay);
 			diffExpand.setComments(month+"월 잔액 이월예정");
 			diffExpand.setMemo(month+"월 잔액 이월(지출)");
+//			System.out.println(diffExpand.getRegdate());
 			expandService.expandAdd(diffExpand); //해당월 마지막날의 지출
 			
 			/*
@@ -136,14 +139,16 @@ public class MainController {
 			}else {
 				nextYear = year;
 			}
+			String r_month2 = String.format("%02d",nextMonth);
 			Income diffIncome = new Income();
 			diffIncome.setNickname(loginMember.getNickname());
 			diffIncome.setPrice(Integer.parseInt(price.replace(",", "")));		
 			diffIncome.setWays("카드");
-			diffIncome.setRegdate(nextYear+"-"+nextMonth+"-0"+1);
+			diffIncome.setRegdate(nextYear+"-"+r_month2+"-0"+1);
 			diffIncome.setComments(year+"년 "+month+"월 이월금액");
 			diffIncome.setMemo("이월한 금액");
 			//위에서 만든 년, 월, 일과 금액으로 수입에 추가.
+//			System.out.println(diffIncome.getRegdate());
 			incomeService.incomeAdd(diffIncome);
 			
 			return "y";
