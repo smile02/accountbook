@@ -147,10 +147,14 @@ public class AccountCalender {
 			if("N".equals(isMinus)) {
 				v_minus = "style='color:blue;'";
 				v_minus2 = "";
-			}else {
+			}else if("Y".equals(isMinus)) {
 				v_minus = "style='color:red;'";
 				v_minus2 = "-";
+			}else {
+				v_minus = "style=''";
+				v_minus2 = "";
 			}
+			
 			
 			sb.append(				
 			"<caption class='text-muted text-center'>"

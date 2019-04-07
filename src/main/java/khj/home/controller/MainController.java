@@ -80,10 +80,12 @@ public class MainController {
 		//	System.out.println("수입 금액 : "+incomeSum);
 		//	System.out.println("지출 금액 : "+expandSum);
 			diffPrice = (incomeSum - expandSum)+"";
-			if(incomeSum >= expandSum) {				
+			if(incomeSum > expandSum) {				
 				isMinus = "N";
-			}else{
+			}else if (incomeSum < expandSum){
 				isMinus = "Y";
+			}else {
+				isMinus = "M";
 			}
 			
 			expand = expandService.expandList(loginMember.getNickname());
