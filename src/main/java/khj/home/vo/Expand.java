@@ -21,7 +21,6 @@ public class Expand {
 	private String big_purpose;
 	@NotNull(message="지출목적-> 소분류를 선택해주세요.")
 	private String small_purpose;
-	@Size(min=1, max=1000, message="메모-> 1 ~ 1000글자 가능합니다.")
 	private String memo;
 	@Range(min=1, max=999999999, message="가격-> 확인해주세요.")
 	private int price;
