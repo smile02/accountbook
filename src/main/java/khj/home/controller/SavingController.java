@@ -39,13 +39,15 @@ public class SavingController {
 	
 	@RequestMapping(value="/saving", method=RequestMethod.GET)
 	public String saving(Model model, HttpSession session) {
-		 DecimalFormat df = new DecimalFormat("#,###");
+		
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		model.addAttribute("saving",new Saving());
 		model.addAttribute("loan", new Loan());
 		model.addAttribute("savingList",savingService.savingList(loginMember.getNickname()));
 		model.addAttribute("loanList", loanService.loanList(loginMember.getNickname()));
+		DecimalFormat df = new DecimalFormat("#,###");
+		
 		int savingSum = savingService.savingSum(loginMember.getNickname());
 		int loanSum = loanService.loanSum(loginMember.getNickname());
 		
@@ -97,9 +99,9 @@ public class SavingController {
 		savingPay.setRegdate(date.format(today));
 		savingPay.setNickname(loginMember.getNickname());
 		savingService.savingPayAdd(savingPay);
-		savingService.savingSumUpdate(savingPay.getPrice(),savingPay.getIdx());
+		savingService.savingSumUpdate(Integer.parseInt(savingPay.getPrice()),savingPay.getIdx());
 		return "y";
-	}
+	}	
 	
 	@RequestMapping(value = "/saving/moddelpage", method=RequestMethod.GET)
 	public String savingModDelPage(Model model, HttpSession session) {
@@ -143,17 +145,19 @@ public class SavingController {
 	
 	@RequestMapping(value="/savingpay/mod", method=RequestMethod.POST)
 	@ResponseBody
-	public String savingPayMod(@RequestParam int num, @RequestParam int price, @RequestParam int idx,
-								@RequestParam int tempPrice) {
+	public String savingPayMod(@RequestParam int num, @RequestParam String price, @RequestParam int idx,
+								@RequestParam String tempPrice) {
 		savingService.savingPayMod(num, price);
-		if(price == tempPrice) {
-			price = 0;
-		}else if(price > tempPrice) {
-			price = price - tempPrice;
+		int i_price = Integer.parseInt(price);
+		int i_tempPrice = Integer.parseInt(tempPrice);
+		if(i_price == i_tempPrice) {
+			i_price = 0;
+		}else if(i_price > i_tempPrice) {
+			i_price = i_price - i_tempPrice;
 		}else {
-			price = (tempPrice - price) * -1;
+			i_price = (i_tempPrice - i_price) * -1;
 		}
-		savingService.savingSumUpdate(price,idx);
+		savingService.savingSumUpdate(i_price,idx);
 		return "y";
 	}
 	

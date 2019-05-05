@@ -15,7 +15,6 @@ public class Loan {
 	private String loan_date;
 	private String orderdate;
 	
-	
 	public int getIdx() {
 		return idx;
 	}

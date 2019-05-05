@@ -33,4 +33,6 @@ public interface MemberService {
 
 	void memoSave(String memo, String nickname);
 
+	void memoAdd(String nickname);
+
 }

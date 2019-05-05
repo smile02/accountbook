@@ -8,8 +8,9 @@ public class SavingPay {
 	private String regdate;
 	private String paybank;
 	private String payname;
-	private int price;
+	private String price;
 	private String orderdate;
+	private String cmt;
 	
 	public int getNum() {
 		return num;
@@ -47,16 +48,23 @@ public class SavingPay {
 	public void setPayname(String payname) {
 		this.payname = payname;
 	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
+	
 	public String getOrderdate() {
 		return orderdate;
 	}
 	public void setOrderdate(String orderdate) {
 		this.orderdate = orderdate;
+	}
+	public String getCmt() {
+		return cmt;
+	}
+	public void setCmt(String cmt) {
+		this.cmt = cmt;
+	}
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
 	}
 }

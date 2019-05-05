@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="smallPurpose">
 	<select id="smallPurposeList" resultType="smallPurpose" parameterType="String">
-		select * from small_purpose where big_name = #{value}
+		select * from ac_small_purpose where big_name = #{value}
 	</select>	
 	
 </mapper>

@@ -6,7 +6,7 @@
 	<select id="expandList" resultType="expand" parameterType="map">
 		select * from
 		(select rownum as rnum, a.* from 
-			(select * from expand where nickname = #{nickname}
+			(select * from ac_expand where nickname = #{nickname}
 				<if test="year != null or month != null">
 					and
 					<choose>						
@@ -30,36 +30,36 @@
 		where rnum between #{start} and #{end}
 	</select>	
 	<select id="list" resultType="expand" parameterType="String">
-		select regdate, count(regdate) as count from expand
+		select regdate, count(regdate) as count from ac_expand
 			where nickname = #{value}
 			group by regdate
 	</select>
 	<insert id="expandAdd" parameterType="expand">
-		insert into expand values
+		insert into ac_expand values
 			(seq_expand_idx.nextval,#{nickname},#{regdate},
 			#{comments},#{big_ways},#{small_ways},
 			#{big_purpose},#{small_purpose},
 			#{memo},#{price}, sysdate)
 	</insert>
 	<select id="expandView" parameterType="int" resultType="expand">
-		select * from expand where idx = #{value}
+		select * from ac_expand where idx = #{value}
 	</select>
 	
 	<select id="expandMainList" parameterType="map" resultType="expand">
-		select * from expand where nickname = #{nickname} and regdate = #{regdate}
+		select * from ac_expand where nickname = #{nickname} and regdate = #{regdate}
 	</select>
 	
 	<update id="expandMod" parameterType="expand">
-		update expand set comments = #{comments}, regdate = #{regdate}, big_ways = #{big_ways},
+		update ac_expand set comments = #{comments}, regdate = #{regdate}, big_ways = #{big_ways},
 						  small_ways = #{small_ways}, big_purpose = #{big_purpose}, 
 						  small_purpose = #{small_purpose}, price = #{price}, memo = #{memo}
 			where idx = #{idx}
 	</update>
 	<delete id="expandDel" parameterType="int">
-		delete from expand where idx = #{value}
+		delete from ac_expand where idx = #{value}
 	</delete>
 	<select id="expandCount" parameterType="map" resultType="int">
-		select count(*) from expand where nickname = #{nickname}
+		select count(*) from ac_expand where nickname = #{nickname}
 			<if test="year != null or month != null">
 				and
 					<choose>
@@ -76,7 +76,7 @@
 				</if>
 	</select>
 	<select id="expandPriceSum" parameterType="map" resultType="int">
-		select nvl(sum(price),0) from expand where nickname = #{nickname}
+		select nvl(sum(price),0) from ac_expand where nickname = #{nickname}
 			<if test="year != null or month != null">
 					and
 					<choose>

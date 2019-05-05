@@ -64,7 +64,7 @@ public class SavingServiceImpl implements SavingService {
 	}
 
 	@Override
-	public void savingPayMod(int num, int price) {
+	public void savingPayMod(int num, String price) {
 		Map<String, Object> payMod = new HashMap<>();
 		payMod.put("num", num);
 		payMod.put("price", price);

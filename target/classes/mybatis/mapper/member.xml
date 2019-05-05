@@ -4,27 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 	<insert id="memberSignup" parameterType="member">
-		insert into members values
+		insert into ac_members values
 			(seq_members_idx.nextval, #{nickname},#{password},#{email})
 	</insert>	
 	<select id="memberLogin" parameterType="member" resultType="member">
-		select * from members where nickname = #{nickname} and password = #{password}
+		select * from ac_members where nickname = #{nickname} and password = #{password}
 	</select>
 	<select id="memberDualcheck" parameterType="String" resultType="String">
-		select nickname from members where nickname = #{value}
+		select nickname from ac_members where nickname = #{value}
 	</select>
 	<select id="memberEmailCheck" parameterType="String" resultType="member">
-		select * from members where email = #{value}
+		select * from ac_members where email = #{value}
 	</select>
 	<select id="memberPasswordCheck" parameterType="Map" resultType="String">
-		select password from members where nickname = #{nickname} and password = #{password}
+		select password from ac_members where nickname = #{nickname} and password = #{password}
 	</select>
 	<update id="memberInfo" parameterType="member">
-		update members set nickname = #{nickname}, password = #{password}, email = #{email}
+		update ac_members set nickname = #{nickname}, password = #{password}, email = #{email}
 			where idx = #{idx} 
 	</update>
 	<select id="getMember" parameterType="map" resultType="member">
-		select * from members where 1=1
+		select * from ac_members where 1=1
 			<if test="(nickname != '' and nickname != null) or (email != '' and email != null)">
 					and
 				<choose>
@@ -39,21 +39,26 @@
 	</select>
 	
 	<select id="setPassword" parameterType="map" resultType="member">
-		select * from members where nickname = #{nickname} and email = #{email}
+		select * from ac_members where nickname = #{nickname} and email = #{email}
 	</select>
 	
 	<update id="setPasswordUpdate" parameterType="map">
-		update members set password = #{password}
+		update ac_members set password = #{password}
 			where email = #{email} and nickname = #{nickname}
 	</update>
 	
 	<select id="memoList" parameterType="String" resultType="memo">
-		select * from account_memo
+		select * from ac_memo
 			where nickname = #{value}
 	</select>
 	
 	<update id="memoSave" parameterType="map">
-		update account_memo set memo = #{memo}
+		update ac_memo set memo = #{memo}
 			where nickname = #{nickname}
 	</update>
+	
+	<insert id="memoAdd" parameterType="String">
+		insert into ac_memo (idx,nickname,orderdate) values(seq_memo_indexs.nextval, #{value}, TO_CHAR(SYSDATE, 'yy/MM/DD'))
+	</insert>
+	
 </mapper>

@@ -95,11 +95,10 @@
 			<!-- <span class="tooltiptext">아래 항목을 클릭하면 수정, 삭제를 할 수 있습니다.</span> -->
 		</div>
 	</div>
-	
 		<div class="row">
 			<div class="col-xs-4">
 				<form:form id="saving_form" action="/saving/add" class="form-horizontal" method="post"
-					modelAttribute="saving">
+					modelAttribute="saving" autocomplete="off">
 					<div class="form-group">
 						<form:label path="regbank" class="control-label col-xs-3">가입은행</form:label>
 						<div class="col-xs-6">
@@ -135,7 +134,8 @@
 						<div class="col-xs-6">
 							<form:errors path="endreg" class="error"/>
 						</div>
-					</div>					
+					</div>
+									
 					<div class="button-group text-center">
 						<button class="btn btn-success">등록</button>
 						<button type="reset" class="btn btn-warning">취소</button>
@@ -143,7 +143,7 @@
 				</form:form>
 				
 				<form:form id="loan_form" action="/loan/add" class="form-horizontal" method="post"
-					modelAttribute="loan" style="display:none;">
+					modelAttribute="loan" style="display:none;" autocomplete="off">
 					<div class="form-group">
 						<form:label path="loan_place" class="control-label col-xs-3">대출처</form:label>
 						<div class="col-xs-6">
@@ -180,13 +180,15 @@
 						<div class="col-xs-6">
 							<form:errors path="loan_price" class="error"/>
 						</div>
-					</div>					
+					</div>
+								
 					<div class="button-group text-center">
 						<button class="btn btn-success">등록</button>
 						<button type="reset" class="btn btn-warning">취소</button>
 					</div>				
 				</form:form>				
 			</div>			
+			
 			
 			
 			<div class="col-xs-4">
@@ -199,7 +201,8 @@
 			 					<div class="list-group">
 								    <a href="#" class="list-group-item" onclick="selectList(${saving.idx});">
 								    <input type="hidden" id="num_${saving.idx }" value="${saving.idx }" />
-								    	<span id="bank_${saving.idx }">은행 : ${saving.regbank }</span>&nbsp;&nbsp;&nbsp;<span id="name_${saving.idx }">적금이름:${saving.regname }</span>
+								    <span id="bank_${saving.idx }">은행 : ${saving.regbank }</span>
+								    <br /><span id="name_${saving.idx }">적금이름:${saving.regname }</span>
 			 						<br /><span id="start">가입날짜 : ${saving.startreg }</span> / <span id="end">만기날짜 : ${saving.endreg }</span>
 			 						<br /><span id="sum">누적금액 : <f:formatNumber value="${saving.price }" pattern="#,###"/></span>
 								    </a>
@@ -209,6 +212,7 @@
 		 			</c:forEach>
 		 		</div>
 		 		
+		 		
 		 		<div id="loanView">
 		 			<c:forEach var="loan" items="${loanList }">
 		 				<div class="row">
@@ -216,7 +220,8 @@
 			 					<div class="list-group">
 								    <a href="#" class="list-group-item" onclick="selectLoanList(${loan.idx});">
 								    <input type="hidden" id="loan_${loan.idx }" value="${loan.idx }" />
-								    	<span id="lpan_${loan.idx }">대출처 : ${loan.loan_place }</span>&nbsp;&nbsp;&nbsp;<span id="purpose_${loan.idx }">대출목적 :${loan.loan_purpose }</span>
+								    <span id="lpan_${loan.idx }">대출처 : ${loan.loan_place }</span>
+								    <br /><span id="purpose_${loan.idx }">대출목적 :${loan.loan_purpose }</span>
 			 						<br /><span id="loanStart">대출날짜 : ${loan.loan_date }</span>
 			 						<br /><span id="loanSum">대출잔액 : ${loan.loan_price }</span>
 								    </a>
@@ -229,11 +234,12 @@
 		 		
 		 		</div>
 				</div>
+				
 				<div class="col-xs-4">
-					<div id="listbox" class="panel panel-default"
+					<div id="listbox" class="panel panel-default col-xs-12"
 			 	style="height:500px; padding-left:20px; overflow:auto;">
 			 		<form id="form" action="/savingpay/add" class="form-horizontal" method="post"
-			 			style="display:none;">
+			 			style="display:none;" autocomplete="off">
 			 				<input id="payIdx" type="hidden" name="idx" />
 			 				<input id="payBank" type="hidden" name="paybank" />
 			 				<input id="payName" type="hidden" name="payname" />
@@ -251,27 +257,36 @@
 				 						<span class="text-center">금액</span>
 				 					</div>
 				 				</div>
-			 					
-			 					<span class="col-xs-3" id="spanbank"></span>
-			 					<span class="col-xs-4" id="spanname"></span>
-			 					
-			 					
-			 					<div class="col-xs-5">
-			 						<input type="text" name="price" class="form-control" onkeyup="inputNumberFormat(this);"/>
+				 				
+			 					<div class="row">
+				 					<span class="col-xs-3" id="spanbank"></span>
+				 					<span class="col-xs-4" id="spanname"></span>
+				 								 					
+				 					<div class="col-xs-5">			 			
+				 						<input type="text" name="price" class="form-control" onkeyup="inputNumberFormat(this);"/>
+				 					</div>
 			 					</div>
-			 				</div>
-			 				
-			 				<div class="button-group text-right">
 			 					
-			 					<button type="button" class="btn btn-info" onclick="payReg(this.form);">등록</button>
+			 					<div class="row">
+				 					<div class="col-xs-9">
+					 					<label for="" class="control-label col-xs-4">코멘트</label>
+					 					<div class="col-xs-8">
+					 						<input type="text" name="cmt" class="form-control" id="save_coment" />
+					 					</div>
+					 				</div>
+					 				
+					 				
+					 				<div class="button-group col-xs-3">			 					
+					 					<button type="button" class="btn btn-info" onclick="payReg(this.form);">등록</button>
+					 				</div>
+			 					</div>
 			 				</div>
 			 			</form>
 			 		<div id="savingList" class="list-group">
 			 			
 			 		</div>
-			 		
 			 		<form id="lform" action="/loanpay/add" class="form-horizontal" method="post"
-			 			style="display:none;">
+			 			style="display:none;" autocomplete="off">
 			 				<input id="loanIdx" type="hidden" name="idx" />
 			 				<input id="loanPlace" type="hidden" name="loan_place" />
 			 				<input id="loanPurpose" type="hidden" name="loan_purpose" />
@@ -289,21 +304,31 @@
 				 						<span class="text-center">잔액</span>
 				 					</div>
 				 				</div>
-			 					
-			 					<span class="col-xs-3" id="spanplace"></span>
-			 					<span class="col-xs-4" id="spanpurpose"></span>
-			 					
-			 					
-			 					<div class="col-xs-5">
-			 						<input type="text" name="price" class="form-control" onkeyup="inputNumberFormat(this);"/>
+			 					<div class="row">
+				 					<span class="col-xs-3" id="spanplace"></span>
+				 					<span class="col-xs-4" id="spanpurpose"></span>
+				 					
+				 					
+				 					<div class="col-xs-5">
+				 						<input type="text" name="price" class="form-control" onkeyup="inputNumberFormat(this);"/>
+				 					</div>
+			 					</div>
+			 				
+			 					<div class="row">
+				 					<div class="col-xs-9">
+					 					<label for="" class="control-label col-xs-4">코멘트</label>
+					 					<div class="col-xs-8">
+					 						<input type="text" name="cmt" class="form-control" />
+					 					</div>
+					 				</div>
+					 				<div class="button-group col-xs-3">			 					
+					 					<button type="submit" class="btn btn-info" >등록</button>
+					 				</div>
 			 					</div>
 			 				</div>
-			 				
-			 				<div class="button-group text-right">
-			 					
-			 					<button type="submit" class="btn btn-info">등록</button>
-			 				</div>
 			 			</form>
+			 			
+			 			
 			 		<div id="loanList" class="list-group">
 			 			
 			 		</div>
@@ -318,10 +343,13 @@
 					        	<input type="hidden" id="tempPrice" />
 					        	<input type="hidden" id="payIdxModal" />
 					        	<input type="hidden" id="payNumModal" />
+					        	
 					          <p>가입은행 : <span id='payBankModal'></span></p>
 					          <p>적금이름 : <span id='payNameModal'></span></p>
 					          <p>입력날짜 : <span id='payRegModal'></span></p>
 					          <input type="text" class="form-control" id="payPriceModal" />
+					          <input type="text" class="form-control" id="payCmtModal" />
+					          
 					        </div>
 					        <div class="modal-footer">
 					          <button type="button" class="btn btn-primary" onclick="savingPayMod();">수정</button>
@@ -406,15 +434,22 @@
 					$("#spanbank").text(spanbank);
 					$("#spanname").text(spanname);
 					var count = 0;
-					for(var saving of data){
+					for(var saving of data){												
 						count++;
+						var cmt = "";
+						if(saving.cmt != null){
+							cmt = saving.cmt;
+						}else{
+							cmt = "등록된 코멘트 없음.";
+						}					
+						
 						var $row = $("<div id='list_"+count+"' class='row list-group-item' data-toggle='modal' data-target='#payModal' data-backdrop='false' onclick='listClick("+count+");'>");
 						var $input = $("<input type='hidden' id='payInput_"+count+"' value='"+saving.num+"'>");
 						var $p1 = $("<p class='control-label'>");
 						var $p2 = $("<p id='payPrice_"+count+"' class='control-label'>");
 						var price=comma(saving.price);
-						$p1.text("적금이름 : "+saving.payname+" 날짜 : "+saving.regdate);
-						$p2.text(" 금액 : "+price);
+						$p1.text("적금이름 : "+saving.payname+" / 날짜 : "+saving.regdate);
+						$p2.text("금액 : "+price+"  /  코멘트 : "+cmt);
 						$row.append($p1);
 						$row.append($p2);
 						$row.append($input);
@@ -423,8 +458,7 @@
 					$("#listbox").append($savingList);
 				}
 			});
-		}				
-		
+		}		
 		
 		var spanplace = "";
 		var spanpurpose = "";	
@@ -459,6 +493,7 @@
 							var $p2 = $("<p id='loanPrice_"+count+"' class='control-label'>");
 							var price=loan.price;
 							$p1.text("대출처 : "+loan.loan_place+" 날짜 : "+loan.inputreg);
+							
 							$p2.text(" 금액 : "+price);
 							$row.append($p1);
 							$row.append($p2);
@@ -475,17 +510,20 @@
 			var idx = form.idx.value;
 			var paybank = form.paybank.value;
 			var payname = form.payname.value;
-			if(tempPrice <= 0){
+			/* if(tempPrice <= 0){
 				alert("금액을 확인해주세요.");
 				return;
-			}
+			} */
 			var price = uncomma(tempPrice);
+			var cmt = form.cmt.value;
+			
 			$.ajax({
 				url:"/savingpay/add",
 				data:{price:price,
 					  idx:idx,
 					  paybank:paybank,
-					  payname:payname},
+					  payname:payname,
+					  cmt},
 				type:"post",
 				success:function(data){
 					if(data == 'y'){
@@ -511,14 +549,13 @@
 						$("#payNumModal").val(data.num);
 						$("#payBankModal").text(data.paybank);
 						$("#payNameModal").text(data.payname);
-						$("#payPriceModal").val(data.price);
+						$("#payPriceModal").val(comma(data.price));
+						$("#payCmtModal").val(data.cmt);
 						$("#payRegModal").text(data.regdate);
 					}
 				});
 			});	
-		}
-		
-		
+		}		
 				
 		function loanListClick(count){
 //			console.log("넘기는 num : "+count);
@@ -548,14 +585,18 @@
 			var price = eval($("#payPriceModal").val());			
 			var num = eval($("#payNumModal").val());
 			var idx = eval($("#payIdxModal").val());
-			console.log(typeof tempPrice);
-			console.log(typeof price);
-			console.log(typeof num);
-			console.log(typeof idx);
-			if(price <= 0){
+//			console.log(typeof tempPrice);
+//			console.log(typeof price);
+//			console.log(typeof num);
+//			console.log(typeof idx);
+
+			alert(tempPrice+", "+price);
+			return;
+			
+			/* if(price <= 0){
 				alert("금액을 확인해주세요.");
 				return;
-			}
+			} */
 						
 			$.ajax({
 				url:"/savingpay/mod",
@@ -655,16 +696,17 @@
 		function modDelPage(){
 			location.href="/saving/moddelpage";
 		}
-		    //콤마찍기
-		    function comma(str) {
+		//콤마찍기
+		function comma(str) {
 		    str = String(str);
 		    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 		}
 		
 		function uncomma(str) {
 		    str = String(str);
-		    return str.replace(/[^\d]+/g, '');
+		    return str.replace(/[^\d-]+/g, '');
 		}
+
 		
 		function inputNumberFormat(obj) {
 		    obj.value = comma(uncomma(obj.value));

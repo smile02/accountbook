@@ -26,31 +26,55 @@
 			<h2 class="text-center text-muted">수입 목록</h2>
 		</div>
 		<div class="row">
-			<label class="control-label col-xs-1">일자검색</label>
-			
-			<div class="col-xs-3">
-				<input type="text" class="form-control" id="year" placeholder="년"
-				onkeypress="return onlyMyNumber(event);" />
-			</div>
-			<div class="col-xs-3">
-				<input type="text" class="form-control" id="month" placeholder="월"
-				onkeypress="return onlyMyNumber(event);" />
-			</div>
-			<div class="button-group col-xs-3">
-				<div class="col-xs-5">
-					<button type="button" class="form-control btn btn-info"
-					onclick="selectSearch();">검색</button>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-xs-2">일자검색</label>
+					<div class="col-xs-3">
+						<!-- <input type="text" class="form-control" id="year" placeholder="년"
+						onkeypress="return onlyMyNumber(event);" /> -->
+						<select name="" id="year" class="form-control">
+									<option value="">년도</option>
+						</select>
+					</div>
+					
+					<div class="col-xs-3">
+						<!-- <input type="text" class="form-control" id="month" placeholder="월"
+						onkeypress="return onlyMyNumber(event);" /> -->
+						<select name="" id="month" class="form-control">
+									<option value="">월</option>
+									<option value="1">1월</option>
+									<option value="2">2월</option>
+									<option value="3">3월</option>
+									<option value="4">4월</option>
+									<option value="5">5월</option>
+									<option value="6">6월</option>
+									<option value="7">7월</option>
+									<option value="8">8월</option>
+									<option value="9">9월</option>
+									<option value="10">10월</option>
+									<option value="11">11월</option>
+									<option value="12">12월</option>
+								</select>
+					</div>
+					<div class="button-group col-xs-3">
+						<div class="col-xs-5">
+							<button type="button" class="form-control btn btn-info"
+							onclick="selectSearch();">검색</button>
+						</div>
+						<div class="col-xs-6">
+							<button type="button" class="form-control btn btn-success"
+							onclick="location.href='/income/add'">수입등록으로</button>
+						</div>
+					</div>
 				</div>
-				<div class="col-xs-6">
-					<button type="button" class="form-control btn btn-success"
-					onclick="location.href='/income/add'">수입등록으로</button>
-				</div>
-			</div>
+			</form>
 		</div>
-		<div class="row">
+		
+		<div class="row text-center">
 			<span class="small text-muted">년,월로 검색이 가능하고, 둘 중 하나만 입력해도 됩니다.
 			아무것도 입력하지 않고 검색할 시 전체검색이 됩니다. </span>
 		</div>
+		
 		<div class="row" style="margin:0; padding:0;">
 				<div class="col-xs-4">
 					<span class="text-muted col-xs-3">전체</span>
@@ -163,6 +187,21 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
+	$(function(){
+		var now = new Date();
+		var three_before = now.getYear()-3;
+		var three_after = now.getYear()+3;
+		
+		for(var i=-3; i<0; i++){
+			var y = $("<option value='"+eval(now.getFullYear()+i)+"'>"+eval(now.getFullYear()+i)+"년</option>")
+			$("#year").append(y);
+		}
+		
+		for(var i=0; i<3; i++){
+			var x = $("<option value='"+eval(now.getFullYear()+i)+"'>"+eval(now.getFullYear()+i)+"년</option>")
+			$("#year").append(x);
+		}		
+	});
 	function selectSearch(){
 		var year = $("#year").val();
 		var month = $("#month").val();

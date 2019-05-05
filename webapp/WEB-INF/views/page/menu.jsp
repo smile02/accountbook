@@ -34,17 +34,18 @@
     
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">      
-        <li id="lDrop" class="dropdown" id="collapseOne">
+        <!-- <li id="lDrop" class="dropdown" id="collapseOne">
         <a id="aDrop" class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="dropClick();"
         aria-controls="collapseOne">가계부 등록<span class="caret"></span></a>
           <ul  class="dropdown-menu" role="menu">
             <li role="presentation"><a role="menuitem" href="/expand/add">지출등록</a></li>
             <li role="presentation"><a role="menuitem" href="/income/add">수입등록</a></li>
           </ul>
-         </li>
+         </li> -->
         <li><a href="/expand">지출목록</a></li>
         <li><a href="/income">수입목록</a></li>
         <li><a href="/saving">적금/대출 관리</a></li>
+        <!-- <li><a href="/chart">차트</a></li> -->
       </ul>      
       
      

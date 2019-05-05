@@ -165,8 +165,11 @@ public class MainController {
 	public Memo memoList(@RequestParam String nickname) {
 		
 		Memo memo =  memberService.memoList(nickname);
-		System.out.println(memo.getMemo());
+		if(memo == null) {
+			memberService.memoAdd(nickname);
+		}
 		
+		//System.out.println(memo.getMemo());		
 		return memo;
 	}
 	

@@ -13,7 +13,7 @@ public class Income {
 	@Size(min=1, max=20, message="수입내역-> 확인해주세요.")
 	private String comments;
 	private String ways;
-	@Size(min=1, max=300, message="메모-> 1 ~ 300글자 가능합니다.")
+	@Size(min=1, max=1000, message="메모-> 1 ~ 1000글자 가능합니다.")
 	private String memo;
 	@Range(min=1, max=999999999, message="금액-> 확인해주세요.")
 	private int price;

@@ -30,13 +30,32 @@
 				<div class="form-group">
 					<label class="control-label col-xs-2">일자검색</label>
 					<div class="col-xs-3">
-						<input type="text" class="form-control" id="year" placeholder="년"
-						onkeypress="return onlyMyNumber(event);" />
+						<!-- <input type="text" class="form-control" id="year" placeholder="년"
+						onkeypress="return onlyMyNumber(event);" /> -->
+						<select name="" id="year" class="form-control">
+							<option value="">년도</option>
+						</select>
 					</div>
 					<div class="col-xs-3">
-						<input type="text" class="form-control" id="month" placeholder="월"
-						onkeypress="return onlyMyNumber(event);" />
+						<!-- <input type="text" class="form-control" id="month" placeholder="월"
+						onkeypress="return onlyMyNumber(event);" /> -->
+						<select name="" id="month" class="form-control">
+							<option value="">월</option>
+							<option value="1">1월</option>
+							<option value="2">2월</option>
+							<option value="3">3월</option>
+							<option value="4">4월</option>
+							<option value="5">5월</option>
+							<option value="6">6월</option>
+							<option value="7">7월</option>
+							<option value="8">8월</option>
+							<option value="9">9월</option>
+							<option value="10">10월</option>
+							<option value="11">11월</option>
+							<option value="12">12월</option>
+						</select>
 					</div>
+					
 					<div class="button-group col-xs-3">
 						<div class="col-xs-5">
 							<button type="button" class="form-control btn btn-info"
@@ -92,6 +111,7 @@
 				</div>
 			</div>
 		</c:forEach>
+		
 		<div class="row">
 			<div class="col-sm-12 text-center">
 				<div class="paging">
@@ -190,6 +210,22 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
+	$(function(){
+		var now = new Date();
+		var three_before = now.getYear()-3;
+		var three_after = now.getYear()+3;
+		
+		for(var i=-3; i<0; i++){
+			var y = $("<option value='"+eval(now.getFullYear()+i)+"'>"+eval(now.getFullYear()+i)+"년</option>")
+			$("#year").append(y);
+		}
+		
+		for(var i=0; i<3; i++){
+			var x = $("<option value='"+eval(now.getFullYear()+i)+"'>"+eval(now.getFullYear()+i)+"년</option>")
+			$("#year").append(x);
+		}		
+	});
+	
 	function selectSearch(){
 		var year = $("#year").val();
 		var month = $("#month").val();

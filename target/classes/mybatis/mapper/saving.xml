@@ -4,53 +4,53 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="saving">
 	<select id="savingList" resultType="saving" parameterType="String">
-		select * from saving where nickname = #{value} order by orderdate desc
+		select * from ac_saving where nickname = #{value} order by orderdate desc
 	</select>
 	
 	<insert id="savingAdd" parameterType="saving">
-		insert into saving values
+		insert into ac_saving values
 			(seq_saving_idx.nextval,#{nickname}, #{regbank}, #{regname}
-			,#{startreg}, #{endreg},0,#{inputreg},sysdate)
+			,#{startreg}, #{endreg},0,#{inputreg}, sysdate)
 	</insert>	
 	
 	<select id="savingPayList" parameterType="map" resultType="savingPay">
-		select * from savingpay where idx = #{idx} and nickname = #{nickname} order by orderdate desc
+		select * from ac_savingpay where idx = #{idx} and nickname = #{nickname} order by orderdate desc
 	</select>
 	
 	<insert id="savingPayAdd" parameterType="savingPay">
-		insert into savingpay values
+		insert into ac_savingpay values
 			(seq_savingpay_num.nextval, #{idx}, #{nickname}, #{regdate},
-				#{paybank}, #{payname}, #{price},sysdate)
+				#{paybank}, #{payname}, #{price}, sysdate, #{cmt})
 	</insert>
 	
 	<update id="savingSumUpdate" parameterType="map">
-		update saving set price = price + #{price}
+		update ac_saving set price = price + #{price}
 			where idx = #{idx}
 	</update>
 	
 	<update id="savingMod" parameterType="saving">
-		update saving set regbank = #{regbank}, regname = #{regname}, startreg = #{startreg}, endreg=#{endreg}
+		update ac_saving set regbank = #{regbank}, regname = #{regname}, startreg = #{startreg}, endreg=#{endreg}
 			where idx = #{idx}
 	</update>
 	
 	<delete id="savingDel" parameterType="int">
-		delete from saving where idx = #{value}
+		delete from ac_saving where idx = #{value}
 	</delete>
 	
 	<select id="savingPaySelectOne" parameterType="int" resultType="savingPay">
-		select * from savingpay where num = #{value}
+		select * from ac_savingpay where num = #{value}
 	</select>
 	
 	<update id="savingPayMod" parameterType="map">
-		update savingpay set price = #{price}
+		update ac_savingpay set price = #{price}, cmt = #{cmt}
 			where num = #{num}
 	</update>
 	
 	<delete id="savingPayDel" parameterType="int">
-		delete from savingpay where num = #{value}
+		delete from ac_savingpay where num = #{value}
 	</delete>
 	
 	<select id="savingSum" parameterType="String" resultType="int">
-	  select nvl(sum(price),0) as sum from savingPay where nickname = #{value}
+	  select nvl(sum(to_number(price)),0) as sum from ac_savingPay where nickname = #{value}
 	</select>
 </mapper>

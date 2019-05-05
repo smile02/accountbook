@@ -10,7 +10,7 @@ public class LoanPay {
 	private String price;
 	private String orderdate;
 	private String inputreg;
-	
+	private String cmt;
 	
 	public String getLoan_place() {
 		return loan_place;
@@ -60,5 +60,11 @@ public class LoanPay {
 	}
 	public void setInputreg(String inputreg) {
 		this.inputreg = inputreg;
+	}
+	public String getCmt() {
+		return cmt;
+	}
+	public void setCmt(String cmt) {
+		this.cmt = cmt;
 	}
 }

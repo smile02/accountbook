@@ -184,5 +184,10 @@ public class MemberServiceImpl implements MemberService {
 		memoMap.put("nickname", nickname);
 		memberDao.memoSave(memoMap);
 	}
+	
+	@Override
+	public void memoAdd(String nickname) {
+		memberDao.memoAdd(nickname);		
+	}
 
 }

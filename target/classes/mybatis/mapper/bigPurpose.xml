@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bigPurpose">
 	<select id="bigPurposeList" resultType="bigPurpose">
-		select * from big_purpose
+		select * from ac_big_purpose
 	</select>	
 	
 </mapper>

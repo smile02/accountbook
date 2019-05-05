@@ -6,7 +6,7 @@
 	<select id="incomeList" resultType="income" parameterType="map">
 		select * from
 			(select rownum as rnum, a.* from
-				(select * from income where nickname = #{nickname}
+				(select * from ac_income where nickname = #{nickname}
 				<if test="year != null or month != null">
 					and
 					<choose>
@@ -30,38 +30,38 @@
 	</select>	
 	
 	<select id="income" parameterType="String" resultType="income">
-		select regdate, count(regdate) as count from income
+		select regdate, count(regdate) as count from ac_income
 			where nickname = #{value}
 			group by regdate
 	</select>
 	
 	<select id="selectIncome" parameterType="map" resultType="income">
-		select * from income
+		select * from ac_income
 			where regdate = #{regdate} and nickname = #{nickname}
 	</select>
 	
 	<insert id="incomeAdd" parameterType="income">
-		insert into income values
+		insert into ac_income values
 			(seq_income_idx.nextval,#{nickname},#{regdate},
 			#{comments},#{ways},
 			#{memo},#{price},sysdate)
 	</insert>
 	<select id="incomeView" parameterType="int" resultType="income">
-		select * from income where idx = #{value}
+		select * from ac_income where idx = #{value}
 	</select>
 
 	<update id="incomeMod" parameterType="income">
-		update income set comments = #{comments}, ways=#{ways},
+		update ac_income set comments = #{comments}, ways=#{ways},
 						  regdate=#{regdate}, memo=#{memo}, price=#{price}
 						  where idx = #{idx}
 	</update>
 	
 	<delete id="incomeDel" parameterType="int">
-		delete from income where idx = #{value}
+		delete from ac_income where idx = #{value}
 	</delete>
 	
 	<select id="getIncomeCount" resultType="int" parameterType="map">
-		select count(*) from income where nickname = #{nickname}
+		select count(*) from ac_income where nickname = #{nickname}
 			<if test="year != null or month != null">
 				and
 					<choose>
@@ -79,7 +79,7 @@
 	</select>
 	
 	<select id="incomePriceSum" resultType="int" parameterType="map">
-		select nvl(sum(price),0) from income where nickname = #{nickname}
+		select nvl(sum(price),0) from ac_income where nickname = #{nickname}
 			<if test="year != null or month != null">
 					and
 					<choose>

@@ -17,7 +17,7 @@ public class Saving {
 	private int price;
 	private String inputreg;
 	private String orderdate;
-	
+
 	public int getIdx() {
 		return idx;
 	}
@@ -72,5 +72,7 @@ public class Saving {
 	public void setOrderdate(String orderdate) {
 		this.orderdate = orderdate;
 	}
+	
+	
 	
 }

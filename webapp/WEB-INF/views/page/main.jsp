@@ -264,6 +264,8 @@
 			var memo = $("#memo_box").val();
 			var nickname = "${sessionScope.loginMember.nickname}";
 			
+//			alert(nickname);
+			
 			$.ajax({
 				url:"/memo/save",
 				type:"post",
@@ -282,7 +284,8 @@
 				type:"post",
 				data:{nickname:nickname},
 				success:function(data){
-//					alert(data.memo);
+					
+	//				alert(data.memo);
 					$("#memo_box").val(data.memo);
 				}
 			});

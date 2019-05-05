@@ -80,7 +80,9 @@ public class LoanController {
 		loanPay.setInputreg(date.format(today));
 		loanPay.setNickname(loginMember.getNickname());
 		
+		loanPay.setPrice(loanPay.getPrice().replace(",",""));
 		loanService.loanPayAdd(loanPay);
+		
 		Loan newLoan = loanService.loanSelectOne(loanPay.getIdx());
 		int savePrice = Integer.parseInt(newLoan.getLoan_price().replace(",", ""));
 		int newPrice = Integer.parseInt(loanPay.getPrice().replace(",", ""));
@@ -88,12 +90,19 @@ public class LoanController {
 		if(resultPrice <0) {
 			resultPrice = 0;
 		}
+		
 		String returnPrice = df.format(resultPrice);
 		loanService.loanPriceUpdate(returnPrice, newLoan.getIdx());
 		model.addAttribute("loan", new Loan());
 		model.addAttribute("saving", new Saving());
 		model.addAttribute("loanList",loanService.loanList(loginMember.getNickname()));
 		model.addAttribute("savingList",savingService.savingList(loginMember.getNickname()));
+		
+		int savingSum = savingService.savingSum(loginMember.getNickname());
+		int loanSum = loanService.loanSum(loginMember.getNickname());
+		
+		model.addAttribute("savingSum", df.format(savingSum));
+		model.addAttribute("loanSum", df.format(loanSum));
 		
 		return "/saving/list.jsp";
 	}

@@ -62,4 +62,8 @@ public class MemberDao {
 	public void memoSave(Map<String, Object> memoMap) {
 		session.update("member.memoSave",memoMap);
 	}
+
+	public void memoAdd(String nickname) {
+		session.insert("member.memoAdd",nickname);
+	}
 }
