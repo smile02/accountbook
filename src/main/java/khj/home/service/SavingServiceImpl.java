@@ -64,13 +64,15 @@ public class SavingServiceImpl implements SavingService {
 	}
 
 	@Override
-	public void savingPayMod(int num, String price) {
+	public void savingPayMod(int num, String price, String cmt) {
 		Map<String, Object> payMod = new HashMap<>();
 		payMod.put("num", num);
 		payMod.put("price", price);
+		payMod.put("cmt", cmt);
 		savingDao.savingPayMod(payMod);
 	}
 
+	
 	@Override
 	public void savingPayDel(int num) {
 		savingDao.savingPayDel(num);

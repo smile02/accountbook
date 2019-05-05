@@ -22,7 +22,7 @@ public interface SavingService {
 
 	public SavingPay savingPaySelectOne(int num);
 
-	public void savingPayMod(int num, String price);
+	public void savingPayMod(int num, String price, String cmt);
 
 	public void savingPayDel(int num);
 

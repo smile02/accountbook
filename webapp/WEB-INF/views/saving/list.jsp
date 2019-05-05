@@ -203,7 +203,8 @@
 								    <input type="hidden" id="num_${saving.idx }" value="${saving.idx }" />
 								    <span id="bank_${saving.idx }">은행 : ${saving.regbank }</span>
 								    <br /><span id="name_${saving.idx }">적금이름:${saving.regname }</span>
-			 						<br /><span id="start">가입날짜 : ${saving.startreg }</span> / <span id="end">만기날짜 : ${saving.endreg }</span>
+			 						<br /><span id="start">가입날짜 : ${saving.startreg }</span>
+			 						<br /><span id="end">만기날짜 : ${saving.endreg }</span>
 			 						<br /><span id="sum">누적금액 : <f:formatNumber value="${saving.price }" pattern="#,###"/></span>
 								    </a>
 								</div>
@@ -376,6 +377,7 @@
 					          <p>대출목적 : <span id='loanPurposeModal'></span></p>
 					          <p>입력날짜 : <span id='loanRegModal'></span></p>
 					          <input type="text" class="form-control" id="loanPriceModal" onkeyup="inputNumberFormat(this);" />
+					          <input type="text" class="form-control" id="loanCmtModal"/>
 					        </div>
 					        <div class="modal-footer">
 					          <button type="button" class="btn btn-primary" onclick="loanPayMod();">수정</button>
@@ -486,15 +488,20 @@
 						$("#spanpurpose").text(spanpurpose);
 						var count = 0;
 						for(var loan of data){
+							var cmt = "";
+							if(loan.cmt != null){
+								cmt = loan.cmt
+							}else{
+								cmt = "등록된 코멘트 없음.";
+							}
 							count++;
 							var $row = $("<div id='loanlist_"+count+"' class='row list-group-item' data-toggle='modal' data-target='#loanModal' data-backdrop='false' onclick='loanListClick("+count+");'>");
 							var $input = $("<input type='hidden' id='loanInput_"+count+"' value='"+loan.num+"'>");
 							var $p1 = $("<p class='control-label'>");
 							var $p2 = $("<p id='loanPrice_"+count+"' class='control-label'>");
 							var price=loan.price;
-							$p1.text("대출처 : "+loan.loan_place+" 날짜 : "+loan.inputreg);
-							
-							$p2.text(" 금액 : "+price);
+							$p1.text("대출처 : "+loan.loan_place+" 날짜 : "+loan.inputreg);							
+							$p2.text(" 금액 : "+price+"  /  코멘트 : "+cmt);
 							$row.append($p1);
 							$row.append($p2);
 							$row.append($input);
@@ -505,6 +512,8 @@
 				});
 			}
 		
+			
+			
 		function payReg(form){
 			var tempPrice = form.price.value;
 			var idx = form.idx.value;
@@ -523,7 +532,7 @@
 					  idx:idx,
 					  paybank:paybank,
 					  payname:payname,
-					  cmt},
+					  cmt:cmt},
 				type:"post",
 				success:function(data){
 					if(data == 'y'){
@@ -534,6 +543,8 @@
 			});
 		}
 				
+		
+		
 		function listClick(count){
 //			console.log("넘기는 num : "+count);
 			$("#list_"+count).find("#payInput_"+count).each(function(e){
@@ -544,7 +555,7 @@
 					type:"post",
 					data:{num:num},
 					success:function(data){
-						$("#tempPrice").val(data.price); //수정, 삭제시 비교할 가격
+						$("#tempPrice").val(comma(data.price)); //수정, 삭제시 비교할 가격
 						$("#payIdxModal").val(data.idx);
 						$("#payNumModal").val(data.num);
 						$("#payBankModal").text(data.paybank);
@@ -557,6 +568,8 @@
 			});	
 		}		
 				
+		
+		
 		function loanListClick(count){
 //			console.log("넘기는 num : "+count);
 			$("#loanlist_"+count).find("#loanInput_"+count).each(function(e){
@@ -573,38 +586,39 @@
 						$("#loanPlaceModal").text(data.loan_place);
 						$("#loanPurposeModal").text(data.loan_purpose);
 						$("#loanPriceModal").val(data.price);
+						$("#loanCmtModal").val(data.cmt);
 						$("#loanRegModal").text(data.inputreg);
 					}
 				});
 			});	
 		}
-				
 		
 		function savingPayMod(){
 			var tempPrice = eval($("#tempPrice").val());
 			var price = eval($("#payPriceModal").val());			
 			var num = eval($("#payNumModal").val());
 			var idx = eval($("#payIdxModal").val());
+			var cmt = $("#payCmtModal").val();
 //			console.log(typeof tempPrice);
 //			console.log(typeof price);
 //			console.log(typeof num);
 //			console.log(typeof idx);
 
-			alert(tempPrice+", "+price);
-			return;
-			
+			/* alert("템프 : "+tempPrice+", 프라"+price);
+			return; */
+
 			/* if(price <= 0){
 				alert("금액을 확인해주세요.");
 				return;
 			} */
-						
 			$.ajax({
 				url:"/savingpay/mod",
 				type:"post",
 				data:{num:num,
 					  price:price,
 					  tempPrice:tempPrice,
-					  idx:idx},
+					  idx:idx,
+					  cmt:cmt},
 				success:function(data){
 					if(data == 'y'){
 						alert("수정이 완료되었습니다.");
@@ -639,11 +653,11 @@
 			var price = $("#loanPriceModal").val();			
 			var num = eval($("#loanNumModal").val());
 			var idx = eval($("#loanIdxModal").val());
+			var cmt = $("#loanCmtModal").val();
 			//console.log(typeof tempPrice);
 			//console.log(typeof price);
 			//console.log(typeof num);
 			//console.log(typeof idx);
-						
 			
 			$.ajax({
 				url:"/loanpay/mod",
@@ -651,7 +665,8 @@
 				data:{num:num,
 					  price:price,
 					  temp_price:tempPrice,
-					  idx:idx},
+					  idx:idx,
+					  cmt:cmt},
 				success:function(data){
 					if(data == 'y'){
 						alert("수정이 완료되었습니다.");
@@ -699,7 +714,7 @@
 		//콤마찍기
 		function comma(str) {
 		    str = String(str);
-		    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		    return str.replace(/(\d-)(?=(?:\d{3})+(?!\d))/g, '$1,');
 		}
 		
 		function uncomma(str) {

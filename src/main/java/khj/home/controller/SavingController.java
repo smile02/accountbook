@@ -146,8 +146,8 @@ public class SavingController {
 	@RequestMapping(value="/savingpay/mod", method=RequestMethod.POST)
 	@ResponseBody
 	public String savingPayMod(@RequestParam int num, @RequestParam String price, @RequestParam int idx,
-								@RequestParam String tempPrice) {
-		savingService.savingPayMod(num, price);
+								@RequestParam String tempPrice, @RequestParam String cmt) {
+		savingService.savingPayMod(num, price, cmt);
 		int i_price = Integer.parseInt(price);
 		int i_tempPrice = Integer.parseInt(tempPrice);
 		if(i_price == i_tempPrice) {
